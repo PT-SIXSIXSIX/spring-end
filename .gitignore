@@ -6,8 +6,15 @@
 
 # BlueJ files
 *.ctxt
-#
+# Mac OS X
 *.DS_Store
+
+#Intellij idea
+.idea
+*.iml
+out
+gen
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
