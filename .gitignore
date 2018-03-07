@@ -12,9 +12,9 @@
 #Intellij idea
 PTsix/.idea/
 *.iml
-*out/
+*/out/
 *gen/
-*target/
+*/target/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
