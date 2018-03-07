@@ -1,7 +1,24 @@
 FORMAT: 1A
 
 # 易卡爱途 API
-易卡爱途系统API遵循RESTful规范.**图片应该先上传至阿里云，获取url再发送至后端服务器.**
+易卡爱途系统API遵循RESTful规范.
+* **图片应该先上传至七牛云，获取url再发送至后端服务器.**
+
+# Group 上传图片
+
+## 上传图片 [/images]
+   所有图片通过这个接口存入七牛云
+
+### 上传图片 [POST]
+
++ Request (application/json)
+    + Attributes
+        + image (object) - 图片对象
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
 
 # Group 登录注册
 
