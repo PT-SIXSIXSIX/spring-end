@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="VARCHAR" />
-    <result column="describ" property="describ" jdbcType="VARCHAR" />
+    <result column="descp" property="descp" jdbcType="VARCHAR" />
     <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, type, describ, created_at
+    id, name, type, descp, created_at
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.PT.entity.KBSExample" >
     select
@@ -75,7 +75,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from kbs
+    from ykat_kbs
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,27 +86,27 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from kbs
+    from ykat_kbs
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from kbs
+    delete from ykat_kbs
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.PT.entity.KBSExample" >
-    delete from kbs
+    delete from ykat_kbs
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.PT.entity.KBS" >
-    insert into kbs (id, name, type, 
-      describ, created_at)
+    insert into ykat_kbs (id, name, type, 
+      descp, created_at)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{describ,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP})
+      #{descp,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.PT.entity.KBS" >
-    insert into kbs
+    insert into ykat_kbs
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -117,8 +117,8 @@
       <if test="type != null" >
         type,
       </if>
-      <if test="describ != null" >
-        describ,
+      <if test="descp != null" >
+        descp,
       </if>
       <if test="createdAt != null" >
         created_at,
@@ -134,8 +134,8 @@
       <if test="type != null" >
         #{type,jdbcType=VARCHAR},
       </if>
-      <if test="describ != null" >
-        #{describ,jdbcType=VARCHAR},
+      <if test="descp != null" >
+        #{descp,jdbcType=VARCHAR},
       </if>
       <if test="createdAt != null" >
         #{createdAt,jdbcType=TIMESTAMP},
@@ -143,13 +143,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.PT.entity.KBSExample" resultType="java.lang.Integer" >
-    select count(*) from kbs
+    select count(*) from ykat_kbs
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update kbs
+    update ykat_kbs
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
@@ -160,8 +160,8 @@
       <if test="record.type != null" >
         type = #{record.type,jdbcType=VARCHAR},
       </if>
-      <if test="record.describ != null" >
-        describ = #{record.describ,jdbcType=VARCHAR},
+      <if test="record.descp != null" >
+        descp = #{record.descp,jdbcType=VARCHAR},
       </if>
       <if test="record.createdAt != null" >
         created_at = #{record.createdAt,jdbcType=TIMESTAMP},
@@ -172,18 +172,18 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update kbs
+    update ykat_kbs
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
-      describ = #{record.describ,jdbcType=VARCHAR},
+      descp = #{record.descp,jdbcType=VARCHAR},
       created_at = #{record.createdAt,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.PT.entity.KBS" >
-    update kbs
+    update ykat_kbs
     <set >
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
@@ -191,8 +191,8 @@
       <if test="type != null" >
         type = #{type,jdbcType=VARCHAR},
       </if>
-      <if test="describ != null" >
-        describ = #{describ,jdbcType=VARCHAR},
+      <if test="descp != null" >
+        descp = #{descp,jdbcType=VARCHAR},
       </if>
       <if test="createdAt != null" >
         created_at = #{createdAt,jdbcType=TIMESTAMP},
@@ -201,10 +201,10 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.PT.entity.KBS" >
-    update kbs
+    update ykat_kbs
     set name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
-      describ = #{describ,jdbcType=VARCHAR},
+      descp = #{descp,jdbcType=VARCHAR},
       created_at = #{createdAt,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

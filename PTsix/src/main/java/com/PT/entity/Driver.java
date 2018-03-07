@@ -5,7 +5,7 @@ import java.util.Date;
 public class Driver {
     private Integer id;
 
-    private Integer restMoney;
+    private Integer balance;
 
     private String driverName;
 
@@ -21,12 +21,12 @@ public class Driver {
         this.id = id;
     }
 
-    public Integer getRestMoney() {
-        return restMoney;
+    public Integer getBalance() {
+        return balance;
     }
 
-    public void setRestMoney(Integer restMoney) {
-        this.restMoney = restMoney;
+    public void setBalance(Integer balance) {
+        this.balance = balance;
     }
 
     public String getDriverName() {

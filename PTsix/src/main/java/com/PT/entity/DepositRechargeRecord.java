@@ -9,7 +9,7 @@ public class DepositRechargeRecord {
 
     private Date rechargeTime;
 
-    private Integer bossId;
+    private Integer storeId;
 
     private Date createdAt;
 
@@ -37,12 +37,12 @@ public class DepositRechargeRecord {
         this.rechargeTime = rechargeTime;
     }
 
-    public Integer getBossId() {
-        return bossId;
+    public Integer getStoreId() {
+        return storeId;
     }
 
-    public void setBossId(Integer bossId) {
-        this.bossId = bossId;
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
     }
 
     public Date getCreatedAt() {

@@ -294,73 +294,73 @@ public class ProjectExample {
             return (Criteria) this;
         }
 
-        public Criteria andDescribIsNull() {
-            addCriterion("describ is null");
+        public Criteria andDescpIsNull() {
+            addCriterion("descp is null");
             return (Criteria) this;
         }
 
-        public Criteria andDescribIsNotNull() {
-            addCriterion("describ is not null");
+        public Criteria andDescpIsNotNull() {
+            addCriterion("descp is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDescribEqualTo(String value) {
-            addCriterion("describ =", value, "describ");
+        public Criteria andDescpEqualTo(String value) {
+            addCriterion("descp =", value, "descp");
             return (Criteria) this;
         }
 
-        public Criteria andDescribNotEqualTo(String value) {
-            addCriterion("describ <>", value, "describ");
+        public Criteria andDescpNotEqualTo(String value) {
+            addCriterion("descp <>", value, "descp");
             return (Criteria) this;
         }
 
-        public Criteria andDescribGreaterThan(String value) {
-            addCriterion("describ >", value, "describ");
+        public Criteria andDescpGreaterThan(String value) {
+            addCriterion("descp >", value, "descp");
             return (Criteria) this;
         }
 
-        public Criteria andDescribGreaterThanOrEqualTo(String value) {
-            addCriterion("describ >=", value, "describ");
+        public Criteria andDescpGreaterThanOrEqualTo(String value) {
+            addCriterion("descp >=", value, "descp");
             return (Criteria) this;
         }
 
-        public Criteria andDescribLessThan(String value) {
-            addCriterion("describ <", value, "describ");
+        public Criteria andDescpLessThan(String value) {
+            addCriterion("descp <", value, "descp");
             return (Criteria) this;
         }
 
-        public Criteria andDescribLessThanOrEqualTo(String value) {
-            addCriterion("describ <=", value, "describ");
+        public Criteria andDescpLessThanOrEqualTo(String value) {
+            addCriterion("descp <=", value, "descp");
             return (Criteria) this;
         }
 
-        public Criteria andDescribLike(String value) {
-            addCriterion("describ like", value, "describ");
+        public Criteria andDescpLike(String value) {
+            addCriterion("descp like", value, "descp");
             return (Criteria) this;
         }
 
-        public Criteria andDescribNotLike(String value) {
-            addCriterion("describ not like", value, "describ");
+        public Criteria andDescpNotLike(String value) {
+            addCriterion("descp not like", value, "descp");
             return (Criteria) this;
         }
 
-        public Criteria andDescribIn(List<String> values) {
-            addCriterion("describ in", values, "describ");
+        public Criteria andDescpIn(List<String> values) {
+            addCriterion("descp in", values, "descp");
             return (Criteria) this;
         }
 
-        public Criteria andDescribNotIn(List<String> values) {
-            addCriterion("describ not in", values, "describ");
+        public Criteria andDescpNotIn(List<String> values) {
+            addCriterion("descp not in", values, "descp");
             return (Criteria) this;
         }
 
-        public Criteria andDescribBetween(String value1, String value2) {
-            addCriterion("describ between", value1, value2, "describ");
+        public Criteria andDescpBetween(String value1, String value2) {
+            addCriterion("descp between", value1, value2, "descp");
             return (Criteria) this;
         }
 
-        public Criteria andDescribNotBetween(String value1, String value2) {
-            addCriterion("describ not between", value1, value2, "describ");
+        public Criteria andDescpNotBetween(String value1, String value2) {
+            addCriterion("descp not between", value1, value2, "descp");
             return (Criteria) this;
         }
     }

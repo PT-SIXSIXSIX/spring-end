@@ -9,7 +9,7 @@ public class KBS {
 
     private String type;
 
-    private String describ;
+    private String descp;
 
     private Date createdAt;
 
@@ -37,12 +37,12 @@ public class KBS {
         this.type = type == null ? null : type.trim();
     }
 
-    public String getDescrib() {
-        return describ;
+    public String getDescp() {
+        return descp;
     }
 
-    public void setDescrib(String describ) {
-        this.describ = describ == null ? null : describ.trim();
+    public void setDescp(String descp) {
+        this.descp = descp == null ? null : descp.trim();
     }
 
     public Date getCreatedAt() {

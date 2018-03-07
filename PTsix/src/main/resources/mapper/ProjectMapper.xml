@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="price" property="price" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="VARCHAR" />
-    <result column="describ" property="describ" jdbcType="VARCHAR" />
+    <result column="descp" property="descp" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, price, type, describ
+    id, price, type, descp
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.PT.entity.ProjectExample" >
     select
@@ -74,7 +74,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from projects
+    from ykat_projects
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,27 +85,27 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from projects
+    from ykat_projects
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from projects
+    delete from ykat_projects
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.PT.entity.ProjectExample" >
-    delete from projects
+    delete from ykat_projects
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.PT.entity.Project" >
-    insert into projects (id, price, type, 
-      describ)
+    insert into ykat_projects (id, price, type, 
+      descp)
     values (#{id,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
-      #{describ,jdbcType=VARCHAR})
+      #{descp,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.PT.entity.Project" >
-    insert into projects
+    insert into ykat_projects
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -116,8 +116,8 @@
       <if test="type != null" >
         type,
       </if>
-      <if test="describ != null" >
-        describ,
+      <if test="descp != null" >
+        descp,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -130,19 +130,19 @@
       <if test="type != null" >
         #{type,jdbcType=VARCHAR},
       </if>
-      <if test="describ != null" >
-        #{describ,jdbcType=VARCHAR},
+      <if test="descp != null" >
+        #{descp,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.PT.entity.ProjectExample" resultType="java.lang.Integer" >
-    select count(*) from projects
+    select count(*) from ykat_projects
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update projects
+    update ykat_projects
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
@@ -153,8 +153,8 @@
       <if test="record.type != null" >
         type = #{record.type,jdbcType=VARCHAR},
       </if>
-      <if test="record.describ != null" >
-        describ = #{record.describ,jdbcType=VARCHAR},
+      <if test="record.descp != null" >
+        descp = #{record.descp,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -162,17 +162,17 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update projects
+    update ykat_projects
     set id = #{record.id,jdbcType=INTEGER},
       price = #{record.price,jdbcType=INTEGER},
       type = #{record.type,jdbcType=VARCHAR},
-      describ = #{record.describ,jdbcType=VARCHAR}
+      descp = #{record.descp,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.PT.entity.Project" >
-    update projects
+    update ykat_projects
     <set >
       <if test="price != null" >
         price = #{price,jdbcType=INTEGER},
@@ -180,17 +180,17 @@
       <if test="type != null" >
         type = #{type,jdbcType=VARCHAR},
       </if>
-      <if test="describ != null" >
-        describ = #{describ,jdbcType=VARCHAR},
+      <if test="descp != null" >
+        descp = #{descp,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.PT.entity.Project" >
-    update projects
+    update ykat_projects
     set price = #{price,jdbcType=INTEGER},
       type = #{type,jdbcType=VARCHAR},
-      describ = #{describ,jdbcType=VARCHAR}
+      descp = #{descp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
