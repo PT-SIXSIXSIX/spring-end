@@ -2,7 +2,7 @@ FORMAT: 1A
 
 # 易卡爱途 API
 易卡爱途系统API遵循RESTful规范.
-* **图片应该先上传至七牛云，获取url再发送至后端服务器.**
+* **图片应该先通过后端上传至七牛云，获取url再发送至后端.**
 
 # Group 上传图片
 
@@ -55,11 +55,11 @@ FORMAT: 1A
 
 # Group 店员管理
 
-## 店员管理 [/users/{user_id}/staffs/{staff_id}{?page}{?ipp}{?q}]
-   **设置权限，仅限店长操作**
+## 店员管理 [/users/{user_id}/staffs/{staff_id}{?access_token}{?page}{?ipp}{?q}]
 
 + Parameters
-    + user_id (number) - 店长唯一标识
+    + user_id (number) - 管理员唯一标识
+    + access_token (string) - 管理员token，有效时间2个小时
 
 ### 查询店员 [GET]
     查询店员
@@ -82,18 +82,18 @@ FORMAT: 1A
     删除店员
 
 + Parameters
-    + staff_id (number) - 店员唯一标识
+    + staff_id (number) - 管理员唯一标识
 
 + Response 200 (application/json)
 
-+ Response 400 403 (application/json)
++ Response 400 (application/json)
     + Attributes (ErrorInfo)
 
 ### 修改店员信息 [PUT]
     修改店员信息
 
 + Parameters
-    + staff_id (number) - 店员唯一标识
+    + staff_id (number) - 管理员唯一标识
 
 + Request (application/json)
     + Attributes
@@ -102,15 +102,16 @@ FORMAT: 1A
 
 + Response 200 (application/json)
 
-+ Response 400 403 (application/json)
++ Response 400 (application/json)
     + Attributes (ErrorInfo)
 
 # Group 账号管理
 
-## 门店管理 [/users/{user_id}]
+## 门店管理 [/users/{user_id}{?access_token}]
 
 + Parameters
-    + user_id (number) - 店长或店员唯一标识
+    + user_id (number) - 管理员唯一标识
+    + access_token (string) - 管理员token，有效时间2个小时
 
 ### 查询门店基本信息 [GET]
     查询门店基本信息
@@ -123,7 +124,6 @@ FORMAT: 1A
 
 ### 修改门店基本信息 [PUT]
     修改门店基本信息
-    **!!!设置权限，仅限店长操作**
 
 + Request (application/json)
     + Attributes (StoreInfo)
@@ -132,13 +132,14 @@ FORMAT: 1A
 
     + Attributes (StoreInfo)
 
-+ Response 400 403 (application/json)
++ Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-## 银行卡管理 [/users/{user_id}/bankcards]
+## 银行卡管理 [/users/{user_id}/bankcards{?access_token}]
 
 + Parameters
-    + user_id (number) - 店长或店员唯一标识
+    + user_id (number) - 管理员唯一标识
+    + access_token (string) - 管理员token，有效时间2个小时
 
 ### 查询银行卡 [GET]
     查询银行卡
@@ -148,18 +149,18 @@ FORMAT: 1A
         + bankcards (array[BankCardInfo]) - 银行卡列表
 
 ### 添加银行卡 [POST]
-    添加银行卡 **!!!设置权限，仅限店长操作**
+    添加银行卡
 
 + Request (application/json)
     + Attributes (BankCardInfo)
 
 + Response 201 (application/json)
 
-+ Response 400 403 (application/json)
++ Response 400 (application/json)
     + Attributes (ErrorInfo)
 
 ### 删除银行卡 [DELETE]
-    删除银行卡(为满足RESTful规范，把批量删除的参数放到body里，下同) **!!!设置权限，仅限店长操作**
+    删除银行卡(为满足RESTful规范，把批量删除的参数放到body里，下同)
 
 + Request (application/json)
     + Attributes
@@ -167,13 +168,17 @@ FORMAT: 1A
 
 + Response 200 (application/json)
 
-+ Response 400 403 (application/json)
++ Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-## 保证金充值记录管理 [/users/user_id/deposits{?page}{?ipp}{?q}]
+## 保证金补足记录管理 [/users/{user_id}/deposits{?access_token}{?page}{?ipp}{?q}]
 
-### 查询保证金充值记录 [GET]
-    查询保证金充值记录
++ Parameters
+    + user_id (number) - 管理员唯一标识
+    + access_token (string) - 管理员token，有效时间2个小时
+
+### 查询保证金补足记录 [GET]
+    查询保证金补足记录
 
 + Parameters
      + page (number) - 第<page>页
@@ -188,10 +193,10 @@ FORMAT: 1A
 + Response 200 (application/json)
     + Attributes
         + max_page (number) - 最大页数
-        + records (array[DepositRechargeRecordInfo]) - 保证金充值记录列表
+        + records (array[DepositRechargeRecordInfo]) - 保证金补足记录列表
 
-### 删除充值记录 [DELETE]
-    删除充值记录
+### 删除补足记录 [DELETE]
+    删除补足记录
 
 + Request (application/json)
     + Attributes
@@ -204,15 +209,16 @@ FORMAT: 1A
 
 # Group 订单管理
 
-## 订单记录管理 [/users/{user_id}/orders/{type}{?page}{?ipp}{?q}]
+## 订单记录管理 [/users/{user_id}/orders/{type}{?access_token}{?page}{?ipp}{?q}{?driver_id}{?driver_password}]
 
 + Parameters
-    + user_id (number) - 店长或店员唯一标识
+    + user_id (number) - 管理员唯一标识
     + type (number) - 订单类型
 
 ### 查询订单记录 [GET]
 
 + Parameters
+     + access_token (string) - 管理员token，有效时间2个小时
      + page (number) - 第<page>页
      + ipp (number) - 每页<ipp>项
      + q (string)
@@ -226,7 +232,27 @@ FORMAT: 1A
         + max_page (number) - 最大页数
         + records (array[OrderRecordInfo]) - 订单记录列表
 
+### 添加订单 [POST]
+
++ Parameters
+    + driver_id (number) - 司机id
+    + driver_password (string) - 司机密码
+
++ Request (application/json)
+    + Attributes
+        + project_type (string) - 预约项目类型
+        + project_descp (string) - 预约项目描述
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
+
+
 ### 删除订单记录 [DELETE]
+
++ Parameters
+    + access_token (string) - 管理员token，有效时间2个小时
 
 + Request (application/json)
     + Attributes
@@ -237,12 +263,13 @@ FORMAT: 1A
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-## 订单操作 [/users/{user_id}/orders/{type}/{order_id}]
+## 订单操作 [/users/{user_id}/orders/{type}/{order_id}{?access_token}]
 
 + Parameters
-     + user_id (number) - 店长或店员唯一标识
+     + user_id (number) - 管理员唯一标识
      + type (number) - 订单类型
      + order_id (number) - 订单单号
+     + access_token (string) - 管理员token，有效时间2个小时
 
 ### 处理订单 [PUT]
     订单状态码: 0表示未处理，1表示已接受，-1表示已拒绝，初始订单状态为0
@@ -258,10 +285,11 @@ FORMAT: 1A
 
 # Group 结算管理
 
-## 结算记录管理 [/users/{user_id}/settle_accounts{?page}{?ipp}{?q}]
+## 结算记录管理 [/users/{user_id}/settle_accounts{?access_token}{?page}{?ipp}{?q}]
 
 + Parameters
-    + user_id (number) - 店长或店员唯一标识
+    + user_id (number) - 管理员唯一标识
+    + access_token (string) - 管理员token，有效时间2个小时
 
 ### 查询结算记录 [GET]
 
@@ -290,10 +318,11 @@ FORMAT: 1A
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-## 结算操作 [/users/{user_id}/settle_accounts?state=2]
+## 结算操作 [/users/{user_id}/settle_accounts{?access_token}?state=2]
 
 + Parameters
-     + user_id (number) - 店长或店员唯一标识
+     + user_id (number) - 管理员唯一标识
+     + access_token (string) - 管理员token，有效时间2个小时
 
 ### 批量结算 [PUT]
     订单状态码: 0表示联保中，1表示待结算，2表示已结算
@@ -335,10 +364,10 @@ FORMAT: 1A
 + service_type (string) - 服务类型
 
 ## BankCardInfo (object)
-+ account (string) - 银行卡账号
-+ card (string) - 开户人身份证号
-+ user (string) - 开户人
-+ bankcard_type (string) - 银行卡类型
++ card_id (string) - 银行卡账号
++ owner_id_card (string) - 开户人身份证号
++ owner_name (string) - 开户人
++ type (string) - 银行卡类型
 + bank_name (string) - 银行名称
 
 ## DepositRechargeRecordInfo (object)
@@ -350,7 +379,9 @@ FORMAT: 1A
 
 ## OrderRecordInfo (object)
 + order_id (number) - 订单单号
++ driver_name (string) - 预约订单的司机姓名
 + created_at (string) - 预约时间
++ project_type (string) - 预约项目类型
 + project_descp (string) - 预约项目描述
 + state (number) - 状态，0，1，-1
 
