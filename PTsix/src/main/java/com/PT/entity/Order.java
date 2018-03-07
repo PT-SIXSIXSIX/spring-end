@@ -7,13 +7,17 @@ public class Order {
 
     private String type;
 
-    private Integer state;
+    private Integer status;
 
     private String orderId;
 
     private Integer projectId;
 
     private Date createdAt;
+
+    private Integer storeId;
+
+    private Integer driverId;
 
     public Integer getId() {
         return id;
@@ -31,12 +35,12 @@ public class Order {
         this.type = type == null ? null : type.trim();
     }
 
-    public Integer getState() {
-        return state;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getOrderId() {
@@ -61,5 +65,21 @@ public class Order {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Integer getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
+    }
+
+    public Integer getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(Integer driverId) {
+        this.driverId = driverId;
     }
 }

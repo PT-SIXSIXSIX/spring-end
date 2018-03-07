@@ -1,6 +1,6 @@
 package com.PT.entity;
 
-public class Manager {
+public class Store {
     private Integer id;
 
     private String companyName;

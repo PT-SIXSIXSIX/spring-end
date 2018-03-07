@@ -285,63 +285,63 @@ public class DepositRechargeRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andBossIdIsNull() {
-            addCriterion("boss_id is null");
+        public Criteria andStoreIdIsNull() {
+            addCriterion("store_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andBossIdIsNotNull() {
-            addCriterion("boss_id is not null");
+        public Criteria andStoreIdIsNotNull() {
+            addCriterion("store_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBossIdEqualTo(Integer value) {
-            addCriterion("boss_id =", value, "bossId");
+        public Criteria andStoreIdEqualTo(Integer value) {
+            addCriterion("store_id =", value, "storeId");
             return (Criteria) this;
         }
 
-        public Criteria andBossIdNotEqualTo(Integer value) {
-            addCriterion("boss_id <>", value, "bossId");
+        public Criteria andStoreIdNotEqualTo(Integer value) {
+            addCriterion("store_id <>", value, "storeId");
             return (Criteria) this;
         }
 
-        public Criteria andBossIdGreaterThan(Integer value) {
-            addCriterion("boss_id >", value, "bossId");
+        public Criteria andStoreIdGreaterThan(Integer value) {
+            addCriterion("store_id >", value, "storeId");
             return (Criteria) this;
         }
 
-        public Criteria andBossIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("boss_id >=", value, "bossId");
+        public Criteria andStoreIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("store_id >=", value, "storeId");
             return (Criteria) this;
         }
 
-        public Criteria andBossIdLessThan(Integer value) {
-            addCriterion("boss_id <", value, "bossId");
+        public Criteria andStoreIdLessThan(Integer value) {
+            addCriterion("store_id <", value, "storeId");
             return (Criteria) this;
         }
 
-        public Criteria andBossIdLessThanOrEqualTo(Integer value) {
-            addCriterion("boss_id <=", value, "bossId");
+        public Criteria andStoreIdLessThanOrEqualTo(Integer value) {
+            addCriterion("store_id <=", value, "storeId");
             return (Criteria) this;
         }
 
-        public Criteria andBossIdIn(List<Integer> values) {
-            addCriterion("boss_id in", values, "bossId");
+        public Criteria andStoreIdIn(List<Integer> values) {
+            addCriterion("store_id in", values, "storeId");
             return (Criteria) this;
         }
 
-        public Criteria andBossIdNotIn(List<Integer> values) {
-            addCriterion("boss_id not in", values, "bossId");
+        public Criteria andStoreIdNotIn(List<Integer> values) {
+            addCriterion("store_id not in", values, "storeId");
             return (Criteria) this;
         }
 
-        public Criteria andBossIdBetween(Integer value1, Integer value2) {
-            addCriterion("boss_id between", value1, value2, "bossId");
+        public Criteria andStoreIdBetween(Integer value1, Integer value2) {
+            addCriterion("store_id between", value1, value2, "storeId");
             return (Criteria) this;
         }
 
-        public Criteria andBossIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("boss_id not between", value1, value2, "bossId");
+        public Criteria andStoreIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("store_id not between", value1, value2, "storeId");
             return (Criteria) this;
         }
 

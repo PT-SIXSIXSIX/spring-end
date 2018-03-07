@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.PT.dao.ManagerMapper" >
-  <resultMap id="BaseResultMap" type="com.PT.entity.Manager" >
+<mapper namespace="com.PT.dao.StoreMapper" >
+  <resultMap id="BaseResultMap" type="com.PT.entity.Store" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="company_name" property="companyName" jdbcType="VARCHAR" />
     <result column="id_card" property="idCard" jdbcType="VARCHAR" />
@@ -75,13 +75,13 @@
     id, company_name, id_card, pic_head_url, pic_tail_url, service_type, location, user_id, 
     deposit, reserve_phone
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.PT.entity.ManagerExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.PT.entity.StoreExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from managers
+    from ykat_stores
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -92,21 +92,21 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from managers
+    from ykat_stores
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from managers
+    delete from ykat_stores
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.PT.entity.ManagerExample" >
-    delete from managers
+  <delete id="deleteByExample" parameterType="com.PT.entity.StoreExample" >
+    delete from ykat_stores
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.PT.entity.Manager" >
-    insert into managers (id, company_name, id_card, 
+  <insert id="insert" parameterType="com.PT.entity.Store" >
+    insert into ykat_stores (id, company_name, id_card, 
       pic_head_url, pic_tail_url, service_type, 
       location, user_id, deposit, 
       reserve_phone)
@@ -115,8 +115,8 @@
       #{location,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{deposit,jdbcType=INTEGER}, 
       #{reservePhone,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.PT.entity.Manager" >
-    insert into managers
+  <insert id="insertSelective" parameterType="com.PT.entity.Store" >
+    insert into ykat_stores
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -182,14 +182,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.PT.entity.ManagerExample" resultType="java.lang.Integer" >
-    select count(*) from managers
+  <select id="countByExample" parameterType="com.PT.entity.StoreExample" resultType="java.lang.Integer" >
+    select count(*) from ykat_stores
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update managers
+    update ykat_stores
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
@@ -227,7 +227,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update managers
+    update ykat_stores
     set id = #{record.id,jdbcType=INTEGER},
       company_name = #{record.companyName,jdbcType=VARCHAR},
       id_card = #{record.idCard,jdbcType=VARCHAR},
@@ -242,8 +242,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.PT.entity.Manager" >
-    update managers
+  <update id="updateByPrimaryKeySelective" parameterType="com.PT.entity.Store" >
+    update ykat_stores
     <set >
       <if test="companyName != null" >
         company_name = #{companyName,jdbcType=VARCHAR},
@@ -275,8 +275,8 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.PT.entity.Manager" >
-    update managers
+  <update id="updateByPrimaryKey" parameterType="com.PT.entity.Store" >
+    update ykat_stores
     set company_name = #{companyName,jdbcType=VARCHAR},
       id_card = #{idCard,jdbcType=VARCHAR},
       pic_head_url = #{picHeadUrl,jdbcType=VARCHAR},

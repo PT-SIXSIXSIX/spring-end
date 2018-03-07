@@ -76,7 +76,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from bankcards
+    from ykat_bankcards
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,21 +87,21 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from bankcards
+    from ykat_bankcards
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from bankcards
+    delete from ykat_bankcards
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.PT.entity.BankcardExample" >
-    delete from bankcards
+    delete from ykat_bankcards
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.PT.entity.Bankcard" >
-    insert into bankcards (id, card_id, type, 
+    insert into ykat_bankcards (id, card_id, type, 
       owner_name, owner_id_card, bank_name
       )
     values (#{id,jdbcType=INTEGER}, #{cardId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
@@ -109,7 +109,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.PT.entity.Bankcard" >
-    insert into bankcards
+    insert into ykat_bankcards
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -152,13 +152,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.PT.entity.BankcardExample" resultType="java.lang.Integer" >
-    select count(*) from bankcards
+    select count(*) from ykat_bankcards
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update bankcards
+    update ykat_bankcards
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
@@ -184,7 +184,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update bankcards
+    update ykat_bankcards
     set id = #{record.id,jdbcType=INTEGER},
       card_id = #{record.cardId,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
@@ -196,7 +196,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.PT.entity.Bankcard" >
-    update bankcards
+    update ykat_bankcards
     <set >
       <if test="cardId != null" >
         card_id = #{cardId,jdbcType=VARCHAR},
@@ -217,7 +217,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.PT.entity.Bankcard" >
-    update bankcards
+    update ykat_bankcards
     set card_id = #{cardId,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       owner_name = #{ownerName,jdbcType=VARCHAR},

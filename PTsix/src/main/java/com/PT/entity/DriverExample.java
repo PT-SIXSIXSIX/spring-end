@@ -165,63 +165,63 @@ public class DriverExample {
             return (Criteria) this;
         }
 
-        public Criteria andRestMoneyIsNull() {
-            addCriterion("rest_money is null");
+        public Criteria andBalanceIsNull() {
+            addCriterion("balance is null");
             return (Criteria) this;
         }
 
-        public Criteria andRestMoneyIsNotNull() {
-            addCriterion("rest_money is not null");
+        public Criteria andBalanceIsNotNull() {
+            addCriterion("balance is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRestMoneyEqualTo(Integer value) {
-            addCriterion("rest_money =", value, "restMoney");
+        public Criteria andBalanceEqualTo(Integer value) {
+            addCriterion("balance =", value, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andRestMoneyNotEqualTo(Integer value) {
-            addCriterion("rest_money <>", value, "restMoney");
+        public Criteria andBalanceNotEqualTo(Integer value) {
+            addCriterion("balance <>", value, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andRestMoneyGreaterThan(Integer value) {
-            addCriterion("rest_money >", value, "restMoney");
+        public Criteria andBalanceGreaterThan(Integer value) {
+            addCriterion("balance >", value, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andRestMoneyGreaterThanOrEqualTo(Integer value) {
-            addCriterion("rest_money >=", value, "restMoney");
+        public Criteria andBalanceGreaterThanOrEqualTo(Integer value) {
+            addCriterion("balance >=", value, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andRestMoneyLessThan(Integer value) {
-            addCriterion("rest_money <", value, "restMoney");
+        public Criteria andBalanceLessThan(Integer value) {
+            addCriterion("balance <", value, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andRestMoneyLessThanOrEqualTo(Integer value) {
-            addCriterion("rest_money <=", value, "restMoney");
+        public Criteria andBalanceLessThanOrEqualTo(Integer value) {
+            addCriterion("balance <=", value, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andRestMoneyIn(List<Integer> values) {
-            addCriterion("rest_money in", values, "restMoney");
+        public Criteria andBalanceIn(List<Integer> values) {
+            addCriterion("balance in", values, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andRestMoneyNotIn(List<Integer> values) {
-            addCriterion("rest_money not in", values, "restMoney");
+        public Criteria andBalanceNotIn(List<Integer> values) {
+            addCriterion("balance not in", values, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andRestMoneyBetween(Integer value1, Integer value2) {
-            addCriterion("rest_money between", value1, value2, "restMoney");
+        public Criteria andBalanceBetween(Integer value1, Integer value2) {
+            addCriterion("balance between", value1, value2, "balance");
             return (Criteria) this;
         }
 
-        public Criteria andRestMoneyNotBetween(Integer value1, Integer value2) {
-            addCriterion("rest_money not between", value1, value2, "restMoney");
+        public Criteria andBalanceNotBetween(Integer value1, Integer value2) {
+            addCriterion("balance not between", value1, value2, "balance");
             return (Criteria) this;
         }
 

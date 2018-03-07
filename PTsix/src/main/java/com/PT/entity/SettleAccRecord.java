@@ -5,13 +5,17 @@ import java.util.Date;
 public class SettleAccRecord {
     private Integer id;
 
-    private Integer setAccId;
+    private String setAccId;
 
-    private Integer state;
+    private Integer tradeMoney;
 
-    private Integer revMonId;
+    private Integer status;
+
+    private Date tradedAt;
 
     private Date createdAt;
+
+    private Integer orderId;
 
     public Integer getId() {
         return id;
@@ -21,28 +25,36 @@ public class SettleAccRecord {
         this.id = id;
     }
 
-    public Integer getSetAccId() {
+    public String getSetAccId() {
         return setAccId;
     }
 
-    public void setSetAccId(Integer setAccId) {
-        this.setAccId = setAccId;
+    public void setSetAccId(String setAccId) {
+        this.setAccId = setAccId == null ? null : setAccId.trim();
     }
 
-    public Integer getState() {
-        return state;
+    public Integer getTradeMoney() {
+        return tradeMoney;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setTradeMoney(Integer tradeMoney) {
+        this.tradeMoney = tradeMoney;
     }
 
-    public Integer getRevMonId() {
-        return revMonId;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setRevMonId(Integer revMonId) {
-        this.revMonId = revMonId;
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Date getTradedAt() {
+        return tradedAt;
+    }
+
+    public void setTradedAt(Date tradedAt) {
+        this.tradedAt = tradedAt;
     }
 
     public Date getCreatedAt() {
@@ -51,5 +63,13 @@ public class SettleAccRecord {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 }

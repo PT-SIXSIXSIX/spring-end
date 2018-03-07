@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="recharge_money" property="rechargeMoney" jdbcType="INTEGER" />
     <result column="recharge_time" property="rechargeTime" jdbcType="TIMESTAMP" />
-    <result column="boss_id" property="bossId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
     <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, recharge_money, recharge_time, boss_id, created_at
+    id, recharge_money, recharge_time, store_id, created_at
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.PT.entity.DepositRechargeRecordExample" >
     select
@@ -75,7 +75,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from deposit_recharge_records
+    from ykat_deposit_recharge_records
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,27 +86,27 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from deposit_recharge_records
+    from ykat_deposit_recharge_records
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from deposit_recharge_records
+    delete from ykat_deposit_recharge_records
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.PT.entity.DepositRechargeRecordExample" >
-    delete from deposit_recharge_records
+    delete from ykat_deposit_recharge_records
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.PT.entity.DepositRechargeRecord" >
-    insert into deposit_recharge_records (id, recharge_money, recharge_time, 
-      boss_id, created_at)
+    insert into ykat_deposit_recharge_records (id, recharge_money, recharge_time, 
+      store_id, created_at)
     values (#{id,jdbcType=INTEGER}, #{rechargeMoney,jdbcType=INTEGER}, #{rechargeTime,jdbcType=TIMESTAMP}, 
-      #{bossId,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP})
+      #{storeId,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.PT.entity.DepositRechargeRecord" >
-    insert into deposit_recharge_records
+    insert into ykat_deposit_recharge_records
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -117,8 +117,8 @@
       <if test="rechargeTime != null" >
         recharge_time,
       </if>
-      <if test="bossId != null" >
-        boss_id,
+      <if test="storeId != null" >
+        store_id,
       </if>
       <if test="createdAt != null" >
         created_at,
@@ -134,8 +134,8 @@
       <if test="rechargeTime != null" >
         #{rechargeTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="bossId != null" >
-        #{bossId,jdbcType=INTEGER},
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
       </if>
       <if test="createdAt != null" >
         #{createdAt,jdbcType=TIMESTAMP},
@@ -143,13 +143,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.PT.entity.DepositRechargeRecordExample" resultType="java.lang.Integer" >
-    select count(*) from deposit_recharge_records
+    select count(*) from ykat_deposit_recharge_records
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update deposit_recharge_records
+    update ykat_deposit_recharge_records
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
@@ -160,8 +160,8 @@
       <if test="record.rechargeTime != null" >
         recharge_time = #{record.rechargeTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.bossId != null" >
-        boss_id = #{record.bossId,jdbcType=INTEGER},
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
       </if>
       <if test="record.createdAt != null" >
         created_at = #{record.createdAt,jdbcType=TIMESTAMP},
@@ -172,18 +172,18 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update deposit_recharge_records
+    update ykat_deposit_recharge_records
     set id = #{record.id,jdbcType=INTEGER},
       recharge_money = #{record.rechargeMoney,jdbcType=INTEGER},
       recharge_time = #{record.rechargeTime,jdbcType=TIMESTAMP},
-      boss_id = #{record.bossId,jdbcType=INTEGER},
+      store_id = #{record.storeId,jdbcType=INTEGER},
       created_at = #{record.createdAt,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.PT.entity.DepositRechargeRecord" >
-    update deposit_recharge_records
+    update ykat_deposit_recharge_records
     <set >
       <if test="rechargeMoney != null" >
         recharge_money = #{rechargeMoney,jdbcType=INTEGER},
@@ -191,8 +191,8 @@
       <if test="rechargeTime != null" >
         recharge_time = #{rechargeTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="bossId != null" >
-        boss_id = #{bossId,jdbcType=INTEGER},
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
       </if>
       <if test="createdAt != null" >
         created_at = #{createdAt,jdbcType=TIMESTAMP},
@@ -201,10 +201,10 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.PT.entity.DepositRechargeRecord" >
-    update deposit_recharge_records
+    update ykat_deposit_recharge_records
     set recharge_money = #{rechargeMoney,jdbcType=INTEGER},
       recharge_time = #{rechargeTime,jdbcType=TIMESTAMP},
-      boss_id = #{bossId,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
       created_at = #{createdAt,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

@@ -3,14 +3,14 @@ package com.PT.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManagerExample {
+public class StoreExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public ManagerExample() {
+    public StoreExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

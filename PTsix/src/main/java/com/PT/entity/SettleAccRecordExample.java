@@ -175,173 +175,243 @@ public class SettleAccRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andSetAccIdEqualTo(Integer value) {
+        public Criteria andSetAccIdEqualTo(String value) {
             addCriterion("set_acc_id =", value, "setAccId");
             return (Criteria) this;
         }
 
-        public Criteria andSetAccIdNotEqualTo(Integer value) {
+        public Criteria andSetAccIdNotEqualTo(String value) {
             addCriterion("set_acc_id <>", value, "setAccId");
             return (Criteria) this;
         }
 
-        public Criteria andSetAccIdGreaterThan(Integer value) {
+        public Criteria andSetAccIdGreaterThan(String value) {
             addCriterion("set_acc_id >", value, "setAccId");
             return (Criteria) this;
         }
 
-        public Criteria andSetAccIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andSetAccIdGreaterThanOrEqualTo(String value) {
             addCriterion("set_acc_id >=", value, "setAccId");
             return (Criteria) this;
         }
 
-        public Criteria andSetAccIdLessThan(Integer value) {
+        public Criteria andSetAccIdLessThan(String value) {
             addCriterion("set_acc_id <", value, "setAccId");
             return (Criteria) this;
         }
 
-        public Criteria andSetAccIdLessThanOrEqualTo(Integer value) {
+        public Criteria andSetAccIdLessThanOrEqualTo(String value) {
             addCriterion("set_acc_id <=", value, "setAccId");
             return (Criteria) this;
         }
 
-        public Criteria andSetAccIdIn(List<Integer> values) {
+        public Criteria andSetAccIdLike(String value) {
+            addCriterion("set_acc_id like", value, "setAccId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetAccIdNotLike(String value) {
+            addCriterion("set_acc_id not like", value, "setAccId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetAccIdIn(List<String> values) {
             addCriterion("set_acc_id in", values, "setAccId");
             return (Criteria) this;
         }
 
-        public Criteria andSetAccIdNotIn(List<Integer> values) {
+        public Criteria andSetAccIdNotIn(List<String> values) {
             addCriterion("set_acc_id not in", values, "setAccId");
             return (Criteria) this;
         }
 
-        public Criteria andSetAccIdBetween(Integer value1, Integer value2) {
+        public Criteria andSetAccIdBetween(String value1, String value2) {
             addCriterion("set_acc_id between", value1, value2, "setAccId");
             return (Criteria) this;
         }
 
-        public Criteria andSetAccIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andSetAccIdNotBetween(String value1, String value2) {
             addCriterion("set_acc_id not between", value1, value2, "setAccId");
             return (Criteria) this;
         }
 
-        public Criteria andStateIsNull() {
-            addCriterion("state is null");
+        public Criteria andTradeMoneyIsNull() {
+            addCriterion("trade_money is null");
             return (Criteria) this;
         }
 
-        public Criteria andStateIsNotNull() {
-            addCriterion("state is not null");
+        public Criteria andTradeMoneyIsNotNull() {
+            addCriterion("trade_money is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStateEqualTo(Integer value) {
-            addCriterion("state =", value, "state");
+        public Criteria andTradeMoneyEqualTo(Integer value) {
+            addCriterion("trade_money =", value, "tradeMoney");
             return (Criteria) this;
         }
 
-        public Criteria andStateNotEqualTo(Integer value) {
-            addCriterion("state <>", value, "state");
+        public Criteria andTradeMoneyNotEqualTo(Integer value) {
+            addCriterion("trade_money <>", value, "tradeMoney");
             return (Criteria) this;
         }
 
-        public Criteria andStateGreaterThan(Integer value) {
-            addCriterion("state >", value, "state");
+        public Criteria andTradeMoneyGreaterThan(Integer value) {
+            addCriterion("trade_money >", value, "tradeMoney");
             return (Criteria) this;
         }
 
-        public Criteria andStateGreaterThanOrEqualTo(Integer value) {
-            addCriterion("state >=", value, "state");
+        public Criteria andTradeMoneyGreaterThanOrEqualTo(Integer value) {
+            addCriterion("trade_money >=", value, "tradeMoney");
             return (Criteria) this;
         }
 
-        public Criteria andStateLessThan(Integer value) {
-            addCriterion("state <", value, "state");
+        public Criteria andTradeMoneyLessThan(Integer value) {
+            addCriterion("trade_money <", value, "tradeMoney");
             return (Criteria) this;
         }
 
-        public Criteria andStateLessThanOrEqualTo(Integer value) {
-            addCriterion("state <=", value, "state");
+        public Criteria andTradeMoneyLessThanOrEqualTo(Integer value) {
+            addCriterion("trade_money <=", value, "tradeMoney");
             return (Criteria) this;
         }
 
-        public Criteria andStateIn(List<Integer> values) {
-            addCriterion("state in", values, "state");
+        public Criteria andTradeMoneyIn(List<Integer> values) {
+            addCriterion("trade_money in", values, "tradeMoney");
             return (Criteria) this;
         }
 
-        public Criteria andStateNotIn(List<Integer> values) {
-            addCriterion("state not in", values, "state");
+        public Criteria andTradeMoneyNotIn(List<Integer> values) {
+            addCriterion("trade_money not in", values, "tradeMoney");
             return (Criteria) this;
         }
 
-        public Criteria andStateBetween(Integer value1, Integer value2) {
-            addCriterion("state between", value1, value2, "state");
+        public Criteria andTradeMoneyBetween(Integer value1, Integer value2) {
+            addCriterion("trade_money between", value1, value2, "tradeMoney");
             return (Criteria) this;
         }
 
-        public Criteria andStateNotBetween(Integer value1, Integer value2) {
-            addCriterion("state not between", value1, value2, "state");
+        public Criteria andTradeMoneyNotBetween(Integer value1, Integer value2) {
+            addCriterion("trade_money not between", value1, value2, "tradeMoney");
             return (Criteria) this;
         }
 
-        public Criteria andRevMonIdIsNull() {
-            addCriterion("rev_mon_id is null");
+        public Criteria andStatusIsNull() {
+            addCriterion("status is null");
             return (Criteria) this;
         }
 
-        public Criteria andRevMonIdIsNotNull() {
-            addCriterion("rev_mon_id is not null");
+        public Criteria andStatusIsNotNull() {
+            addCriterion("status is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRevMonIdEqualTo(Integer value) {
-            addCriterion("rev_mon_id =", value, "revMonId");
+        public Criteria andStatusEqualTo(Integer value) {
+            addCriterion("status =", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andRevMonIdNotEqualTo(Integer value) {
-            addCriterion("rev_mon_id <>", value, "revMonId");
+        public Criteria andStatusNotEqualTo(Integer value) {
+            addCriterion("status <>", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andRevMonIdGreaterThan(Integer value) {
-            addCriterion("rev_mon_id >", value, "revMonId");
+        public Criteria andStatusGreaterThan(Integer value) {
+            addCriterion("status >", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andRevMonIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("rev_mon_id >=", value, "revMonId");
+        public Criteria andStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("status >=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andRevMonIdLessThan(Integer value) {
-            addCriterion("rev_mon_id <", value, "revMonId");
+        public Criteria andStatusLessThan(Integer value) {
+            addCriterion("status <", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andRevMonIdLessThanOrEqualTo(Integer value) {
-            addCriterion("rev_mon_id <=", value, "revMonId");
+        public Criteria andStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("status <=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andRevMonIdIn(List<Integer> values) {
-            addCriterion("rev_mon_id in", values, "revMonId");
+        public Criteria andStatusIn(List<Integer> values) {
+            addCriterion("status in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andRevMonIdNotIn(List<Integer> values) {
-            addCriterion("rev_mon_id not in", values, "revMonId");
+        public Criteria andStatusNotIn(List<Integer> values) {
+            addCriterion("status not in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andRevMonIdBetween(Integer value1, Integer value2) {
-            addCriterion("rev_mon_id between", value1, value2, "revMonId");
+        public Criteria andStatusBetween(Integer value1, Integer value2) {
+            addCriterion("status between", value1, value2, "status");
             return (Criteria) this;
         }
 
-        public Criteria andRevMonIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("rev_mon_id not between", value1, value2, "revMonId");
+        public Criteria andStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("status not between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradedAtIsNull() {
+            addCriterion("traded_at is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradedAtIsNotNull() {
+            addCriterion("traded_at is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradedAtEqualTo(Date value) {
+            addCriterion("traded_at =", value, "tradedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradedAtNotEqualTo(Date value) {
+            addCriterion("traded_at <>", value, "tradedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradedAtGreaterThan(Date value) {
+            addCriterion("traded_at >", value, "tradedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradedAtGreaterThanOrEqualTo(Date value) {
+            addCriterion("traded_at >=", value, "tradedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradedAtLessThan(Date value) {
+            addCriterion("traded_at <", value, "tradedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradedAtLessThanOrEqualTo(Date value) {
+            addCriterion("traded_at <=", value, "tradedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradedAtIn(List<Date> values) {
+            addCriterion("traded_at in", values, "tradedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradedAtNotIn(List<Date> values) {
+            addCriterion("traded_at not in", values, "tradedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradedAtBetween(Date value1, Date value2) {
+            addCriterion("traded_at between", value1, value2, "tradedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradedAtNotBetween(Date value1, Date value2) {
+            addCriterion("traded_at not between", value1, value2, "tradedAt");
             return (Criteria) this;
         }
 
@@ -402,6 +472,66 @@ public class SettleAccRecordExample {
 
         public Criteria andCreatedAtNotBetween(Date value1, Date value2) {
             addCriterion("created_at not between", value1, value2, "createdAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderIdIsNull() {
+            addCriterion("order_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderIdIsNotNull() {
+            addCriterion("order_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderIdEqualTo(Integer value) {
+            addCriterion("order_id =", value, "orderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderIdNotEqualTo(Integer value) {
+            addCriterion("order_id <>", value, "orderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderIdGreaterThan(Integer value) {
+            addCriterion("order_id >", value, "orderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("order_id >=", value, "orderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderIdLessThan(Integer value) {
+            addCriterion("order_id <", value, "orderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderIdLessThanOrEqualTo(Integer value) {
+            addCriterion("order_id <=", value, "orderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderIdIn(List<Integer> values) {
+            addCriterion("order_id in", values, "orderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderIdNotIn(List<Integer> values) {
+            addCriterion("order_id not in", values, "orderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderIdBetween(Integer value1, Integer value2) {
+            addCriterion("order_id between", value1, value2, "orderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("order_id not between", value1, value2, "orderId");
             return (Criteria) this;
         }
     }
