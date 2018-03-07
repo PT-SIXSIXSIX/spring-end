@@ -1,0 +1,352 @@
+FORMAT: 1A
+
+# 易卡爱途 API
+易卡爱途系统API遵循RESTful规范.**图片应该先上传至阿里云，获取url再发送至后端服务器.**
+
+# Group 登录注册
+
+## 管理员登录 [/login]
+   管理员登录
+
+### 登录 [POST]
+    4S店管理员使用手机号和密码登录.
+
++ Request (application/json)
+    + Attributes (BaseUser)
+
++ Response 200 (application/json)
+    + Attributes (BaseUserInfo)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
+
+## 注册管理员 [/register]
+
+### 注册 [POST]
+    为4S店注册一个管理员账号
+
++ Request (application/json)
+    + Attributes (StoreInfo)
+        + password (string) - 登录密码
+
++ Response 201 (application/json)
+
+    + Attributes (BaseUserInfo)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
+
+# Group 店员管理
+
+## 店员管理 [/users/{user_id}/staffs/{staff_id}{?page}{?ipp}{?q}]
+   **设置权限，仅限店长操作**
+
++ Parameters
+    + user_id (number) - 店长唯一标识
+
+### 查询店员 [GET]
+    查询店员
+
++ Parameters
+     + page (number) - 第<page>页
+     + ipp (number) - 每页<ipp>项
+     + q (string)
+
+         查询条件，格式如下，中间是加号:
+
+         + name:张三+phone:12345668899
+
++ Response 200 (application/json)
+    + Attributes
+        + max_page (number) - 最大页数
+        + staffs (array[StaffInfo]) - 店员列表
+
+### 删除店员 [DELETE]
+    删除店员
+
++ Parameters
+    + staff_id (number) - 店员唯一标识
+
++ Response 200 (application/json)
+
++ Response 400 403 (application/json)
+    + Attributes (ErrorInfo)
+
+### 修改店员信息 [PUT]
+    修改店员信息
+
++ Parameters
+    + staff_id (number) - 店员唯一标识
+
++ Request (application/json)
+    + Attributes
+        + name (string) - 店员姓名
+        + phone (number) - 手机号码，11位，前后端都要正则验证
+
++ Response 200 (application/json)
+
++ Response 400 403 (application/json)
+    + Attributes (ErrorInfo)
+
+# Group 账号管理
+
+## 门店管理 [/users/{user_id}]
+
++ Parameters
+    + user_id (number) - 店长或店员唯一标识
+
+### 查询门店基本信息 [GET]
+    查询门店基本信息
+
++ Response 200 (application/json)
+
+    + Attributes (StoreInfo)
+        + deposit (number) - 保证金金额
+        + created_at (string) - 注册时间
+
+### 修改门店基本信息 [PUT]
+    修改门店基本信息
+    **!!!设置权限，仅限店长操作**
+
++ Request (application/json)
+    + Attributes (StoreInfo)
+
++ Response 200 (application/json)
+
+    + Attributes (StoreInfo)
+
++ Response 400 403 (application/json)
+    + Attributes (ErrorInfo)
+
+## 银行卡管理 [/users/{user_id}/bankcards]
+
++ Parameters
+    + user_id (number) - 店长或店员唯一标识
+
+### 查询银行卡 [GET]
+    查询银行卡
+
++ Response 200 (application/json)
+    + Attributes
+        + bankcards (array[BankCardInfo]) - 银行卡列表
+
+### 添加银行卡 [POST]
+    添加银行卡 **!!!设置权限，仅限店长操作**
+
++ Request (application/json)
+    + Attributes (BankCardInfo)
+
++ Response 201 (application/json)
+
++ Response 400 403 (application/json)
+    + Attributes (ErrorInfo)
+
+### 删除银行卡 [DELETE]
+    删除银行卡(为满足RESTful规范，把批量删除的参数放到body里，下同) **!!!设置权限，仅限店长操作**
+
++ Request (application/json)
+    + Attributes
+        + card_ids (array[string]) - 银行卡id列表
+
++ Response 200 (application/json)
+
++ Response 400 403 (application/json)
+    + Attributes (ErrorInfo)
+
+## 保证金充值记录管理 [/users/user_id/deposits{?page}{?ipp}{?q}]
+
+### 查询保证金充值记录 [GET]
+    查询保证金充值记录
+
++ Parameters
+     + page (number) - 第<page>页
+     + ipp (number) - 每页<ipp>项
+     + q (string)
+
+        查询条件，格式如下，以加号:
+
+        + state:0|1+time:2018年3月6日-2018年3月7日
+
+
++ Response 200 (application/json)
+    + Attributes
+        + max_page (number) - 最大页数
+        + records (array[DepositRechargeRecordInfo]) - 保证金充值记录列表
+
+### 删除充值记录 [DELETE]
+    删除充值记录
+
++ Request (application/json)
+    + Attributes
+        + record_ids (array[number]) - 记录id列表
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
+
+# Group 订单管理
+
+## 订单记录管理 [/users/{user_id}/orders/{type}{?page}{?ipp}{?q}]
+
++ Parameters
+    + user_id (number) - 店长或店员唯一标识
+    + type (number) - 订单类型
+
+### 查询订单记录 [GET]
+
++ Parameters
+     + page (number) - 第<page>页
+     + ipp (number) - 每页<ipp>项
+     + q (string)
+
+         查询条件，格式如下，中间是加号:
+
+         + state:0|1|-1+time:2018年3月6日-2018年3月7日
+
++ Response 200 (application/json)
+    + Attributes
+        + max_page (number) - 最大页数
+        + records (array[OrderRecordInfo]) - 订单记录列表
+
+### 删除订单记录 [DELETE]
+
++ Request (application/json)
+    + Attributes
+        + order_ids (array[string]) - 订单单号列表
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
+
+## 订单操作 [/users/{user_id}/orders/{type}/{order_id}]
+
++ Parameters
+     + user_id (number) - 店长或店员唯一标识
+     + type (number) - 订单类型
+     + order_id (number) - 订单单号
+
+### 处理订单 [PUT]
+    订单状态码: 0表示未处理，1表示已接受，-1表示已拒绝，初始订单状态为0
+
++ Request (application/json)
+    + Attributes
+        + state (number) - 1表示接受订单，-1表示拒绝订单
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
+
+# Group 结算管理
+
+## 结算记录管理 [/users/{user_id}/settle_accounts{?page}{?ipp}{?q}]
+
++ Parameters
+    + user_id (number) - 店长或店员唯一标识
+
+### 查询结算记录 [GET]
+
++ Parameters
+     + page (number) - 第<page>页
+     + ipp (number) - 每页<ipp>项
+     + q (string)
+
+         查询条件，格式如下，中间是加号:
+
+         + state:0|1|2+set_acc_id:20180293231+driver_name:李四
+
++ Response 200 (application/json)
+    + Attributes
+        + max_page (number) - 最大页数
+        + records (array[SettleAccountRecordInfo]) - 结算记录
+
+### 删除结算记录 [DELETE]
+
++ Request (application/json)
+    + Attributes
+        + set_acc_ids (array[string]) - 结算单号列表
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
+
+## 结算操作 [/users/{user_id}/settle_accounts?state=2]
+
++ Parameters
+     + user_id (number) - 店长或店员唯一标识
+
+### 批量结算 [PUT]
+    订单状态码: 0表示联保中，1表示待结算，2表示已结算
+
++ Request (application/json)
+    + Attributes
+        + set_acc_ids (array[string]) - 结算单号列表
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
+
+# Data Structures
+
+## ErrorInfo (object)
++ statue_code (number) - 状态码
++ error_desc (string) - 错误描述，直接显示给用户
+
+## BaseUser (object)
++ phone (number) - 手机号码，11位，前后端都要正则验证
++ password (string) - 登录密码
+
+## BaseUserInfo (object)
++ id (number) - 用户唯一标识
++ name (string) - 名字
++ phone (number) - 手机号码，11位，前后端都要正则验证
++ role (number) - 用户角色, 0代表店长，1代表店员
+
+## StoreInfo (object)
++ name (string) - 名字
++ phone (number) - 手机号码，11位，前后端都要正则验证
++ reserve_phone (number) - 备用手机号码，11位，前后端都要正则验证
++ company_name (string) - 服务网点
++ location (string) - 网点地址
++ id_card (string) - 身份证号
++ pic_head_url (string) - 身份证正面照url
++ pic_tail_url (string) - 身份证反面照url
++ service_type (string) - 服务类型
+
+## BankCardInfo (object)
++ account (string) - 银行卡账号
++ card (string) - 开户人身份证号
++ user (string) - 开户人
++ bankcard_type (string) - 银行卡类型
++ bank_name (string) - 银行名称
+
+## DepositRechargeRecordInfo (object)
++ id (number) - 保证金记录唯一标识
++ recharge_money (number) - 补足金额
++ recharge_time (string) - 补足时间
++ current_deposit (number) - 当前保证金金额
++ state (number) - 补足状态，0表示不足，1表示充足
+
+## OrderRecordInfo (object)
++ order_id (number) - 订单单号
++ created_at (string) - 预约时间
++ project_descp (string) - 预约项目描述
++ state (number) - 状态，0，1，-1
+
+## StaffInfo (object)
++ id (number) - 店员唯一标识
++ name (string) - 店员姓名
++ phone (number) - 手机号码，11位，前后端都要正则验证
+
+## SettleAccountRecordInfo (object)
++ set_acc_id (string) - 结算单号
++ company_name (string) - 服务网点
++ driver_name (string) - 付款人
++ driver_phone (number) - 司机手机号码，11位，前后端都要正则验证
++ trade_money (number) - 付款金额
++ trade_at (string) - 付款时间，对于待结算和联保中，这个字段为空
++ state (number) - 状态，0，1，2
