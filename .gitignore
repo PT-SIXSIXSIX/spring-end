@@ -10,11 +10,11 @@
 *.DS_Store
 
 #Intellij idea
-.idea
+*.idea/
 *.iml
-*out
-*gen
-*target
+*out/
+*gen/
+*target/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
