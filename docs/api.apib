@@ -107,7 +107,7 @@ FORMAT: 1A
 
 # Group 账号管理
 
-## 门店管理 [/users/{user_id}{?access_token}]
+## 门店管理 [/users/{user_id}/store{?access_token}]
 
 + Parameters
     + user_id (number) - 管理员唯一标识
@@ -387,8 +387,8 @@ FORMAT: 1A
 + role (number) - 用户角色, 0代表店长，1代表店员
 
 ## StoreInfo (object)
-+ name (string) - 名字
-+ phone (number) - 手机号码，11位，前后端都要正则验证
++ user_name (string) - 负责人名字
++ user_phone (number) - 负责人手机号码，11位，前后端都要正则验证
 + reserve_phone (number) - 备用手机号码，11位，前后端都要正则验证
 + company_name (string) - 服务网点
 + location (string) - 网点地址
