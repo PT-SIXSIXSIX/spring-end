@@ -425,66 +425,6 @@ public class OrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreatedAtIsNull() {
-            addCriterion("created_at is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedAtIsNotNull() {
-            addCriterion("created_at is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedAtEqualTo(Date value) {
-            addCriterion("created_at =", value, "createdAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedAtNotEqualTo(Date value) {
-            addCriterion("created_at <>", value, "createdAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedAtGreaterThan(Date value) {
-            addCriterion("created_at >", value, "createdAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedAtGreaterThanOrEqualTo(Date value) {
-            addCriterion("created_at >=", value, "createdAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedAtLessThan(Date value) {
-            addCriterion("created_at <", value, "createdAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedAtLessThanOrEqualTo(Date value) {
-            addCriterion("created_at <=", value, "createdAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedAtIn(List<Date> values) {
-            addCriterion("created_at in", values, "createdAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedAtNotIn(List<Date> values) {
-            addCriterion("created_at not in", values, "createdAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedAtBetween(Date value1, Date value2) {
-            addCriterion("created_at between", value1, value2, "createdAt");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedAtNotBetween(Date value1, Date value2) {
-            addCriterion("created_at not between", value1, value2, "createdAt");
-            return (Criteria) this;
-        }
-
         public Criteria andStoreIdIsNull() {
             addCriterion("store_id is null");
             return (Criteria) this;
@@ -602,6 +542,126 @@ public class OrderExample {
 
         public Criteria andDriverIdNotBetween(Integer value1, Integer value2) {
             addCriterion("driver_id not between", value1, value2, "driverId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatedAtIsNull() {
+            addCriterion("created_at is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatedAtIsNotNull() {
+            addCriterion("created_at is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatedAtEqualTo(Date value) {
+            addCriterion("created_at =", value, "createdAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatedAtNotEqualTo(Date value) {
+            addCriterion("created_at <>", value, "createdAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatedAtGreaterThan(Date value) {
+            addCriterion("created_at >", value, "createdAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatedAtGreaterThanOrEqualTo(Date value) {
+            addCriterion("created_at >=", value, "createdAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatedAtLessThan(Date value) {
+            addCriterion("created_at <", value, "createdAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatedAtLessThanOrEqualTo(Date value) {
+            addCriterion("created_at <=", value, "createdAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatedAtIn(List<Date> values) {
+            addCriterion("created_at in", values, "createdAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatedAtNotIn(List<Date> values) {
+            addCriterion("created_at not in", values, "createdAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatedAtBetween(Date value1, Date value2) {
+            addCriterion("created_at between", value1, value2, "createdAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatedAtNotBetween(Date value1, Date value2) {
+            addCriterion("created_at not between", value1, value2, "createdAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderedAtIsNull() {
+            addCriterion("ordered_at is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderedAtIsNotNull() {
+            addCriterion("ordered_at is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderedAtEqualTo(Date value) {
+            addCriterion("ordered_at =", value, "orderedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderedAtNotEqualTo(Date value) {
+            addCriterion("ordered_at <>", value, "orderedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderedAtGreaterThan(Date value) {
+            addCriterion("ordered_at >", value, "orderedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderedAtGreaterThanOrEqualTo(Date value) {
+            addCriterion("ordered_at >=", value, "orderedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderedAtLessThan(Date value) {
+            addCriterion("ordered_at <", value, "orderedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderedAtLessThanOrEqualTo(Date value) {
+            addCriterion("ordered_at <=", value, "orderedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderedAtIn(List<Date> values) {
+            addCriterion("ordered_at in", values, "orderedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderedAtNotIn(List<Date> values) {
+            addCriterion("ordered_at not in", values, "orderedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderedAtBetween(Date value1, Date value2) {
+            addCriterion("ordered_at between", value1, value2, "orderedAt");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderedAtNotBetween(Date value1, Date value2) {
+            addCriterion("ordered_at not between", value1, value2, "orderedAt");
             return (Criteria) this;
         }
     }

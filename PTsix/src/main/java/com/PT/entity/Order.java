@@ -13,11 +13,13 @@ public class Order {
 
     private Integer projectId;
 
-    private Date createdAt;
-
     private Integer storeId;
 
     private Integer driverId;
+
+    private Date createdAt;
+
+    private Date orderedAt;
 
     public Integer getId() {
         return id;
@@ -59,14 +61,6 @@ public class Order {
         this.projectId = projectId;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public Integer getStoreId() {
         return storeId;
     }
@@ -81,5 +75,21 @@ public class Order {
 
     public void setDriverId(Integer driverId) {
         this.driverId = driverId;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getOrderedAt() {
+        return orderedAt;
+    }
+
+    public void setOrderedAt(Date orderedAt) {
+        this.orderedAt = orderedAt;
     }
 }
