@@ -1,12 +1,12 @@
-FORMAT: 1A
+FORMAT: v1
 
-# 易卡爱途 API
+# 易卡爱途 API v1版本
 易卡爱途系统API遵循RESTful规范.
 * **图片应该先通过后端上传至七牛云，获取url再发送至后端.**
 
 # Group 上传图片
 
-## 上传图片 [/images]
+## 上传图片 [/api/v1/images]
    所有图片通过这个接口存入七牛云
 
 ### 上传图片 [POST]
@@ -22,7 +22,7 @@ FORMAT: 1A
 
 # Group 登录注册
 
-## 管理员登录 [/login]
+## 管理员登录 [/api/v1/login]
    管理员登录
 
 ### 登录 [POST]
@@ -37,7 +37,7 @@ FORMAT: 1A
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-## 注册管理员 [/register]
+## 注册管理员 [/api/v1/register]
 
 ### 注册 [POST]
     为4S店注册一个管理员账号
@@ -55,7 +55,7 @@ FORMAT: 1A
 
 # Group 店员管理
 
-## 店员管理 [/users/{user_id}/staffs/{staff_id}{?access_token}{?page}{?ipp}{?q}]
+## 店员管理 [/api/v1/users/{user_id}/staffs/{staff_id}{?access_token}{?page}{?ipp}{?q}]
 
 + Parameters
     + user_id (number) - 管理员唯一标识
@@ -107,7 +107,7 @@ FORMAT: 1A
 
 # Group 账号管理
 
-## 门店管理 [/users/{user_id}/store{?access_token}]
+## 门店管理 [/api/v1/users/{user_id}/store{?access_token}]
 
 + Parameters
     + user_id (number) - 管理员唯一标识
@@ -135,7 +135,7 @@ FORMAT: 1A
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-## 银行卡管理 [/users/{user_id}/bankcards{?access_token}]
+## 银行卡管理 [/api/v1/users/{user_id}/bankcards{?access_token}]
 
 + Parameters
     + user_id (number) - 管理员唯一标识
@@ -171,7 +171,7 @@ FORMAT: 1A
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-## 保证金补足记录管理 [/users/{user_id}/deposits{?access_token}{?page}{?ipp}{?q}]
+## 保证金补足记录管理 [/api/v1/users/{user_id}/deposits{?access_token}{?page}{?ipp}{?q}]
 
 + Parameters
     + user_id (number) - 管理员唯一标识
@@ -207,7 +207,7 @@ FORMAT: 1A
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-## 收账记录管理 [/users/{user_id}/receive_money_records{?access_token}{?page}{?ipp}{?q}]
+## 收账记录管理 [/api/v1/users/{user_id}/receive_money_records{?access_token}{?page}{?ipp}{?q}]
 
 + Parameters
     + user_id (number) - 管理员唯一标识
@@ -242,7 +242,7 @@ FORMAT: 1A
 
 # Group 订单管理
 
-## 订单记录管理 [/users/{user_id}/orders/{type}{?access_token}{?page}{?ipp}{?q}]
+## 订单记录管理 [/api/v1/users/{user_id}/orders/{type}{?access_token}{?page}{?ipp}{?q}]
 
 + Parameters
     + user_id (number) - 管理员唯一标识
@@ -294,7 +294,7 @@ FORMAT: 1A
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-## 订单操作 [/users/{user_id}/orders/{type}/{order_id}{?access_token}]
+## 订单操作 [/api/v1/users/{user_id}/orders/{type}/{order_id}{?access_token}]
 
 + Parameters
      + user_id (number) - 管理员唯一标识
@@ -316,7 +316,7 @@ FORMAT: 1A
 
 # Group 结算管理
 
-## 结算记录管理 [/users/{user_id}/settle_account_records{?access_token}{?page}{?ipp}{?q}]
+## 结算记录管理 [/api/v1/users/{user_id}/settle_account_records{?access_token}{?page}{?ipp}{?q}]
 
 + Parameters
     + user_id (number) - 管理员唯一标识
@@ -349,7 +349,7 @@ FORMAT: 1A
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-## 结算操作 [/users/{user_id}/sa{?access_token}?state=2]
+## 结算操作 [/api/v1/users/{user_id}/sa{?access_token}?state=2]
 
 + Parameters
      + user_id (number) - 管理员唯一标识
