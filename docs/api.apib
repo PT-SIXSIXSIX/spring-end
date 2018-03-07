@@ -207,6 +207,39 @@ FORMAT: 1A
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
+## 收账记录管理 [/users/{user_id}/receive_money_records{?access_token}{?page}{?ipp}{?q}]
+
++ Parameters
+    + user_id (number) - 管理员唯一标识
+    + access_token (string) - 管理员token，有效时间2个小时
+
+### 查询收账记录 [GET]
+
++ Parameters
+     + page (number) - 第<page>页
+     + ipp (number) - 每页<ipp>项
+     + q (string)
+
+         查询条件，格式如下，中间是加号:
+
+         + driver_name:王五+traded_at:2017年3月7日
+
++ Response 200 (application/json)
+    + Attributes
+        + max_page (number) - 最大页数
+        + records (array[ReceiveMoneyRecordInfo]) - 结算记录
+
+### 删除收账记录 [DELETE]
+
++ Request (application/json)
+    + Attributes
+        + rev_mon_ids (array[number]) - 收账记录id列表
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
+
 # Group 订单管理
 
 ## 订单记录管理 [/users/{user_id}/orders/{type}{?access_token}{?page}{?ipp}{?q}{?driver_id}{?driver_password}]
@@ -285,7 +318,7 @@ FORMAT: 1A
 
 # Group 结算管理
 
-## 结算记录管理 [/users/{user_id}/settle_accounts{?access_token}{?page}{?ipp}{?q}]
+## 结算记录管理 [/users/{user_id}/settle_account_records{?access_token}{?page}{?ipp}{?q}]
 
 + Parameters
     + user_id (number) - 管理员唯一标识
@@ -318,7 +351,7 @@ FORMAT: 1A
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-## 结算操作 [/users/{user_id}/settle_accounts{?access_token}?state=2]
+## 结算操作 [/users/{user_id}/sa{?access_token}?state=2]
 
 + Parameters
      + user_id (number) - 管理员唯一标识
@@ -335,6 +368,7 @@ FORMAT: 1A
 
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
+
 
 # Data Structures
 
@@ -396,5 +430,12 @@ FORMAT: 1A
 + driver_name (string) - 付款人
 + driver_phone (number) - 司机手机号码，11位，前后端都要正则验证
 + trade_money (number) - 付款金额
-+ trade_at (string) - 付款时间，对于待结算和联保中，这个字段为空
++ traded_at (string) - 付款时间，对于待结算和联保中，这个字段为空
 + state (number) - 状态，0，1，2
+
+## ReceiveMoneyRecordInfo (object)
++ id (string) - 收账记录id
++ set_acc_id (string) - 结算单号
++ driver_name (string) - 付款人
++ traded_at (string) - 付款时间，对于待结算和联保中，这个字段为空
++ actual_money (number) - 实际金额
