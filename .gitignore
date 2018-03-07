@@ -10,7 +10,7 @@
 *.DS_Store
 
 #Intellij idea
-*.idea/
+PTsix/.idea/
 *.iml
 *out/
 *gen/
