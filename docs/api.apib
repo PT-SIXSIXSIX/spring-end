@@ -242,7 +242,7 @@ FORMAT: 1A
 
 # Group 订单管理
 
-## 订单记录管理 [/users/{user_id}/orders/{type}{?access_token}{?page}{?ipp}{?q}{?driver_id}{?driver_password}]
+## 订单记录管理 [/users/{user_id}/orders/{type}{?access_token}{?page}{?ipp}{?q}]
 
 + Parameters
     + user_id (number) - 管理员唯一标识
@@ -267,12 +267,10 @@ FORMAT: 1A
 
 ### 添加订单 [POST]
 
-+ Parameters
-    + driver_id (number) - 司机id
-    + driver_password (string) - 司机密码
-
 + Request (application/json)
     + Attributes
+        + driver_id (number) - 司机id
+        + created_at (string) - 预约时间，需要后端转成datetime格式
         + project_type (string) - 预约项目类型
         + project_descp (string) - 预约项目描述
 
