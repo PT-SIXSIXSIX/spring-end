@@ -2,7 +2,16 @@ package com.PT.test;
 
 import com.PT.dao.BookDao;
 import com.PT.entity.Book;
+
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.PT.entity.Driver;
+import com.PT.tools.BeanToMapUtil;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +48,30 @@ public class BookDaoTest extends BaseTest {
     public void queryAll() {
         List<Book> books = bookDao.queryAll(1, 1000);
         System.out.println(books);
+    }
+
+    @Test
+    public void JavabeanToMap() throws IllegalAccessException, IntrospectionException, InvocationTargetException {
+        Driver driver = new Driver();
+        driver.setBalance(1000);
+        driver.setCreatedAt(new Date());
+        driver.setDriverName("hyx");
+        driver.setId(2);
+        driver.setDriverPhone("1891582623");
+        System.out.println(BeanToMapUtil.convertBean(driver));
+    }
+
+    @Test
+    public void MapToJavabean() throws IllegalAccessException, IntrospectionException, InvocationTargetException, InstantiationException {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", 100);
+        map.put("balance", 1000);
+        map.put("driverName", "hyx");
+        map.put("driverPhone", "189512456");
+        map.put("createdAt", new Date());
+        Driver driver = (Driver) BeanToMapUtil.convertMap(Driver.class, map);
+        System.out.println(driver.getBalance()+" "+driver.getId()+" "+driver.getCreatedAt()+" "+driver.getDriverName()+" " +
+                ""+driver.getDriverPhone());
     }
 
     @Test
