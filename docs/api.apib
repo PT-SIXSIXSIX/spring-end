@@ -66,8 +66,8 @@ FORMAT: v1
 + Request
     + Headers
 
-            X-YKAI-USER-ID: user_id
-            X-YKAI-ACCESS-TOKEN: access_token
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
 
 + Parameters
      + page (number) - 第<page>页
@@ -89,8 +89,8 @@ FORMAT: v1
 + Request
     + Headers
 
-            X-YKAI-USER-ID: user_id
-            X-YKAI-ACCESS-TOKEN: access_token
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
 
 + Parameters
     + staff_id (number) - 管理员唯一标识
@@ -109,8 +109,8 @@ FORMAT: v1
 + Request (application/json)
     + Headers
 
-                X-YKAI-USER-ID: user_id
-                X-YKAI-ACCESS-TOKEN: access_token
+                X-YKAT-USER-ID: user_id
+                X-YKAT-ACCESS-TOKEN: access_token
 
     + Attributes
         + name (string) - 店员姓名
@@ -134,8 +134,8 @@ FORMAT: v1
 + Request
     + Headers
 
-            X-YKAI-USER-ID: user_id
-            X-YKAI-ACCESS-TOKEN: access_token
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
 
 + Response 200 (application/json)
 
@@ -149,8 +149,8 @@ FORMAT: v1
 + Request (application/json)
     + Headers
 
-                X-YKAI-USER-ID: user_id
-                X-YKAI-ACCESS-TOKEN: access_token
+                X-YKAT-USER-ID: user_id
+                X-YKAT-ACCESS-TOKEN: access_token
 
     + Attributes (StoreInfo)
 
@@ -172,8 +172,8 @@ FORMAT: v1
 + Request
     + Headers
 
-            X-YKAI-USER-ID: user_id
-            X-YKAI-ACCESS-TOKEN: access_token
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
 
 + Response 200 (application/json)
     + Attributes
@@ -185,8 +185,8 @@ FORMAT: v1
 + Request (application/json)
     + Headers
 
-                X-YKAI-USER-ID: user_id
-                X-YKAI-ACCESS-TOKEN: access_token
+                X-YKAT-USER-ID: user_id
+                X-YKAT-ACCESS-TOKEN: access_token
 
     + Attributes (BankCardInfo)
 
@@ -201,8 +201,8 @@ FORMAT: v1
 + Request (application/json)
     + Headers
 
-                X-YKAI-USER-ID: user_id
-                X-YKAI-ACCESS-TOKEN: access_token
+                X-YKAT-USER-ID: user_id
+                X-YKAT-ACCESS-TOKEN: access_token
 
     + Attributes
         + card_ids (array[string]) - 银行卡id列表
@@ -223,8 +223,8 @@ FORMAT: v1
 + Request
     + Headers
 
-            X-YKAI-USER-ID: user_id
-            X-YKAI-ACCESS-TOKEN: access_token
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
 
 + Parameters
      + page (number) - 第<page>页
@@ -247,8 +247,8 @@ FORMAT: v1
 + Request (application/json)
     + Headers
 
-            X-YKAI-USER-ID: user_id
-            X-YKAI-ACCESS-TOKEN: access_token
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
 
     + Attributes
         + record_ids (array[number]) - 记录id列表
@@ -268,8 +268,8 @@ FORMAT: v1
 + Request
     + Headers
 
-            X-YKAI-USER-ID: user_id
-            X-YKAI-ACCESS-TOKEN: access_token
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
 
 + Parameters
      + page (number) - 第<page>页
@@ -290,8 +290,8 @@ FORMAT: v1
 + Request (application/json)
     + Headers
 
-            X-YKAI-USER-ID: user_id
-            X-YKAI-ACCESS-TOKEN: access_token
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
 
     + Attributes
         + rev_mon_ids (array[number]) - 收账记录id列表
@@ -314,8 +314,8 @@ FORMAT: v1
 + Request
     + Headers
 
-            X-YKAI-USER-ID: user_id
-            X-YKAI-ACCESS-TOKEN: access_token
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
 
 + Parameters
      + page (number) - 第<page>页
@@ -336,8 +336,8 @@ FORMAT: v1
 + Request (application/json)
     + Headers
 
-            X-YKAI-USER-ID: user_id
-            X-YKAI-ACCESS-TOKEN: access_token
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
 
     + Attributes
         + driver_id (number) - 司机id
@@ -356,8 +356,8 @@ FORMAT: v1
 + Request (application/json)
     + Headers
 
-            X-YKAI-USER-ID: user_id
-            X-YKAI-ACCESS-TOKEN: access_token
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
 
     + Attributes
         + order_ids (array[string]) - 订单单号列表
@@ -380,8 +380,8 @@ FORMAT: v1
 + Request (application/json)
     + Headers
 
-            X-YKAI-USER-ID: user_id
-            X-YKAI-ACCESS-TOKEN: access_token
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
 
     + Attributes
         + state (number) - 1表示接受订单，-1表示拒绝订单
@@ -403,8 +403,8 @@ FORMAT: v1
 + Request
     + Headers
 
-            X-YKAI-USER-ID: user_id
-            X-YKAI-ACCESS-TOKEN: access_token
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
 
 + Parameters
      + page (number) - 第<page>页
@@ -425,8 +425,8 @@ FORMAT: v1
 + Request (application/json)
     + Headers
 
-            X-YKAI-USER-ID: user_id
-            X-YKAI-ACCESS-TOKEN: access_token
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
 
     + Attributes
         + set_acc_ids (array[string]) - 结算单号列表
@@ -447,8 +447,8 @@ FORMAT: v1
 + Request (application/json)
     + Headers
 
-            X-YKAI-USER-ID: user_id
-            X-YKAI-ACCESS-TOKEN: access_token
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
 
     + Attributes
         + set_acc_ids (array[string]) - 结算单号列表
