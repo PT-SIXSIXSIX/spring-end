@@ -37,7 +37,7 @@ FORMAT: v1
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-## 注册管理员 [/api/v1/register]
+## 注册管理员 [/api/v1/register{?verify_phone}]
 
 ### 注册 [POST]
     为4S店注册一个管理员账号
@@ -49,6 +49,51 @@ FORMAT: v1
 + Response 201 (application/json)
 
     + Attributes (BaseUserInfo)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
+
+### 验证手机号是否存在 [GET]
+    验证手机号是否存在
+
++ Parameters
+    + verify_phone: 1 (number) - 验证手机号
+
++ Response 200 (application/json)
+    + Attributes
+        + phone_exist (number) - 0|1，0代表不存在，1代表存在
+
+## 密码管理 [/api/v1/user/password]
+
+### 忘记密码 [POST]
+    忘记密码
+
++ Request (application/json)
+    + Attributes
+        + phone (number) - 手机号码
+        + id_card (string) - 身份证
+        + boss_name (string) - 负责人姓名
+        + password (string) - 登录密码
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
+
+### 修改密码 [PUT]
+    修改密码
+
++ Request
+    + Headers
+
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
+
+    + Attributes
+        + old_password (string) - 旧密码
+        + password (string) - 新密码
+
++ Response 200 (application/json)
 
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
@@ -477,8 +522,8 @@ FORMAT: v1
 + access_token (string) - 身份验证的token串
 
 ## StoreInfo (object)
-+ user_name (string) - 负责人名字
-+ user_phone (number) - 负责人手机号码，11位，前后端都要正则验证
++ boss_name (string) - 负责人名字
++ boss_phone (number) - 负责人手机号码，11位，前后端都要正则验证
 + reserve_phone (number) - 备用手机号码，11位，前后端都要正则验证
 + company_name (string) - 服务网点
 + location (string) - 网点地址
