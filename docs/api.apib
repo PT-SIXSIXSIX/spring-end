@@ -55,14 +55,19 @@ FORMAT: v1
 
 # Group 店员管理
 
-## 店员管理 [/api/v1/users/{user_id}/staffs/{staff_id}{?access_token}{?page}{?ipp}{?q}]
+## 店员管理 [/api/v1/users/{user_id}/staffs/{staff_id}{?page}{?ipp}{?q}]
 
 + Parameters
     + user_id (number) - 管理员唯一标识
-    + access_token (string) - 管理员token，有效时间2个小时
 
 ### 查询店员 [GET]
     查询店员
+
++ Request
+    + Headers
+
+            X-YKAI-USER-ID: user_id
+            X-YKAI-ACCESS-TOKEN: access_token
 
 + Parameters
      + page (number) - 第<page>页
@@ -81,6 +86,12 @@ FORMAT: v1
 ### 删除店员 [DELETE]
     删除店员
 
++ Request
+    + Headers
+
+            X-YKAI-USER-ID: user_id
+            X-YKAI-ACCESS-TOKEN: access_token
+
 + Parameters
     + staff_id (number) - 管理员唯一标识
 
@@ -96,6 +107,11 @@ FORMAT: v1
     + staff_id (number) - 管理员唯一标识
 
 + Request (application/json)
+    + Headers
+
+                X-YKAI-USER-ID: user_id
+                X-YKAI-ACCESS-TOKEN: access_token
+
     + Attributes
         + name (string) - 店员姓名
         + phone (number) - 手机号码，11位，前后端都要正则验证
@@ -107,14 +123,19 @@ FORMAT: v1
 
 # Group 账号管理
 
-## 门店管理 [/api/v1/users/{user_id}/store{?access_token}]
+## 门店管理 [/api/v1/users/{user_id}/store]
 
 + Parameters
     + user_id (number) - 管理员唯一标识
-    + access_token (string) - 管理员token，有效时间2个小时
 
 ### 查询门店基本信息 [GET]
     查询门店基本信息
+
++ Request
+    + Headers
+
+            X-YKAI-USER-ID: user_id
+            X-YKAI-ACCESS-TOKEN: access_token
 
 + Response 200 (application/json)
 
@@ -126,6 +147,11 @@ FORMAT: v1
     修改门店基本信息
 
 + Request (application/json)
+    + Headers
+
+                X-YKAI-USER-ID: user_id
+                X-YKAI-ACCESS-TOKEN: access_token
+
     + Attributes (StoreInfo)
 
 + Response 200 (application/json)
@@ -135,14 +161,19 @@ FORMAT: v1
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-## 银行卡管理 [/api/v1/users/{user_id}/bankcards{?access_token}]
+## 银行卡管理 [/api/v1/users/{user_id}/bankcards]
 
 + Parameters
     + user_id (number) - 管理员唯一标识
-    + access_token (string) - 管理员token，有效时间2个小时
 
 ### 查询银行卡 [GET]
     查询银行卡
+
++ Request
+    + Headers
+
+            X-YKAI-USER-ID: user_id
+            X-YKAI-ACCESS-TOKEN: access_token
 
 + Response 200 (application/json)
     + Attributes
@@ -152,6 +183,11 @@ FORMAT: v1
     添加银行卡
 
 + Request (application/json)
+    + Headers
+
+                X-YKAI-USER-ID: user_id
+                X-YKAI-ACCESS-TOKEN: access_token
+
     + Attributes (BankCardInfo)
 
 + Response 201 (application/json)
@@ -163,6 +199,11 @@ FORMAT: v1
     删除银行卡(为满足RESTful规范，把批量删除的参数放到body里，下同)
 
 + Request (application/json)
+    + Headers
+
+                X-YKAI-USER-ID: user_id
+                X-YKAI-ACCESS-TOKEN: access_token
+
     + Attributes
         + card_ids (array[string]) - 银行卡id列表
 
@@ -171,14 +212,19 @@ FORMAT: v1
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-## 保证金补足记录管理 [/api/v1/users/{user_id}/deposits{?access_token}{?page}{?ipp}{?q}]
+## 保证金补足记录管理 [/api/v1/users/{user_id}/deposits{?page}{?ipp}{?q}]
 
 + Parameters
     + user_id (number) - 管理员唯一标识
-    + access_token (string) - 管理员token，有效时间2个小时
 
 ### 查询保证金补足记录 [GET]
     查询保证金补足记录
+
++ Request
+    + Headers
+
+            X-YKAI-USER-ID: user_id
+            X-YKAI-ACCESS-TOKEN: access_token
 
 + Parameters
      + page (number) - 第<page>页
@@ -199,6 +245,11 @@ FORMAT: v1
     删除补足记录
 
 + Request (application/json)
+    + Headers
+
+            X-YKAI-USER-ID: user_id
+            X-YKAI-ACCESS-TOKEN: access_token
+
     + Attributes
         + record_ids (array[number]) - 记录id列表
 
@@ -207,13 +258,18 @@ FORMAT: v1
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-## 收账记录管理 [/api/v1/users/{user_id}/receive_money_records{?access_token}{?page}{?ipp}{?q}]
+## 收账记录管理 [/api/v1/users/{user_id}/receive_money_records{?page}{?ipp}{?q}]
 
 + Parameters
     + user_id (number) - 管理员唯一标识
-    + access_token (string) - 管理员token，有效时间2个小时
 
 ### 查询收账记录 [GET]
+
++ Request
+    + Headers
+
+            X-YKAI-USER-ID: user_id
+            X-YKAI-ACCESS-TOKEN: access_token
 
 + Parameters
      + page (number) - 第<page>页
@@ -232,6 +288,11 @@ FORMAT: v1
 ### 删除收账记录 [DELETE]
 
 + Request (application/json)
+    + Headers
+
+            X-YKAI-USER-ID: user_id
+            X-YKAI-ACCESS-TOKEN: access_token
+
     + Attributes
         + rev_mon_ids (array[number]) - 收账记录id列表
 
@@ -242,7 +303,7 @@ FORMAT: v1
 
 # Group 订单管理
 
-## 订单记录管理 [/api/v1/users/{user_id}/orders/{type}{?access_token}{?page}{?ipp}{?q}]
+## 订单记录管理 [/api/v1/users/{user_id}/orders/{type}{?page}{?ipp}{?q}]
 
 + Parameters
     + user_id (number) - 管理员唯一标识
@@ -250,8 +311,13 @@ FORMAT: v1
 
 ### 查询订单记录 [GET]
 
++ Request
+    + Headers
+
+            X-YKAI-USER-ID: user_id
+            X-YKAI-ACCESS-TOKEN: access_token
+
 + Parameters
-     + access_token (string) - 管理员token，有效时间2个小时
      + page (number) - 第<page>页
      + ipp (number) - 每页<ipp>项
      + q (string)
@@ -268,6 +334,11 @@ FORMAT: v1
 ### 添加订单 [POST]
 
 + Request (application/json)
+    + Headers
+
+            X-YKAI-USER-ID: user_id
+            X-YKAI-ACCESS-TOKEN: access_token
+
     + Attributes
         + driver_id (number) - 司机id
         + ordered_at (string) - 预约时间
@@ -282,10 +353,12 @@ FORMAT: v1
 
 ### 删除订单记录 [DELETE]
 
-+ Parameters
-    + access_token (string) - 管理员token，有效时间2个小时
-
 + Request (application/json)
+    + Headers
+
+            X-YKAI-USER-ID: user_id
+            X-YKAI-ACCESS-TOKEN: access_token
+
     + Attributes
         + order_ids (array[string]) - 订单单号列表
 
@@ -294,18 +367,22 @@ FORMAT: v1
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-## 订单操作 [/api/v1/users/{user_id}/orders/{type}/{order_id}{?access_token}]
+## 订单操作 [/api/v1/users/{user_id}/orders/{type}/{order_id}]
 
 + Parameters
      + user_id (number) - 管理员唯一标识
      + type (number) - 订单类型
      + order_id (number) - 订单单号
-     + access_token (string) - 管理员token，有效时间2个小时
 
 ### 处理订单 [PUT]
     订单状态码: 0表示未处理，1表示已接受，-1表示已拒绝，初始订单状态为0
 
 + Request (application/json)
+    + Headers
+
+            X-YKAI-USER-ID: user_id
+            X-YKAI-ACCESS-TOKEN: access_token
+
     + Attributes
         + state (number) - 1表示接受订单，-1表示拒绝订单
 
@@ -316,13 +393,18 @@ FORMAT: v1
 
 # Group 结算管理
 
-## 结算记录管理 [/api/v1/users/{user_id}/settle_account_records{?access_token}{?page}{?ipp}{?q}]
+## 结算记录管理 [/api/v1/users/{user_id}/settle_account_records{?page}{?ipp}{?q}]
 
 + Parameters
     + user_id (number) - 管理员唯一标识
-    + access_token (string) - 管理员token，有效时间2个小时
 
 ### 查询结算记录 [GET]
+
++ Request
+    + Headers
+
+            X-YKAI-USER-ID: user_id
+            X-YKAI-ACCESS-TOKEN: access_token
 
 + Parameters
      + page (number) - 第<page>页
@@ -341,6 +423,11 @@ FORMAT: v1
 ### 删除结算记录 [DELETE]
 
 + Request (application/json)
+    + Headers
+
+            X-YKAI-USER-ID: user_id
+            X-YKAI-ACCESS-TOKEN: access_token
+
     + Attributes
         + set_acc_ids (array[string]) - 结算单号列表
 
@@ -349,16 +436,20 @@ FORMAT: v1
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-## 结算操作 [/api/v1/users/{user_id}/sa{?access_token}?state=2]
+## 结算操作 [/api/v1/users/{user_id}/sa?state=2]
 
 + Parameters
      + user_id (number) - 管理员唯一标识
-     + access_token (string) - 管理员token，有效时间2个小时
 
 ### 批量结算 [PUT]
     订单状态码: 0表示联保中，1表示待结算，2表示已结算
 
 + Request (application/json)
+    + Headers
+
+            X-YKAI-USER-ID: user_id
+            X-YKAI-ACCESS-TOKEN: access_token
+
     + Attributes
         + set_acc_ids (array[string]) - 结算单号列表
 
