@@ -41,6 +41,8 @@ public class BookController {
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
     @ResponseBody
     private String add(Book book) {
+
+        System.out.println(book.getBookId()+""+book.getNumber());
         Book hasBook = bookService.getById(book.getBookId());
         int i = -2;
         if (hasBook == null) {
