@@ -10,12 +10,7 @@
 *.DS_Store
 
 #Intellij idea
-.idea
 *.iml
-out
-gen
-
-#idea ide
 PTsix/out/
 PTsix/target/
 PTsix/.idea/
@@ -34,6 +29,3 @@ PTsix/.idea/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-
-.idea/
-.DS_Store
