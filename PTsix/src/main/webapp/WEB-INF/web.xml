@@ -14,6 +14,13 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:spring/spring-*.xml</param-value>
         </init-param>
+
+        <!-- 支持Options方法？ -->
+        <init-param>
+            <param-name>dispatchOptionsRequest</param-name>
+            <param-value>true</param-value>
+        </init-param>
+
     </servlet>
     <servlet-mapping>
         <servlet-name>seckill-dispatcher</servlet-name>

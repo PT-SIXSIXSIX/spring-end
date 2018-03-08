@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * created by yxhuang
  */
-public class TestTools {
+public class ToolTests {
     @Test
     public void JavabeanToMap() throws IllegalAccessException, IntrospectionException, InvocationTargetException {
         Driver driver = new Driver();
