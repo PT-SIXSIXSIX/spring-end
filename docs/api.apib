@@ -515,7 +515,7 @@ FORMAT: v1
 + password (string) - 登录密码
 
 ## BaseUserInfo (object)
-+ id (number) - 用户唯一标识
++ user_id (number) - 用户唯一标识
 + name (string) - 名字
 + phone (number) - 手机号码，11位，前后端都要正则验证
 + role (number) - 用户角色, 0代表店长，1代表店员
@@ -540,7 +540,7 @@ FORMAT: v1
 + bank_name (string) - 银行名称
 
 ## DepositRechargeRecordInfo (object)
-+ id (number) - 保证金记录唯一标识
++ des_rcg_id (number) - 保证金记录唯一标识
 + recharge_money (number) - 补足金额
 + recharge_time (string) - 补足时间
 + current_deposit (number) - 当前保证金金额
@@ -555,7 +555,7 @@ FORMAT: v1
 + state (number) - 状态，0，1，-1
 
 ## StaffInfo (object)
-+ id (number) - 店员唯一标识
++ staff_id (number) - 店员唯一标识
 + name (string) - 店员姓名
 + phone (number) - 手机号码，11位，前后端都要正则验证
 
@@ -569,7 +569,7 @@ FORMAT: v1
 + state (number) - 状态，0，1，2
 
 ## ReceiveMoneyRecordInfo (object)
-+ id (string) - 收账记录id
++ rev_mon_id (string) - 收账记录id
 + set_acc_id (string) - 结算单号
 + driver_name (string) - 付款人
 + traded_at (string) - 付款时间，对于待结算和联保中，这个字段为空
