@@ -41,4 +41,15 @@ public class OrdeServiceImpl implements OrderService{
         orderMapper.insertSelective(order);
 
     }
+
+    @Override
+    public void deleteOrder(int userId, int type, List<String> orderIds){
+        OrderExample example = new OrderExample();
+        OrderExample.Criteria criteria = example.createCriteria();
+        criteria.andOrderIdIn(orderIds);
+        criteria.andStoreIdEqualTo(userId);
+        criteria.andTypeEqualTo(String.valueOf(type));
+
+        orderMapper.deleteByExample(example);
+    }
 }

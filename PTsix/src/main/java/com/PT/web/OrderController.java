@@ -60,6 +60,13 @@ public class OrderController {
         return map;
     }
 
+    /**
+     * 添加订单
+     * @param userId
+     * @param type
+     * @param requestMap
+     * @return
+     */
     @RequestMapping(value = "/orders/{type}", method = RequestMethod.POST)
     private Map addOrder(@PathVariable("user_id") int userId,
                          @PathVariable("type") int type,
@@ -78,7 +85,7 @@ public class OrderController {
         }catch (Exception e){
             Map<String,Object> map = new HashMap();
             map.put("status_code",1);
-            map.put("error_desc",e.toString());
+            map.put("error_desc",e.getMessage());
             return map;
         }
 
@@ -86,4 +93,25 @@ public class OrderController {
         map.put("message","success");
         return map;
     }
+
+    @RequestMapping(value = "/orders/{type}", method = RequestMethod.DELETE)
+    private Map deleteOrder(@PathVariable("user_id")int userId,
+                            @PathVariable("type") int type,
+                            @RequestBody Map<String,Object > requestMap )
+    {
+        try{
+            List<String> list = (List<String>) requestMap.get("order_ids");
+            System.out.println(list);
+            orderService.deleteOrder(userId,type,list);
+        }catch (Exception e){
+            Map<String,Object> map = new HashMap();
+            map.put("status_code",1);
+            map.put("error_desc",e.getMessage());
+            return map;
+        }
+        Map<String,String> map = new HashMap();
+        map.put("message","success");
+        return map;
+    }
+
 }

@@ -10,4 +10,5 @@ public interface OrderService {
 
     List<OrderInfoBean> listOrder(int type, int page, int ipp, int userId);
     void addOrder(Order order);
+    void deleteOrder(int userId, int type, List<String> orderIds);
 }
