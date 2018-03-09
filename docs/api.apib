@@ -20,6 +20,40 @@ FORMAT: v1
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
+# Group 短信验证码
+
+## 获取短信验证码 [/api/v1/sms/get]
+
+### 获取验证码 [POST]
+  向手机号发送短信验证码
+
++ Request (application/json)
+    + Attributes
+        + phone: 1234567890 (string)
+
++ Response 200 (application/json)
+    + Attributes
+        + msg: OK (string)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
+
+## 验证短信验证码有效性 [/api/v1/sms/verify]
+
+### 验证短信验证码 [POST]
+
++ Request (application/json)
+    + Attributes
+        + phone: 1234567890 (string)
+        + smsCode:123456 (string) - 短信验证码
+
++ Response 200 (application/json)
+    + Attributes
+        + msg: OK (string)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
+
 # Group 登录注册
 
 ## 管理员登录 [/api/v1/login]
