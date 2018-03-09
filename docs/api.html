@@ -34,14 +34,14 @@
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="登录注册" class="resource-group"><h2 class="group-heading">登录注册 <a href="#登录注册" class="permalink">&para;</a></h2><div id="登录注册-管理员登录" class="resource"><h3 class="resource-heading">管理员登录 <a href="#登录注册-管理员登录" class="permalink">&nbsp;&para;</a></h3><p>管理员登录</p>
 <div id="登录注册-管理员登录-post" class="action post"><h4 class="action-heading"><div class="name">登录</div><a href="#登录注册-管理员登录-post" class="method post">POST</a><code class="uri">/api/v1/login</code></h4><p>4S店管理员使用手机号和密码登录.</p>
 <h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/api/v1/login</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+  "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
   "<span class="hljs-attribute">password</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
   "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">phone</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"手机号码，11位，前后端都要正则验证"</span>
     </span>}</span>,
     "<span class="hljs-attribute">password</span>": <span class="hljs-value">{
@@ -52,7 +52,7 @@
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">user_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
   "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
-  "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+  "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
   "<span class="hljs-attribute">role</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
   "<span class="hljs-attribute">access_token</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
@@ -68,7 +68,7 @@
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"名字"</span>
     </span>}</span>,
     "<span class="hljs-attribute">phone</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"手机号码，11位，前后端都要正则验证"</span>
     </span>}</span>,
     "<span class="hljs-attribute">role</span>": <span class="hljs-value">{
@@ -98,8 +98,8 @@
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="登录注册-注册管理员" class="resource"><h3 class="resource-heading">注册管理员 <a href="#登录注册-注册管理员" class="permalink">&nbsp;&para;</a></h3><div id="登录注册-注册管理员-post" class="action post"><h4 class="action-heading"><div class="name">注册</div><a href="#登录注册-注册管理员-post" class="method post">POST</a><code class="uri">/api/v1/register</code></h4><p>为4S店注册一个管理员账号</p>
 <h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/api/v1/register</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">boss_name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
-  "<span class="hljs-attribute">boss_phone</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+  "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+  "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
   "<span class="hljs-attribute">reserve_phone</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
   "<span class="hljs-attribute">company_name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
   "<span class="hljs-attribute">location</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
@@ -112,12 +112,12 @@
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
   "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">boss_name</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"负责人名字"</span>
     </span>}</span>,
-    "<span class="hljs-attribute">boss_phone</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+    "<span class="hljs-attribute">phone</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"负责人手机号码，11位，前后端都要正则验证"</span>
     </span>}</span>,
     "<span class="hljs-attribute">reserve_phone</span>": <span class="hljs-value">{
@@ -156,7 +156,7 @@
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>201</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">user_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
   "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
-  "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+  "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
   "<span class="hljs-attribute">role</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
   "<span class="hljs-attribute">access_token</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
@@ -172,7 +172,7 @@
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"名字"</span>
     </span>}</span>,
     "<span class="hljs-attribute">phone</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"手机号码，11位，前后端都要正则验证"</span>
     </span>}</span>,
     "<span class="hljs-attribute">role</span>": <span class="hljs-value">{
@@ -376,8 +376,8 @@
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="账号管理" class="resource-group"><h2 class="group-heading">账号管理 <a href="#账号管理" class="permalink">&para;</a></h2><div id="账号管理-门店管理" class="resource"><h3 class="resource-heading">门店管理 <a href="#账号管理-门店管理" class="permalink">&nbsp;&para;</a></h3><div id="账号管理-门店管理-get" class="action get"><h4 class="action-heading"><div class="name">查询门店基本信息</div><a href="#账号管理-门店管理-get" class="method get">GET</a><code class="uri">/api/v1/users/{user_id}/store</code></h4><p>查询门店基本信息</p>
 <h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname"></span>/api/v1/users/<span class="hljs-attribute" title="user_id">user_id</span>/store</span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>user_id</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<p>管理员唯一标识</p>
 </dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">X-YKAT-USER-ID</span>: <span class="hljs-string">user_id</span><br><span class="hljs-attribute">X-YKAT-ACCESS-TOKEN</span>: <span class="hljs-string">access_token</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">boss_name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
-  "<span class="hljs-attribute">boss_phone</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+  "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+  "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
   "<span class="hljs-attribute">reserve_phone</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
   "<span class="hljs-attribute">company_name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
   "<span class="hljs-attribute">location</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
@@ -391,12 +391,12 @@
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
   "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">boss_name</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"负责人名字"</span>
     </span>}</span>,
-    "<span class="hljs-attribute">boss_phone</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+    "<span class="hljs-attribute">phone</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"负责人手机号码，11位，前后端都要正则验证"</span>
     </span>}</span>,
     "<span class="hljs-attribute">reserve_phone</span>": <span class="hljs-value">{
@@ -439,8 +439,8 @@
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div><div id="账号管理-门店管理-put" class="action put"><h4 class="action-heading"><div class="name">修改门店基本信息</div><a href="#账号管理-门店管理-put" class="method put">PUT</a><code class="uri">/api/v1/users/{user_id}/store</code></h4><p>修改门店基本信息</p>
 <h4>Example URI</h4><div class="definition"><span class="method put">PUT</span>&nbsp;<span class="uri"><span class="hostname"></span>/api/v1/users/<span class="hljs-attribute" title="user_id">user_id</span>/store</span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>user_id</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<p>管理员唯一标识</p>
 </dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">X-YKAT-USER-ID</span>: <span class="hljs-string">user_id</span><br><span class="hljs-attribute">X-YKAT-ACCESS-TOKEN</span>: <span class="hljs-string">access_token</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">boss_name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
-  "<span class="hljs-attribute">boss_phone</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+  "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+  "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
   "<span class="hljs-attribute">reserve_phone</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
   "<span class="hljs-attribute">company_name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
   "<span class="hljs-attribute">location</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
@@ -452,12 +452,12 @@
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
   "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">boss_name</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"负责人名字"</span>
     </span>}</span>,
-    "<span class="hljs-attribute">boss_phone</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+    "<span class="hljs-attribute">phone</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"负责人手机号码，11位，前后端都要正则验证"</span>
     </span>}</span>,
     "<span class="hljs-attribute">reserve_phone</span>": <span class="hljs-value">{
@@ -490,8 +490,8 @@
     </span>}
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">boss_name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
-  "<span class="hljs-attribute">boss_phone</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+  "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
+  "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
   "<span class="hljs-attribute">reserve_phone</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
   "<span class="hljs-attribute">company_name</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
   "<span class="hljs-attribute">location</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
@@ -503,12 +503,12 @@
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
   "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">boss_name</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"负责人名字"</span>
     </span>}</span>,
-    "<span class="hljs-attribute">boss_phone</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+    "<span class="hljs-attribute">phone</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"负责人手机号码，11位，前后端都要正则验证"</span>
     </span>}</span>,
     "<span class="hljs-attribute">reserve_phone</span>": <span class="hljs-value">{

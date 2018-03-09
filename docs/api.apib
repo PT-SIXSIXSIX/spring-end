@@ -511,19 +511,19 @@ FORMAT: v1
 + error_desc (string) - 错误描述，直接显示给用户
 
 ## BaseUser (object)
-+ phone (number) - 手机号码，11位，前后端都要正则验证
++ phone (string) - 手机号码，11位，前后端都要正则验证
 + password (string) - 登录密码
 
 ## BaseUserInfo (object)
 + user_id (number) - 用户唯一标识
 + name (string) - 名字
-+ phone (number) - 手机号码，11位，前后端都要正则验证
++ phone (string) - 手机号码，11位，前后端都要正则验证
 + role (number) - 用户角色, 0代表店长，1代表店员
 + access_token (string) - 身份验证的token串
 
 ## StoreInfo (object)
-+ boss_name (string) - 负责人名字
-+ boss_phone (number) - 负责人手机号码，11位，前后端都要正则验证
++ name (string) - 负责人名字
++ phone (string) - 负责人手机号码，11位，前后端都要正则验证
 + reserve_phone (number) - 备用手机号码，11位，前后端都要正则验证
 + company_name (string) - 服务网点
 + location (string) - 网点地址
