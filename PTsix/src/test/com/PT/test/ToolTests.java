@@ -1,12 +1,18 @@
 package com.PT.test;
 
+import com.PT.dao.UserMapper;
 import com.PT.entity.Driver;
+import com.PT.entity.User;
+import com.PT.service.RegistryLogonService;
+import com.PT.service.impl.RegistryLogonServiceImpl;
 import com.PT.tools.BeanToMapUtil;
+import com.PT.tools.JWT;
 import com.PT.tools.UnderlineToTumpUtil;
 import org.junit.Test;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
+import java.rmi.registry.Registry;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,5 +57,17 @@ public class ToolTests {
         Driver driver = (Driver) BeanToMapUtil.convertMap(Driver.class, map);
         System.out.println(driver.getBalance()+" "+driver.getId()+" "+driver.getCreatedAt()+" "+driver.getDriverName()+" " +
                 ""+driver.getDriverPhone());
+    }
+    public static String TestJWTSigner(int id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", id);
+        String token = JWT.createJavaWebToken(map);
+        return token;
+//        System.out.println(token);
+//        Map<String, Object> mp2 = JWT.parserJavaWebToken(token);
+//
+//        for(Map.Entry entry: mp2.entrySet()) {
+//            System.out.println(entry.getKey()+"   "+entry.getValue());
+//        }
     }
 }

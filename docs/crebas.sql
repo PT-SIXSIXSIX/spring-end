@@ -217,3 +217,18 @@ alter table ykat_settle_account_records add constraint FK_Reference_13 foreign k
 
 alter table ykat_stores add constraint FK_Reference_1 foreign key (user_id)
       references ykat_users (id) on delete restrict on update restrict;
+/*
+   设置编码格式
+*/
+ALTER TABLE ykat_bankcard_relations DEFAULT CHARACTER SET utf8;
+ALTER TABLE ykat_bankcards DEFAULT CHARACTER SET utf8;
+ALTER TABLE ykat_deposit_recharge_records DEFAULT CHARACTER SET utf8;
+ALTER TABLE ykat_drivers DEFAULT CHARACTER SET utf8;
+ALTER TABLE ykat_employee_relations DEFAULT CHARACTER SET utf8;
+ALTER TABLE ykat_kbs DEFAULT CHARACTER SET utf8;
+ALTER TABLE ykat_logs DEFAULT CHARACTER SET utf8;
+ALTER TABLE ykat_orders DEFAULT CHARACTER SET utf8;
+ALTER TABLE ykat_projects DEFAULT CHARACTER SET utf8;
+ALTER TABLE ykat_settle_account_records DEFAULT CHARACTER SET utf8;
+ALTER TABLE ykat_stores DEFAULT CHARACTER SET utf8;
+ALTER TABLE ykat_users DEFAULT CHARACTER SET utf8;
