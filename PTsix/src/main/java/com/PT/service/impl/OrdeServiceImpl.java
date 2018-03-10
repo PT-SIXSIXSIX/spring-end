@@ -2,6 +2,7 @@ package com.PT.service.impl;
 
 import com.PT.bean.order.OrderInfoBean;
 import com.PT.dao.OrderMapper;
+import com.PT.dao.YkatCommonUtilMapper;
 import com.PT.entity.Order;
 import com.PT.entity.OrderExample;
 
@@ -20,6 +21,8 @@ public class OrdeServiceImpl implements OrderService{
     @Autowired
     private OrderMapper orderMapper;
 
+    @Autowired
+    private YkatCommonUtilMapper ykatCommonUtilMapper;
     @Override
     public List<OrderInfoBean> listOrder(int type, int page, int ipp, int userId){
         OrderExample example = new OrderExample();
@@ -43,7 +46,7 @@ public class OrdeServiceImpl implements OrderService{
         Map<String,String> map = new HashMap();
         map.put("tableName","ykat_orders");
         map.put("colName","order_id");
-        orderMapper.getGeneratedOrderId(map);
+        ykatCommonUtilMapper.generateAutoIncrementId(map);
         String generatedOrderId = map.get("billsNoResult");
         order.setOrderId(generatedOrderId);
         orderMapper.insertSelective(order);
