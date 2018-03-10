@@ -1,7 +1,9 @@
 package com.PT.service.impl;
 
+import com.PT.bean.StorekeeperInfoBean;
 import com.PT.dao.StoreMapper;
 import com.PT.dao.UserMapper;
+import com.PT.dao.StorekeeperInfoMapper;
 import com.PT.entity.Store;
 import com.PT.entity.User;
 import com.PT.entity.UserExample;
@@ -18,6 +20,8 @@ public class RegistryLogonServiceImpl implements RegistryLogonService{
     private UserMapper userMapper;
     @Autowired
     private StoreMapper storeMapper;
+    @Autowired
+    private StorekeeperInfoMapper storekeeperInfoMapper;
 
     static String ENCODE = "utf-8";
     @Override
@@ -77,5 +81,47 @@ public class RegistryLogonServiceImpl implements RegistryLogonService{
             return null;
         }
 
+    }
+
+    @Override
+    public boolean verifyPhone(String phone) {
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andPhoneEqualTo(phone);
+        List list = userMapper.selectByExample(userExample);
+        if(list.size() > 0) return true;
+        return false;
+    }
+
+    @Override
+    public boolean changePassword(int id, String  old, String pwd) {
+        try {
+            UserExample userExample = new UserExample();
+            userExample.createCriteria().andPasswordEqualTo(PasswordUtil.
+                    MD5Encode(old, ENCODE, false)).andIdEqualTo(id);
+            List list = userMapper.selectByExample(userExample);
+            if(list.isEmpty()) { return false; }
+            User user = (User) list.get(0);
+            user.setPassword(PasswordUtil.MD5Encode(pwd, ENCODE, false));
+            userMapper.updateByPrimaryKey(user);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean changePassword(StorekeeperInfoBean info, String pwd) {
+        StorekeeperInfoBean storekeeperInfoBean =
+                storekeeperInfoMapper.selectByIdCard(info);
+        if(null == storekeeperInfoBean) { return false; }
+        else {
+            User user = new User();
+            UserExample userExample = new UserExample();
+            userExample.createCriteria().andPhoneEqualTo(info.getPhone());
+            user.setPassword(PasswordUtil.MD5Encode(pwd, ENCODE, false));
+            userMapper.updateByExampleSelective(user, userExample);
+            return true;
+        }
     }
 }
