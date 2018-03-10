@@ -23,6 +23,9 @@ public class ResponseData {
         this.code = code;
         this.message = message;
     }
+    public Map getBody() {
+        return this.data;
+    }
     public static ResponseData ok() {
         return new ResponseData(200, "Ok");
     }

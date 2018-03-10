@@ -1,10 +1,12 @@
 package com.PT.test;
 
+import com.PT.bean.StorekeeperInfoBean;
 import com.PT.dao.StoreMapper;
 import com.PT.dao.UserMapper;
 import com.PT.entity.Store;
 import com.PT.entity.User;
 import com.PT.service.RegistryLogonService;
+import com.PT.tools.PasswordUtil;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,5 +53,19 @@ public class RegistryLogonTest extends BaseTest {
         } else {
             System.out.println("找不到用户");
         }
+    }
+
+    /**
+     * 密码查询修改测试
+     */
+    @Test
+    public void password() {
+        StorekeeperInfoBean info = new StorekeeperInfoBean();
+        info.setName("hyx");
+        info.setPhone("26676553437");
+        info.setIdCard("32562463");
+        String newPwd = "dwfrehtjdwfrehtj";
+        registryLogonService.changePassword(info, newPwd);
+//        registryLogonService.changePassword(64, "dwfrehtj");
     }
 }
