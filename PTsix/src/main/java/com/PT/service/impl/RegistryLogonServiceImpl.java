@@ -6,14 +6,11 @@ import com.PT.entity.Store;
 import com.PT.entity.User;
 import com.PT.entity.UserExample;
 import com.PT.service.RegistryLogonService;
-import com.PT.tools.JWT;
 import com.PT.tools.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class RegistryLogonServiceImpl implements RegistryLogonService{
@@ -28,23 +25,26 @@ public class RegistryLogonServiceImpl implements RegistryLogonService{
         try {
             String password = PasswordUtil.MD5Encode(user.getPassword(), ENCODE, false);
             user.setPassword(password);
-            userMapper.insert(user);
+            user.setRole(0);
+            System.out.println("encode_password:  "+password);
             UserExample userExample = new UserExample();
             userExample.createCriteria().andPhoneEqualTo(user.getPhone());
-            List list = userMapper.selectByExample(userExample);
-            if(list.isEmpty()) {
-                System.out.println("无法查到此店长信息");
+            if(userMapper.selectByExample(userExample).size() > 0) {
+                System.out.println("用户已存在");
                 return null;
             }
-            User temp = (User) list.get(0);
-            store.setUserId(temp.getId());
-            storeMapper.insert(store);
-
-            Map<String, Object> mp = new HashMap<String, Object>();
-            mp.put("userId", user.getId());
-            String token = JWT.createJavaWebToken(mp);
-            System.out.println(token);
-
+            userMapper.insert(user);
+            userExample.clear();
+            userExample.createCriteria().andPhoneEqualTo(user.getPhone());
+            List list = userMapper.selectByExample(userExample);
+            User temp = null;
+            try {
+                temp = (User) list.get(0);
+                store.setUserId(temp.getId());
+                storeMapper.insert(store);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return temp;
         } catch (Exception e){
             System.out.println(e.getMessage());
