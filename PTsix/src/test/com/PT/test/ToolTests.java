@@ -1,18 +1,13 @@
 package com.PT.test;
 
-import com.PT.dao.UserMapper;
 import com.PT.entity.Driver;
-import com.PT.entity.User;
 import com.PT.service.RegistryLogonService;
-import com.PT.service.impl.RegistryLogonServiceImpl;
-import com.PT.tools.BeanToMapUtil;
-import com.PT.tools.JWT;
-import com.PT.tools.UnderlineToTumpUtil;
+import com.PT.tools.*;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
-import java.rmi.registry.Registry;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +15,9 @@ import java.util.Map;
 /**
  * created by yxhuang
  */
-public class ToolTests {
+public class ToolTests extends BaseTest {
+    @Autowired
+    RegistryLogonService registryLogonService;
     @Test
     public void JavabeanToMap() throws IllegalAccessException, IntrospectionException, InvocationTargetException {
         Driver driver = new Driver();
@@ -58,16 +55,28 @@ public class ToolTests {
         System.out.println(driver.getBalance()+" "+driver.getId()+" "+driver.getCreatedAt()+" "+driver.getDriverName()+" " +
                 ""+driver.getDriverPhone());
     }
-    public static String TestJWTSigner(int id) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("userId", id);
-        String token = JWT.createJavaWebToken(map);
-        return token;
+    @Test
+    public void TestJWTSigner() {
+
+//        User user = registryLogonService.login("267453437","awerytuese");
+//        String token = AuthHelper.createJsonWebToken("123", (long) 1000);
+//        System.out.println(token);
+        try {
+
+//            TokenInfo info = AuthHelper.verifyToken(token);
+//            System.out.println(info.getUserId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("userId", 100);
+//        String token = JWT.createJavaWebToken(map);
 //        System.out.println(token);
 //        Map<String, Object> mp2 = JWT.parserJavaWebToken(token);
 //
 //        for(Map.Entry entry: mp2.entrySet()) {
 //            System.out.println(entry.getKey()+"   "+entry.getValue());
 //        }
+
     }
 }

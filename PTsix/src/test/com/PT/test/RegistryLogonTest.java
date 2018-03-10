@@ -4,29 +4,22 @@ import com.PT.dao.StoreMapper;
 import com.PT.dao.UserMapper;
 import com.PT.entity.Store;
 import com.PT.entity.User;
-import com.PT.entity.UserExample;
 import com.PT.service.RegistryLogonService;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.annotation.Resource;
 import java.util.Date;
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring/spring-*"})
-public class RegistryLogonTest {
+public class RegistryLogonTest extends BaseTest {
     @Autowired
     RegistryLogonService registryLogonService;
     @Autowired
     UserMapper userMapper;
     @Autowired
     StoreMapper storeMapper;
-//    StoreMapper storeMapper;
 
-
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     /**
      * 注册时，联合插入测试
      */
