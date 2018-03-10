@@ -10,7 +10,9 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrdeServiceImpl implements OrderService{
@@ -38,8 +40,13 @@ public class OrdeServiceImpl implements OrderService{
 
     @Override
     public void addOrder(Order order) {
+        Map<String,String> map = new HashMap();
+        map.put("tableName","ykat_orders");
+        map.put("colName","order_id");
+        orderMapper.getGeneratedOrderId(map);
+        String generatedOrderId = map.get("billsNoResult");
+        order.setOrderId(generatedOrderId);
         orderMapper.insertSelective(order);
-
     }
 
     @Override

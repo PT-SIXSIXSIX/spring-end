@@ -135,6 +135,15 @@
       #{driverId,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, #{orderedAt,jdbcType=TIMESTAMP}
       )
   </insert>
+  <select id="getGeneratedOrderId" parameterType="map" statementType="CALLABLE" resultType="map">
+    {
+         call genBillsNoPROC(
+               #{tableName,mode=IN,jdbcType=VARCHAR},
+               #{colName,mode=IN,jdbcType=VARCHAR},
+               #{billsNoResult,mode=OUT,jdbcType=VARCHAR}
+         )
+    }
+  </select>
   <insert id="insertSelective" parameterType="com.PT.entity.Order" >
     insert into ykat_orders
     <trim prefix="(" suffix=")" suffixOverrides="," >
