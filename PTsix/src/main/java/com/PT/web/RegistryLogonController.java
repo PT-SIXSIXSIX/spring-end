@@ -5,29 +5,17 @@ import com.PT.entity.Store;
 import com.PT.entity.User;
 import com.PT.service.RegistryLogonService;
 import com.PT.tools.BeanToMapUtil;
-import com.PT.tools.JWT;
-import com.PT.tools.OutParaToLocal;
 import com.PT.tools.ResponseData;
+import com.PT.tools.TokenOptions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.beans.IntrospectionException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -48,11 +36,8 @@ public class RegistryLogonController {
         ResponseData responseData = ResponseData.ok();
         User user = registryLogonService.login(phone, password);
         if(null != user) {
-//            Map<String, Object> mp = new HashMap<String, Object>();
-//            mp.put("userId", user.getId());
-//            String token = JWT.createJavaWebToken(mp);
-
-            String token = "1234";
+            String token = UUID.randomUUID().toString();
+            TokenOptions.setKey(TokenOptions.TOKEN_PREFIX+user.getId(), token);
             responseData.putDataValue("id", user.getId());
             responseData.putDataValue("name", user.getName());
             responseData.putDataValue("phone", user.getPhone());
@@ -67,8 +52,8 @@ public class RegistryLogonController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public @ResponseBody ResponseData register(HttpServletRequest request) {
-        Map out = OutParaToLocal.getMapFromRequestMap(request.getParameterMap());
+    public @ResponseBody ResponseData register(@RequestBody Map<String, Object> out) {
+        System.out.println("in");
         out.put("name", out.get("bossName"));
         out.put("phone", out.get("bossPhone"));
         ResponseData responseData = ResponseData.createOk();
@@ -86,10 +71,10 @@ public class RegistryLogonController {
         }
         User resultUser = registryLogonService.regist(user, store);
         if(null != resultUser) {
-            Map<String, Object> mp = new HashMap<String, Object>();
-            mp.put("userId", user.getId());
-            String token = JWT.createJavaWebToken(mp);
-//            String token = "1234";
+//            Map<String, Object> mp = new HashMap<String, Object>();
+//            mp.put("userId", user.getId());
+//            String token = JWT.createJavaWebToken(mp);
+            String token = "1234";
             responseData.putDataValue("id", resultUser.getId());
             responseData.putDataValue("name", resultUser.getName());
             responseData.putDataValue("phone", resultUser.getPhone());
@@ -98,9 +83,8 @@ public class RegistryLogonController {
         } else {
             responseData = ResponseData.badRequest();
             responseData.putDataValue("statusCode", 1);
-            responseData.putDataValue("errorDesc", "token过期或者token不正确");
+            responseData.putDataValue("errorDesc", "注册失败");
         }
-        System.out.println("4");
         return responseData;
     }
 }

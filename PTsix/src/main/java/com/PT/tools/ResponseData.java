@@ -2,9 +2,9 @@ package com.PT.tools;
 import java.util.HashMap;
 import java.util.Map;
 public class ResponseData {
-    private final String message;
-    private final int code;
-    private final Map<String, Object> data = new HashMap<String, Object>();
+    private String message;
+    private int code;
+    private Map<String, Object> data = new HashMap<String, Object>();
 
     public String getMessage() {
         return message;

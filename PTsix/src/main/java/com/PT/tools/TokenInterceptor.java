@@ -23,7 +23,11 @@ public class TokenInterceptor implements HandlerInterceptor{
         ResponseData responseData = ResponseData.ok();
         //token不存在
         if(null != token) {
-            int id = (int) JWT.parserJavaWebToken(token).get("userId");
+            /**
+             * debug待改
+             */
+//            int id = (int) JWT.parserJavaWebToken(token).get("userId");
+            int id = 0;
             String loginId = request.getParameter("userId");
             //解密token后的loginId与用户传来的loginId不一致，一般都是token过期
             if(null != loginId) {
