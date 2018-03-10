@@ -8,6 +8,7 @@ import com.PT.entity.OrderExample;
 
 import com.PT.service.OrderService;
 import com.github.pagehelper.PageHelper;
+import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,5 +62,30 @@ public class OrdeServiceImpl implements OrderService{
         criteria.andTypeEqualTo(String.valueOf(type));
 
         orderMapper.deleteByExample(example);
+    }
+
+    @Override
+    public void updateOrderState(String orderId, int storeId, int status) {
+
+        OrderExample example = new OrderExample();
+        OrderExample.Criteria criteria = example.createCriteria();
+        criteria.andOrderIdEqualTo(orderId);
+        criteria.andStoreIdEqualTo(storeId);
+
+        Order order = new Order();
+        order.setStatus(status);
+
+        orderMapper.updateByExampleSelective(order, example);
+    }
+
+    @Override
+    public boolean isOrderIdValid(String orderId){
+        OrderExample example = new OrderExample();
+        OrderExample.Criteria criteria = example.createCriteria();
+        criteria.andOrderIdEqualTo(orderId);
+        if( orderMapper.countByExample(example) <= 0 ){
+            return false;
+        }
+        return true;
     }
 }

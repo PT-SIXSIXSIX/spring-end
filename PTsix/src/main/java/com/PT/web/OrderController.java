@@ -45,9 +45,9 @@ public class OrderController {
     @RequestMapping(value = "/orders/{type}", method = RequestMethod.GET)
     private Map listOrders(@PathVariable("user_id") int userId,
                                  @PathVariable("type") int type,
-                                 @RequestParam("page") int page,
-                                 @RequestParam("ipp") int ipp,
-                                 @RequestParam("q") String queryCondition)/*,
+                                 @RequestParam(value = "page",required = true) int page,
+                                 @RequestParam(value = "ipp",required = true) int ipp,
+                                 @RequestParam(value = "q",required = true) String queryCondition)/*,
                                  @RequestHeader("X-YKAT-USER-ID") String headerUserId,
                                  @RequestHeader("X-YKAT-USER-ID") String accessToken)*/
     {
@@ -79,6 +79,7 @@ public class OrderController {
         order.setCreatedAt(new Date());
         order.setStoreId(userId);
         order.setDriverId(driverId);
+        order.setStatus(0);
         order.setType(projectType);
         try {
             orderService.addOrder(order);
@@ -101,7 +102,6 @@ public class OrderController {
     {
         try{
             List<String> list = (List<String>) requestMap.get("order_ids");
-            System.out.println(list);
             orderService.deleteOrder(userId,type,list);
         }catch (Exception e){
             Map<String,Object> map = new HashMap();
@@ -115,12 +115,32 @@ public class OrderController {
     }
 
     @RequestMapping(value="/orders/{type}/{order_id}",method = RequestMethod.PUT)
-    private Map deleteOrder(@PathVariable("user_id")int userId,
+    private Map updateOrderState(@PathVariable(value = "user_id")int userId,
                             @PathVariable("type") int type,
-                            @PathVariable("order_id") String order_id,
-                            @RequestBody Map<String,Object > requestMap){
-        
-        return null;
+                            @PathVariable("order_id") String orderId,
+                            @RequestBody Map<String,Integer > requestMap){
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        Integer state =  requestMap.get("state");
+        if( !orderService.isOrderIdValid(orderId) )//没有找到对应订单
+        {
+            saveErrorCodeAndMessage(resultMap,1,"没有对应的订单");
+            return resultMap;
+        }
+        //参数缺失
+        if(state==null){
+            saveErrorCodeAndMessage(resultMap,1,"参数缺失");
+            return requestMap;
+        }
+
+        orderService.updateOrderState(orderId,userId,state);
+
+        resultMap.put("success","true");
+        return resultMap;
+    }
+
+    private void saveErrorCodeAndMessage(Map<String,Object> map,int errCode, String message){
+        map.put("status_code",errCode);
+        map.put("error_desc",message);
     }
 
 }
