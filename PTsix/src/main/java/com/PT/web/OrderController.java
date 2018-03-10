@@ -114,4 +114,13 @@ public class OrderController {
         return map;
     }
 
+    @RequestMapping(value="/orders/{type}/{order_id}",method = RequestMethod.PUT)
+    private Map deleteOrder(@PathVariable("user_id")int userId,
+                            @PathVariable("type") int type,
+                            @PathVariable("order_id") String order_id,
+                            @RequestBody Map<String,Object > requestMap){
+        
+        return null;
+    }
+
 }
