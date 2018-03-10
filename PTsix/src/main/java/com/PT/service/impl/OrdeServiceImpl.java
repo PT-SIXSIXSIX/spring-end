@@ -25,21 +25,27 @@ public class OrdeServiceImpl implements OrderService{
     @Autowired
     private YkatCommonUtilMapper ykatCommonUtilMapper;
     @Override
-    public List<OrderInfoBean> listOrder(int type, int page, int ipp, int userId){
+    public Map<String,Object> listOrder(int type, int page, int ipp, int userId){
         OrderExample example = new OrderExample();
         OrderExample.Criteria criteria = example.createCriteria();
         criteria.andStoreIdEqualTo(userId);// 商店id主键
 
-//        criteria.andTypeEqualTo(String.valueOf(type));//订单类型
+//      criteria.andTypeEqualTo(String.valueOf(type));//订单类型
         criteria.andTypeEqualToWithTableName("oder",String.valueOf(type));
         example.setOrderByClause("oder.id desc");//按照id号降序排列
         //指定页数，ipp条内容
         PageHelper.startPage(page,ipp);
 
         List<OrderInfoBean> orders = orderMapper.selectOrderInfoByExample(example);
-
-
-        return orders;
+        //PageHelper.clearPage();
+        //查询总条数
+        example.clear();
+        example.createCriteria().andTypeEqualTo(String.valueOf(type)).andStoreIdEqualTo(userId);
+        int maxPage = (orderMapper.countByExample(example)-1)/ipp + 1;
+        Map<String,Object> map = new HashMap<>();
+        map.put("max_page",maxPage);
+        map.put("records",orders);
+        return map;
     }
 
     @Override

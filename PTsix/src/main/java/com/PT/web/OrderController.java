@@ -45,19 +45,17 @@ public class OrderController {
     @RequestMapping(value = "/orders/{type}", method = RequestMethod.GET)
     private Map listOrders(@PathVariable("user_id") int userId,
                                  @PathVariable("type") int type,
-                                 @RequestParam(value = "page",required = true) int page,
-                                 @RequestParam(value = "ipp",required = true) int ipp,
-                                 @RequestParam(value = "q",required = true) String queryCondition)/*,
+                                 @RequestParam(value = "page") int page,
+                                 @RequestParam(value = "ipp") int ipp,
+                                 @RequestParam(value = "q") String queryCondition)/*,
                                  @RequestHeader("X-YKAT-USER-ID") String headerUserId,
                                  @RequestHeader("X-YKAT-USER-ID") String accessToken)*/
     {
+        System.out.println(page);
+        Map<String,Object> resultMap = orderService.listOrder(type,page,ipp,userId);
 
-        List<OrderInfoBean> orders = orderService.listOrder(type,page,ipp,userId);
-        Map<String,Object> map = new HashMap<>();
-        map.put("max_page",page);
-        map.put("records",orders);
 
-        return map;
+        return resultMap;
     }
 
     /**
@@ -120,18 +118,18 @@ public class OrderController {
                             @PathVariable("order_id") String orderId,
                             @RequestBody Map<String,Integer > requestMap){
         Map<String,Object> resultMap = new HashMap<String,Object>();
-        Integer state =  requestMap.get("state");
+
+        if(!requestMap.containsKey("state")){
+            saveErrorCodeAndMessage(resultMap,1,"参数缺失");
+            return resultMap;
+        }
         if( !orderService.isOrderIdValid(orderId) )//没有找到对应订单
         {
             saveErrorCodeAndMessage(resultMap,1,"没有对应的订单");
             return resultMap;
         }
-        //参数缺失
-        if(state==null){
-            saveErrorCodeAndMessage(resultMap,1,"参数缺失");
-            return requestMap;
-        }
 
+        Integer state =  requestMap.get("state");
         orderService.updateOrderState(orderId,userId,state);
 
         resultMap.put("success","true");
