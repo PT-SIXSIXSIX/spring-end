@@ -1,5 +1,6 @@
 package com.PT.dao;
 
+import com.PT.bean.order.OrderInfoBean;
 import com.PT.entity.Order;
 import com.PT.entity.OrderExample;
 import java.util.List;
@@ -27,4 +28,6 @@ public interface OrderMapper {
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
+
+    List<OrderInfoBean> selectOrderInfoByExample(OrderExample example);
 }
