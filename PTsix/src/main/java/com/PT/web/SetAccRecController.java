@@ -25,9 +25,9 @@ public class SetAccRecController {
     @RequestMapping(value = "/settleAccountRecords", method = RequestMethod.GET)
     public @ResponseBody
     Map<String, Object> selectSetAccRecByFactors(@PathVariable("userId") int userId,
-                                 @RequestParam("page") int page,
-                                 @RequestParam("ipp") int ipp,
-                                 @RequestParam(value = "q", required = false) String q,
+                                 @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                                 @RequestParam(value = "ipp", required = false, defaultValue = "5") int ipp,
+                                 @RequestParam(value = "q", required = false, defaultValue = "") String q,
                                  HttpServletResponse response) {
         System.out.println(q);
         Map factors = QueryToMap.stringToMap(q);
@@ -39,7 +39,7 @@ public class SetAccRecController {
         } catch (Exception e) {
             response.setStatus(400);
             result.put("statusCode", 1);
-            result.put("errorDesc", "内部错误，获取resultMap失败");
+            result.put("errorDesc", e.getMessage());
             e.printStackTrace();
         }
         return result;
