@@ -10,6 +10,6 @@ import java.util.Map;
  */
 public interface SetAccRecService {
     Map<String,Object> listSetAccRec(int page, int ipp, int userId, Map factors);
-    Boolean deleteSetAccRec(List<String> SetAccIds);
-    Boolean updateSetAccState(List<String> SetAccIds, int state);
+    Boolean deleteSetAccRec(List<String> SetAccIds, int userId);
+    Boolean updateSetAccState(List<String> SetAccIds, int state, int userId);
 }
