@@ -78,14 +78,14 @@ public class OrderController {
      */
     @RequestMapping(value = "/orders/{type}", method = RequestMethod.POST)
     private Map addOrder(@PathVariable("user_id") int userId,
-                         @PathVariable("type") int type,
+                         @PathVariable("type") String type,
                          @RequestBody Map<String,Object> requestMap)
     {
         int driverId = (int) requestMap.get("driverId");
         String projectType = (String) requestMap.get("projectType");
-
+        String projectDescp = (String) requestMap.get("projectDescp");
         try {
-            orderService.addOrder(userId,driverId,projectType);
+            orderService.addOrder(userId,driverId,type,projectType,projectDescp);
         }catch (Exception e){
             Map<String,Object> map = new HashMap();
             map.put("statusCode",1);

@@ -104,7 +104,7 @@
     values (#{id,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
       #{descp,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.PT.entity.Project" >
+  <insert id="insertSelective" keyProperty="id" parameterType="com.PT.entity.Project" >
     insert into ykat_projects
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -193,4 +193,9 @@
       descp = #{descp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getIdByProjectType" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select id
+    from ykat_projects
+    where ykat_projects.type = #{projectType,jdbcType=VARCHAR}
+  </select>
 </mapper>

@@ -28,14 +28,14 @@ public class StaffController {
                            @RequestParam(value = "ipp") int ipp,
                            @RequestParam(value = "q") String queryCondition)
     {
-        Map<String,Object> resultMap = staffService.listStaff(1,page,ipp,queryCondition);
+        Map<String,Object> resultMap = staffService.listStaff(userId,page,ipp,queryCondition);
 
 
         return resultMap;
     }
 
     @RequestMapping(value = "/staffs/{staff_id}",method = RequestMethod.DELETE)
-    private Map listStaffs(@PathVariable("user_id") int userId,
+    private Map deleteStaffs(@PathVariable("user_id") int userId,
                            @PathVariable(value = "staff_id") int staffId,
                            HttpServletResponse response)
     {
@@ -50,8 +50,8 @@ public class StaffController {
             e.printStackTrace();
             response.setStatus(400);//设置response status码
             responseData = ResponseData.badRequest();
-            responseData.putDataValue("status_code", 1);
-            responseData.putDataValue("error_desc", "删除失败");
+            responseData.putDataValue("statusCode", 1);
+            responseData.putDataValue("errorDesc", "删除失败");
         }
 
         return responseData.getBody();

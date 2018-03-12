@@ -1,15 +1,11 @@
 package com.PT.service.impl;
 
 import com.PT.bean.order.OrderInfoBean;
-import com.PT.dao.OrderMapper;
-import com.PT.dao.SettleAccRecordMapper;
-import com.PT.dao.StoreMapper;
-import com.PT.dao.YkatCommonUtilMapper;
+import com.PT.dao.*;
 import com.PT.entity.*;
 
 import com.PT.service.OrderService;
 import com.github.pagehelper.PageHelper;
-import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +28,9 @@ public class OrdeServiceImpl implements OrderService{
 
     @Autowired
     private SettleAccRecordMapper settleAccRecordMapper;
+
+    @Autowired
+    private ProjectMapper projectMapper;
     @Override
     public Map<String,Object> listOrder(int type, int page, int ipp, int userId, String queryCondition) throws Exception{
         OrderExample example = new OrderExample();
@@ -71,12 +70,26 @@ public class OrdeServiceImpl implements OrderService{
 
 
     @Override
-    public void addOrder(int userId, int driverId, String projectType) throws Exception {
+    public void addOrder(int userId, int driverId, String orderType, String projectType, String projectDescp) throws Exception {
         Order order = new Order();
         order.setCreatedAt(new Date());//创建时间
         order.setDriverId(driverId);//司机ID
         order.setStatus(0);//订单状态
-        order.setType(projectType);
+        order.setType(orderType);
+
+        //project Id 外键信息
+        Integer projectId = projectMapper.getIdByProjectType(projectType);
+        if(projectId!=null){ //有没有这个项目
+            order.setProjectId(projectId);
+        }else{
+            Project project = new Project();
+            project.setDescp(projectDescp);
+            project.setType(projectType);
+            project.setPrice(100);
+            projectMapper.insertSelective(project);
+            order.setProjectId(project.getId());//会写项目id 主键
+        }
+
         //订单号
         Map<String,String> map = new HashMap();
         map.put("tableName","ykat_orders");
