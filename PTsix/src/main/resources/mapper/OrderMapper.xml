@@ -19,6 +19,10 @@
     <result property="project_type" column="project_type"/>
     <result property="state" column="state"/>
   </resultMap>
+  <resultMap id="OrderInfoMap" type="map">
+    <result property="id" column="id"/>
+    <result property="price" column="project_price"/>
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -114,6 +118,11 @@
     <include refid="Base_Column_List" />
     from ykat_orders
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectOrderFromViewByOrderID" parameterType="java.lang.String" resultMap="OrderInfoMap">
+    select id, project_price
+    from order_info_v
+    where order_id = #{orderId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from ykat_orders
