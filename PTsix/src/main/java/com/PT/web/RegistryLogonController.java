@@ -52,9 +52,7 @@ public class RegistryLogonController {
             responseData.putDataValue("accessToken", token);
         } else {
             response.setStatus(400);
-            responseData = ResponseData.badRequest();
-            responseData.putDataValue("statusCode", 1);
-            responseData.putDataValue("errorDesc", "用户名或密码错误");
+            responseData.setError(1, "用户名或密码错误");
         }
         return responseData.getData();
     }
@@ -84,8 +82,7 @@ public class RegistryLogonController {
             response.setStatus(201);
         } else {
             response.setStatus(400);
-            responseData.putDataValue("statusCode", 1);
-            responseData.putDataValue("errorDesc", "注册失败,该手机号已注册");
+            responseData.setError(1, "注册失败,该手机号已注册");
         }
         return responseData.getBody();
     }
@@ -110,8 +107,7 @@ public class RegistryLogonController {
         StorekeeperInfoBean info = (StorekeeperInfoBean) BeanToMapUtil.convertMap(StorekeeperInfoBean.class, out);
         if(false == registryLogonService.changePassword(info, pwd)) {
             response.setStatus(400);
-            responseData.putDataValue("statusCode", 1);
-            responseData.putDataValue("errorDesc", "信息验证失败");
+            responseData.setError(1, "信息验证失败");
         }
         return responseData.getBody();
     }
@@ -125,8 +121,7 @@ public class RegistryLogonController {
         response.setStatus(200);
         if(false == registryLogonService.changePassword(Integer.parseInt(id), oldPwd, newPwd)) {
             response.setStatus(400);
-            responseData.putDataValue("statusCode", 1);
-            responseData.putDataValue("errorDesc", "旧密码错误");
+            responseData.setError(1, "旧密码错误");
         }
         return responseData.getBody();
     }

@@ -11,6 +11,7 @@ import java.util.Map;
 public class QueryToMap {
     public static Map<String, String> stringToMap(String method) {
         Map map = new HashMap<String, String>();
+        if(method == null || method == "") { return map; }
         String[] factors = method.split("[ ,.]");
         for(int i = 0; i < factors.length; i++) {
             String[] temp = factors[i].split("[:]");

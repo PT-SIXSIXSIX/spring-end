@@ -25,7 +25,7 @@
             and driver_name = #{map.driverName,jdbcType=VARCHAR}
         </if>
     </select>
-    <select id="countByFactors" resultMap="BaseResultMap" parameterType="map" >
+    <select id="countByFactors" resultType="java.lang.Integer" parameterType="map" >
         select count(*)
         from ykat_settle_account_records inner join ykat_orders on ykat_settle_account_records.order_id = ykat_orders.id
         inner join ykat_drivers on driver_id = ykat_drivers.id

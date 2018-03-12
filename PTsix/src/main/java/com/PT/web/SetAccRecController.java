@@ -27,8 +27,9 @@ public class SetAccRecController {
     Map<String, Object> selectSetAccRecByFactors(@PathVariable("userId") int userId,
                                  @RequestParam("page") int page,
                                  @RequestParam("ipp") int ipp,
-                                 @RequestParam("q") String q,
+                                 @RequestParam(value = "q", required = false) String q,
                                  HttpServletResponse response) {
+        System.out.println(q);
         Map factors = QueryToMap.stringToMap(q);
         ResponseData responseData = ResponseData.ok();
         response.setStatus(200);
@@ -46,14 +47,28 @@ public class SetAccRecController {
 
     @RequestMapping(value = "/settleAccountRecords", method = RequestMethod.DELETE)
     public @ResponseBody
-    Map<String, Object> deleteSetAccRecInIds(@RequestBody Map mp, HttpServletResponse response) {
-
-
+    Map<String, Object> deleteSetAccRecInIds(@PathVariable("userId") int userId,
+                                             @RequestBody Map mp, HttpServletResponse response) {
         ResponseData responseData = ResponseData.ok();
         response.setStatus(200);
-        if(setAccRecService.deleteSetAccRec((List<String>) mp.get("setAccIds")) == false) {
+        if(setAccRecService.deleteSetAccRec((List<String>) mp.get("setAccIds"), userId) == false) {
             response.setStatus(400);
+            responseData.setError(1, "删除失败");
+        }
+        return responseData.getBody();
+    }
 
+    @RequestMapping(value = "/sa", method = RequestMethod.PUT)
+    public @ResponseBody
+    Map<String, Object> updateSetAccRecInIds(@PathVariable("userId") int userId,
+                                                 @RequestParam("state") int state,
+                                                 @RequestBody Map mp,
+                                                 HttpServletResponse response) {
+        ResponseData responseData = ResponseData.ok();
+        response.setStatus(200);
+        if(setAccRecService.updateSetAccState((List<String>) mp.get("setAccIds"), state, userId) == false) {
+            response.setStatus(400);
+            responseData.setError(1, "更新失败");
         }
         return responseData.getBody();
     }
