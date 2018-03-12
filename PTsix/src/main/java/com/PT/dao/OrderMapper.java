@@ -34,4 +34,6 @@ public interface OrderMapper {
     List<OrderInfoBean> selectOrderInfoByExample(OrderExample example);
 
     void getGeneratedOrderId(Map map);
+
+    List<Map<String,Object> > selectOrderFromViewByOrderID(String orderId);
 }
