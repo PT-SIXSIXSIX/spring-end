@@ -23,6 +23,10 @@ public class ResponseData {
         this.code = code;
         this.message = message;
     }
+    public void setError(int status, String message) {
+        data.put("statusCode", status);
+        data.put("errorDesc", message);
+    }
     public Map getBody() {
         return this.data;
     }
