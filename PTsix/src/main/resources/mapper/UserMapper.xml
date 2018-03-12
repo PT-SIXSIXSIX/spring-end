@@ -100,6 +100,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+
   <insert id="insert" parameterType="com.PT.entity.User" >
     insert into ykat_users (id, name, password, 
       role, phone, created_at

@@ -9,9 +9,9 @@ import java.util.Map;
 
 public interface OrderService {
 
-    Map<String,Object> listOrder(int type, int page, int ipp, int userId);
-    void addOrder(Order order);
-    void deleteOrder(int userId, int type, List<String> orderIds);
-    void updateOrderState(String orderId,int storeId,int state);
+    Map<String,Object> listOrder(String type, int page, int ipp, int userId,String queryCondition) throws Exception;
+    void addOrder(int userID,int driverId,String orderType,String projectType,String projectDescp) throws Exception;
+    void deleteOrder(int userId, int type, List<String> orderIds) throws Exception;
+    void updateOrderState(String orderId,int storeId,int state) throws Exception;
     boolean isOrderIdValid(String orderId);
 }

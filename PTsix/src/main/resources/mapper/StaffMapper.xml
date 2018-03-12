@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.PT.dao.StaffMapper">
+    <resultMap id="BaseResultMap" type="map" >
+        <result column="id" property="staffId" />
+        <result column="name" property="name" />
+        <result column="phone" property="phone" />
+    </resultMap>
+    <select id="selectByManagerId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+      select userTable.id, userTable.name ,userTable.phone phone
+      from ykat_users userTable inner join ykat_employee_relations relationTable on relationTable.employee_id = userTable.id
+      inner join ykat_stores storeTable on storeTable.id = relationTable.store_id
+      where storeTable.user_id = #{id,jdbcType=INTEGER} and userTable.role=1
+    </select>
+    <select id="selectByFactor" parameterType="map" resultMap="BaseResultMap">
+      select userTable.id, userTable.name ,userTable.phone phone
+      from ykat_users userTable inner join ykat_employee_relations relationTable on relationTable.employee_id = userTable.id
+        inner join ykat_stores storeTable on storeTable.id = relationTable.store_id
+      where storeTable.user_id = #{map.id,jdbcType=INTEGER} and userTable.role=1
+        <if test="map.name != null and map.name != '' ">
+            and userTable.name = #{map.name,jdbcType=VARCHAR}
+        </if>
+        <if test="map.phone != null and map.phone != '' ">
+            and userTable.name = #{map.phone,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <select id="countByManagerId" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
+        select count(*)
+        from ykat_users userTable inner join ykat_employee_relations relationTable on relationTable.employee_id = userTable.id
+        inner join ykat_stores storeTable on storeTable.id = relationTable.store_id
+        where storeTable.user_id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="countByFactor" parameterType="map" resultType="java.lang.Integer">
+        select count(*)
+        from ykat_users userTable inner join ykat_employee_relations relationTable on relationTable.employee_id = userTable.id
+        inner join ykat_stores storeTable on storeTable.id = relationTable.store_id
+        where storeTable.user_id = #{map.id,jdbcType=INTEGER} and userTable.role=1
+        <if test="map.name != null and map.name != '' ">
+            and userTable.name = #{map.name,jdbcType=VARCHAR}
+        </if>
+        <if test="map.phone != null and map.phone != '' ">
+            and userTable.name = #{map.phone,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <delete id="deleteRelationByUserId" parameterType="java.lang.Integer">
+        delete from ykat_employee_relations
+        where employee_id = #{id,jdbcType=INTEGER}
+    </delete>
+</mapper>

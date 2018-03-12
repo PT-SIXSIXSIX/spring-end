@@ -3,10 +3,12 @@ package com.PT.web;
 import com.PT.bean.order.OrderInfoBean;
 import com.PT.entity.Order;
 import com.PT.service.OrderService;
+import com.PT.tools.ResponseData;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -44,18 +46,27 @@ public class OrderController {
      */
     @RequestMapping(value = "/orders/{type}", method = RequestMethod.GET)
     private Map listOrders(@PathVariable("user_id") int userId,
-                                 @PathVariable("type") int type,
-                                 @RequestParam(value = "page") int page,
-                                 @RequestParam(value = "ipp") int ipp,
-                                 @RequestParam(value = "q") String queryCondition)/*,
+                           @PathVariable("type") String type,
+                           @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                           @RequestParam(value = "ipp",required = false, defaultValue = "5") int ipp,
+                           @RequestParam(value = "q", required = false, defaultValue = "") String queryCondition,
+                           HttpServletResponse response)   /*,
                                  @RequestHeader("X-YKAT-USER-ID") String headerUserId,
                                  @RequestHeader("X-YKAT-USER-ID") String accessToken)*/
     {
-        System.out.println(page);
-        Map<String,Object> resultMap = orderService.listOrder(type,page,ipp,userId);
+        ResponseData responseData = ResponseData.ok();
+        try {
+            Map<String, Object> resultMap = orderService.listOrder(type, page, ipp, userId, queryCondition);
+            response.setStatus(200);
+            return resultMap;
+        }catch (Exception e){
+            e.printStackTrace();
+            responseData = ResponseData.badRequest();
+            responseData.putDataValue("status_code",1);
+            responseData.putDataValue("error_desc",e.getMessage());
+            return responseData.getBody();
+        }
 
-
-        return resultMap;
     }
 
     /**
@@ -67,73 +78,96 @@ public class OrderController {
      */
     @RequestMapping(value = "/orders/{type}", method = RequestMethod.POST)
     private Map addOrder(@PathVariable("user_id") int userId,
-                         @PathVariable("type") int type,
+                         @PathVariable("type") String type,
                          @RequestBody Map<String,Object> requestMap)
     {
-        int driverId = (int) requestMap.get("driver_id");
-        String projectType = (String) requestMap.get("project_type");
-
-        Order order = new Order();
-        order.setCreatedAt(new Date());
-        order.setStoreId(userId);
-        order.setDriverId(driverId);
-        order.setStatus(0);
-        order.setType(projectType);
+        int driverId = (int) requestMap.get("driverId");
+        String projectType = (String) requestMap.get("projectType");
+        String projectDescp = (String) requestMap.get("projectDescp");
         try {
-            orderService.addOrder(order);
+            orderService.addOrder(userId,driverId,type,projectType,projectDescp);
         }catch (Exception e){
             Map<String,Object> map = new HashMap();
-            map.put("status_code",1);
-            map.put("error_desc",e.getMessage());
+            map.put("statusCode",1);
+            map.put("errorDesc",e.getMessage());
             return map;
         }
 
-        Map<String,String> map = new HashMap();
-        map.put("message","success");
+        Map<String,Object> map = new HashMap();
+        map.put("success",true);
         return map;
     }
 
+    /**
+     * 删除订单
+     * @param userId
+     * @param type
+     * @param requestMap
+     * @return
+     */
     @RequestMapping(value = "/orders/{type}", method = RequestMethod.DELETE)
     private Map deleteOrder(@PathVariable("user_id")int userId,
                             @PathVariable("type") int type,
                             @RequestBody Map<String,Object > requestMap )
     {
         try{
-            List<String> list = (List<String>) requestMap.get("order_ids");
+            List<String> list = (List<String>) requestMap.get("orderIds");
             orderService.deleteOrder(userId,type,list);
         }catch (Exception e){
             Map<String,Object> map = new HashMap();
-            map.put("status_code",1);
-            map.put("error_desc",e.getMessage());
+            map.put("statusCode",1);
+            map.put("errorDesc",e.getMessage());
             return map;
         }
-        Map<String,String> map = new HashMap();
-        map.put("message","success");
+        Map<String,Object> map = new HashMap();
+        map.put("success",true);
         return map;
     }
 
+    /**
+     * 处理订单的接口，接收或者拒绝
+     * @param userId
+     * @param type
+     * @param orderId
+     * @param requestMap
+     * @param response
+     * @return
+     */
     @RequestMapping(value="/orders/{type}/{order_id}",method = RequestMethod.PUT)
     private Map updateOrderState(@PathVariable(value = "user_id")int userId,
                             @PathVariable("type") int type,
                             @PathVariable("order_id") String orderId,
-                            @RequestBody Map<String,Integer > requestMap){
-        Map<String,Object> resultMap = new HashMap<String,Object>();
-
+                            @RequestBody Map<String,Object > requestMap,
+                            HttpServletResponse response ){
+        ResponseData responseData = ResponseData.ok();
         if(!requestMap.containsKey("state")){
-            saveErrorCodeAndMessage(resultMap,1,"参数缺失");
-            return resultMap;
+            response.setStatus(400);
+            responseData = ResponseData.badRequest();
+            responseData.putDataValue("statusCode",1);
+            responseData.putDataValue("errorDesc","缺少参数");
         }
-        if( !orderService.isOrderIdValid(orderId) )//没有找到对应订单
+        else if( !orderService.isOrderIdValid(orderId) )//没有找到对应订单
         {
-            saveErrorCodeAndMessage(resultMap,1,"没有对应的订单");
-            return resultMap;
+            response.setStatus(400);
+            responseData = ResponseData.badRequest();
+            responseData.putDataValue("statusCode",1);
+            responseData.putDataValue("errorDesc","没有找到对应订单");
+        }else {
+
+            Integer state = (Integer) requestMap.get("state");
+            try {
+
+                orderService.updateOrderState(orderId, userId, state);
+            } catch (Exception e) {
+                response.setStatus(400);
+                responseData = ResponseData.badRequest();
+                responseData.putDataValue("statusCode", 1);
+                responseData.putDataValue("errorDesc", e.getMessage());
+            }
+            response.setStatus(200);
+            responseData.putDataValue("success", true);
         }
-
-        Integer state =  requestMap.get("state");
-        orderService.updateOrderState(orderId,userId,state);
-
-        resultMap.put("success","true");
-        return resultMap;
+        return responseData.getBody();
     }
 
     private void saveErrorCodeAndMessage(Map<String,Object> map,int errCode, String message){

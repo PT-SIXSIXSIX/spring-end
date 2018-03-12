@@ -31,7 +31,12 @@ public interface OrderMapper {
 
     int updateByPrimaryKey(Order record);
 
-    List<OrderInfoBean> selectOrderInfoByExample(OrderExample example);
 
     void getGeneratedOrderId(Map map);
+
+    List<Map<String,Object> > selectOrderFromViewByOrderID(String orderId);
+
+    List<Map> selectOrderInfoByFactor(@Param("map") Map map);
+
+    int countOrderInfoByFactor(@Param("map") Map map);
 }
