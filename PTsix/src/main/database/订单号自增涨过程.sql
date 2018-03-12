@@ -1,6 +1,6 @@
 
 DELIMITER $$
-create  PROCEDURE genBillsNoPROC(IN tableName VARCHAR(30),IN colName VARCHAR(30),OUT `ykat_orders``ykat_orders`billsNoResult VARCHAR(100))  
+create  PROCEDURE genBillsNoPROC(IN tableName VARCHAR(30),IN colName VARCHAR(30),OUT billsNoResult VARCHAR(100))
 BEGIN   
   
 DECLARE sql_2 VARCHAR(1000);   
