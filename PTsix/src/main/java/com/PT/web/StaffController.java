@@ -24,17 +24,25 @@ public class StaffController {
      */
     @RequestMapping(value = "/staffs",method = RequestMethod.GET)
     private Map listStaffs(@PathVariable("user_id") int userId,
-                           @RequestParam(value = "page") int page,
-                           @RequestParam(value = "ipp") int ipp,
-                           @RequestParam(value = "q") String queryCondition)
+                           @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                           @RequestParam(value = "ipp", required = false, defaultValue = "5") int ipp,
+                           @RequestParam(value = "q", required = false, defaultValue = "") String queryCondition)
     {
+
         Map<String,Object> resultMap = staffService.listStaff(userId,page,ipp,queryCondition);
 
 
         return resultMap;
     }
 
-    @RequestMapping(value = "/staffs/{staff_id}",method = RequestMethod.DELETE)
+    /**
+     * 删除店员
+     * @param userId
+     * @param staffId
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/staffs/{staff_id}", method = RequestMethod.DELETE)
     private Map deleteStaffs(@PathVariable("user_id") int userId,
                            @PathVariable(value = "staff_id") int staffId,
                            HttpServletResponse response)
@@ -56,5 +64,7 @@ public class StaffController {
 
         return responseData.getBody();
     }
+
+
 
 }

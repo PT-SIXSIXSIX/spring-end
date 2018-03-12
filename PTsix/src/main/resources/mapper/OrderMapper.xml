@@ -12,12 +12,13 @@
     <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
     <result column="ordered_at" property="orderedAt" jdbcType="TIMESTAMP" />
   </resultMap>
-  <resultMap id="OrderInfoMapper" type="com.PT.bean.order.OrderInfoBean">
-    <result property="order_id" column="order_id"/>
-    <result property="driver_name" column="driver_name"/>
-    <result property="project_descp" column="project_descp"/>
-    <result property="project_type" column="project_type"/>
+  <resultMap id="OrderInfoMapper" type="map">
+    <result property="orderId" column="order_id"/>
+    <result property="driverName" column="driver_name"/>
+    <result property="projectDescp" column="project_descp"/>
+    <result property="projectType" column="project_type"/>
     <result property="state" column="state"/>
+    <result property="createdAt" column="created_at" jdbcType="TIMESTAMP" />
   </resultMap>
   <resultMap id="OrderInfoMap" type="map">
     <result property="id" column="id"/>
@@ -98,19 +99,23 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectOrderInfoByExample" resultMap="OrderInfoMapper" parameterType="com.PT.entity.OrderExample">
+  <select id="selectOrderInfoByFactor" resultMap="OrderInfoMapper" parameterType="map">
     select
-    <if test="distinct" >
-      distinct
-    </if>
-    oder.order_id order_id, oder.status state, driver.driver_name driver_name, project.descp project_descp, project.type project_type
+    oder.order_id order_id, oder.status state, oder.created_at,
+    driver.driver_name driver_name,
+    project.descp project_descp, project.type project_type
     from ykat_orders oder inner join ykat_drivers driver on oder.driver_id=driver.id
     inner join ykat_projects project on project.id=oder.project_id
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
+    where oder.store_id = #{map.storeId,jdbcType=INTEGER}
+    and oder.type = #{map.orderType,jdbcType=VARCHAR}
+    <if test="map.state != null and map.state != '' ">
+      and oder.status = #{map.state,jdbcType=VARCHAR}
     </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
+    <if test="map.fromDate != null">
+      and oder.created_at >= #{map.fromDate,jdbcType=TIMESTAMP}
+    </if>
+    <if test="map.fromDate != null and map.toDate != null ">
+      and oder.created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -218,6 +223,20 @@
     select count(*) from ykat_orders
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="countOrderInfoByFactor" resultType="java.lang.Integer" parameterType="map">
+    select
+    count(*)
+    from ykat_orders oder inner join ykat_drivers driver on oder.driver_id=driver.id
+    inner join ykat_projects project on project.id=oder.project_id
+    where oder.store_id = #{map.storeId,jdbcType=INTEGER}
+    and oder.type = #{map.orderType,jdbcType=VARCHAR}
+    <if test="map.state != null and map.state != '' ">
+      and oder.status = #{map.state,jdbcType=VARCHAR}
+    </if>
+    <if test="map.fromDate != null and map.toDate != null ">
+      and oder.created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >

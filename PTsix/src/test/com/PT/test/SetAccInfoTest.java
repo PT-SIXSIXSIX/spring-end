@@ -4,7 +4,6 @@ import com.PT.bean.SetAccRecInfoBean;
 import com.PT.dao.SetAccRecInfoMapper;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

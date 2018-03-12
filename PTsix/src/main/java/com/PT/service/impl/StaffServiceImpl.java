@@ -4,6 +4,7 @@ import com.PT.bean.Staff.StaffInfoBean;
 import com.PT.dao.StaffMapper;
 import com.PT.dao.UserMapper;
 import com.PT.service.StaffService;
+import com.PT.tools.QueryToMap;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +24,16 @@ public class StaffServiceImpl implements StaffService {
     public Map<String , Object> listStaff(int userId, int page, int ipp, String queryCondition){
 
         PageHelper.startPage(page,ipp);
-        List<Map> staffs = staffMapper.selectByManagerId(userId);
+
+        Map factors = new HashMap();
+        if(queryCondition!=null && !"".equals(queryCondition)){
+            factors = QueryToMap.stringToMap(queryCondition);
+        }
+
+        factors.put("id",userId);
+        List<Map> staffs = staffMapper.selectByFactor(factors);
         PageHelper.clearPage();
-        int maxPage = (staffMapper.countByManagerId(userId)-1)/ipp + 1;
+        int maxPage = (staffMapper.countByFactor(factors)-1)/ipp + 1;
         Map<String,Object> map = new HashMap<>();
         map.put("maxPage",maxPage);
         map.put("records",staffs);

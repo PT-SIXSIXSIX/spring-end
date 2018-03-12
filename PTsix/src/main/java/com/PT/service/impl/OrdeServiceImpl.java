@@ -5,10 +5,13 @@ import com.PT.dao.*;
 import com.PT.entity.*;
 
 import com.PT.service.OrderService;
+import com.PT.tools.QueryToMap;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -32,9 +35,7 @@ public class OrdeServiceImpl implements OrderService{
     @Autowired
     private ProjectMapper projectMapper;
     @Override
-    public Map<String,Object> listOrder(int type, int page, int ipp, int userId, String queryCondition) throws Exception{
-        OrderExample example = new OrderExample();
-        OrderExample.Criteria criteria = example.createCriteria();
+    public Map<String,Object> listOrder(String type, int page, int ipp, int userId, String queryCondition) throws Exception{
 
         //根据userId 查询 storeID;
         Integer storeID = null;
@@ -47,20 +48,25 @@ public class OrdeServiceImpl implements OrderService{
         }else{
             throw new Exception("user_id没有对应的门店信息");
         }
-        criteria.andStoreIdEqualTo(storeID);// 商店id主键
 
-//      criteria.andTypeEqualTo(String.valueOf(type));//订单类型
-        criteria.andTypeEqualToWithTableName("oder",String.valueOf(type));
-        example.setOrderByClause("oder.id desc");//按照id号降序排列
+        Map factors = new HashMap();
+        if(queryCondition!=null && !"".equals(queryCondition)) { //有搜索条件时
+            factors = QueryToMap.stringToMap(queryCondition);
+            if (factors.containsKey("time")) {
+                putFromAndToDate(factors, (String) factors.get("time"));
+            }
+        }
+        factors.put("storeId",storeID);
+        factors.put("orderType",type);
+
+
         //指定页数，ipp条内容
         PageHelper.startPage(page,ipp);
 
-        List<OrderInfoBean> orders = orderMapper.selectOrderInfoByExample(example);
+        List<Map > orders = orderMapper.selectOrderInfoByFactor(factors);
         //PageHelper.clearPage();
         //查询总条数
-        example.clear();
-        example.createCriteria().andTypeEqualTo(String.valueOf(type)).andStoreIdEqualTo(userId);
-        int maxPage = (orderMapper.countByExample(example)-1)/ipp + 1;
+        int maxPage = (orderMapper.countOrderInfoByFactor(factors)-1)/ipp + 1;
         Map<String,Object> map = new HashMap<>();
         map.put("maxPage",maxPage);
         map.put("records",orders);
@@ -184,5 +190,22 @@ public class OrdeServiceImpl implements OrderService{
             return false;
         }
         return true;
+    }
+
+    private void putFromAndToDate(Map map,String timePeriod) throws Exception{
+        if(timePeriod==null || "".equals(timePeriod))
+            return;
+
+        String[] factors = timePeriod.split("-");
+        try {
+
+                SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+                Date fromDate = format.parse(factors[0]);
+                Date toDate = format.parse(factors[1]);
+                map.put("fromDate", fromDate);
+                map.put("toDate", toDate);
+        }catch (Exception e){
+            throw new Exception("日期解析错误");
+        }
     }
 }

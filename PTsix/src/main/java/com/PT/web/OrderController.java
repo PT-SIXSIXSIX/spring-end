@@ -46,10 +46,10 @@ public class OrderController {
      */
     @RequestMapping(value = "/orders/{type}", method = RequestMethod.GET)
     private Map listOrders(@PathVariable("user_id") int userId,
-                           @PathVariable("type") int type,
-                           @RequestParam(value = "page") int page,
-                           @RequestParam(value = "ipp") int ipp,
-                           @RequestParam(value = "q", required = false) String queryCondition,
+                           @PathVariable("type") String type,
+                           @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                           @RequestParam(value = "ipp",required = false, defaultValue = "5") int ipp,
+                           @RequestParam(value = "q", required = false, defaultValue = "") String queryCondition,
                            HttpServletResponse response)   /*,
                                  @RequestHeader("X-YKAT-USER-ID") String headerUserId,
                                  @RequestHeader("X-YKAT-USER-ID") String accessToken)*/
