@@ -1,0 +1,21 @@
+package com.PT.tools;
+
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 用于解析条件
+ * 把查询条件解析为map方便存取
+ */
+public class QueryToMap {
+    public static Map<String, String> stringToMap(String method) {
+        Map map = new HashMap<String, String>();
+        String[] factors = method.split("[ ,.]");
+        for(int i = 0; i < factors.length; i++) {
+            String[] temp = factors[i].split("[:]");
+            map.put(temp[0], temp[1]);
+        }
+        return map;
+    }
+}

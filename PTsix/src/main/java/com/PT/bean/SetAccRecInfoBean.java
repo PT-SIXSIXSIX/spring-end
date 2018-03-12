@@ -2,6 +2,7 @@ package com.PT.bean;
 
 import java.util.Date;
 
+
 public class SetAccRecInfoBean {
     private String setAccId;
     private String companyName;
@@ -11,6 +12,17 @@ public class SetAccRecInfoBean {
     private Date tradeAt;
     int state;
 
+    public void print() {
+        System.out.println(
+                "\nsetAccId:    " + setAccId +
+                "\ncompanyName: " + companyName +
+                "\ndriverName:  " + driverName +
+                "\ndriverPhone: " + driverPhone +
+                "\ntradeMoney:  " + tradeMoney +
+                "\ntradeMoney:  " + tradeAt +
+                "\ntradeAt:     " + state
+        );
+    }
     public String getSetAccId() {
         return setAccId;
     }
