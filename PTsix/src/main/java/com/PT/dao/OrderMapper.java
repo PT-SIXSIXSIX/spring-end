@@ -31,7 +31,6 @@ public interface OrderMapper {
 
     int updateByPrimaryKey(Order record);
 
-
     void getGeneratedOrderId(Map map);
 
     List<Map<String,Object> > selectOrderFromViewByOrderID(String orderId);
