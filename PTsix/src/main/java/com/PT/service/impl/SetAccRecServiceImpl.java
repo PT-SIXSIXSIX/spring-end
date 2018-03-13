@@ -31,13 +31,12 @@ public class SetAccRecServiceImpl implements SetAccRecService{
     @Autowired
     LogService logService;
     @Override
-    public Map<String, Object> listSetAccRec(int page, int ipp, int userId, Map factors) {
+    public Map<String, Object> listSetAccRec(int page, int ipp, int userId, String query) {
         Map<String, Object> map = new HashMap<>();
-        factors.put("userId", userId);
-        if(factors.get("state") != null) {
-            factors.put("state", factors.get("state"));
-        }
         PageHelper.startPage(page, ipp);
+        Map factors = new HashMap<String, Object>();
+        factors.put("str", query);
+        factors.put("userId", userId);
         List list = setAccRecInfoMapper.selectByFactors(factors);
         int maxPage = (setAccRecInfoMapper.countByFactors(factors)-1)/ipp+1;
         map.put("maxPage", maxPage);

@@ -30,13 +30,14 @@ import javax.xml.ws.Response;
  * 登录和注册控制
  */
 @Controller
-@CrossOrigin
 @RequestMapping("/api/v1")
 public class RegistryLogonController {
 
     static long TM = 60L*1000L*30L;
     @Autowired
     RegistryLogonService registryLogonService;
+
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public @ResponseBody Map<String, Object> login(@RequestBody Map<String, String> map, HttpServletResponse response) {
         String phone = map.get("phone");
@@ -98,6 +99,8 @@ public class RegistryLogonController {
         }
         return responseData.getBody();
     }
+
+
     @RequestMapping(value = "/user/password", method = RequestMethod.POST)
     public @ResponseBody Map<String, Object> forgetPwd(@RequestBody Map<String, Object> out, HttpServletResponse response) throws InvocationTargetException, IntrospectionException, InstantiationException, IllegalAccessException {
         out.put("name", out.get("bossName"));
@@ -111,6 +114,7 @@ public class RegistryLogonController {
         }
         return responseData.getBody();
     }
+
 
     @RequestMapping(value = "/user/newPassword", method = RequestMethod.PUT)
     public @ResponseBody Map<String, Object> changePwd(HttpServletRequest request, @RequestBody Map<String, Object> out, HttpServletResponse response) throws InvocationTargetException, IntrospectionException, InstantiationException, IllegalAccessException {

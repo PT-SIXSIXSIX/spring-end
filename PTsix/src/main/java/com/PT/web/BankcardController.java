@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@CrossOrigin
 @RequestMapping("/api/v1/users/{userId}")
 public class BankcardController {
     @Autowired
     BankcardService bankcardService;
+
 
     @RequestMapping(value = "/bankcards", method = RequestMethod.GET)
     public @ResponseBody
@@ -36,6 +36,7 @@ public class BankcardController {
         }
         return responseData.getBody();
     }
+
     @RequestMapping(value = "/bankcards", method = RequestMethod.POST)
     public @ResponseBody
     Map<String, Object> addCardsByUserId(@PathVariable("userId") int userId
@@ -55,6 +56,7 @@ public class BankcardController {
         }
         return responseData.getBody();
     }
+
     @RequestMapping(value = "/bankcards", method = RequestMethod.DELETE)
     public @ResponseBody
     Map<String, Object> deleteCardsByIds(@PathVariable("userId") int userId

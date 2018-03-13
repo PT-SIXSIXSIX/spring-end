@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @Controller
-@CrossOrigin
 @RequestMapping("/api/v1/users/{userId}")
 public class StoreManageController {
     @Autowired

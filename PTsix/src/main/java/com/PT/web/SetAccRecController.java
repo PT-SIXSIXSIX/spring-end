@@ -17,11 +17,11 @@ import java.util.Map;
  * 登录和注册控制
  */
 @Controller
-@CrossOrigin
 @RequestMapping("/api/v1/users/{userId}")
 public class SetAccRecController {
     @Autowired
     SetAccRecService setAccRecService;
+
 
     @RequestMapping(value = "/settleAccountRecords", method = RequestMethod.GET)
     public @ResponseBody
@@ -30,13 +30,15 @@ public class SetAccRecController {
                                  @RequestParam(value = "ipp", required = false, defaultValue = "5") int ipp,
                                  @RequestParam(value = "q", required = false, defaultValue = "") String q,
                                  HttpServletResponse response) {
-        System.out.println(q);
-        Map factors = QueryToMap.stringToMap(q);
+        /**
+         * q：付款人姓名,或者手机号码,单号
+         */
         ResponseData responseData = ResponseData.ok();
         response.setStatus(200);
         Map result = null;
         try {
-            result = setAccRecService.listSetAccRec(page, ipp, userId, factors);
+            System.out.println(q);
+            result = setAccRecService.listSetAccRec(page, ipp, userId, q);
         } catch (Exception e) {
             response.setStatus(400);
             result.put("statusCode", 1);
@@ -45,7 +47,6 @@ public class SetAccRecController {
         }
         return result;
     }
-
     @RequestMapping(value = "/settleAccountRecords", method = RequestMethod.DELETE)
     public @ResponseBody
     Map<String, Object> deleteSetAccRecInIds(@PathVariable("userId") int userId,
