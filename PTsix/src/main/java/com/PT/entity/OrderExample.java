@@ -180,11 +180,6 @@ public class OrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andTypeEqualToWithTableName(String tableName,String value) {
-            addCriterion(tableName+".type =", value, "type");
-            return (Criteria) this;
-        }
-
         public Criteria andTypeNotEqualTo(String value) {
             addCriterion("type <>", value, "type");
             return (Criteria) this;

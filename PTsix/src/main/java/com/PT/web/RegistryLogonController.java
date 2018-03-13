@@ -30,6 +30,7 @@ import javax.xml.ws.Response;
  * 登录和注册控制
  */
 @Controller
+@CrossOrigin
 @RequestMapping("/api/v1")
 public class RegistryLogonController {
 
@@ -59,8 +60,6 @@ public class RegistryLogonController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public @ResponseBody Map<String, Object> register(@RequestBody Map<String, Object> out, HttpServletResponse response) {
-        out.put("name", out.get("bossName"));
-        out.put("phone", out.get("bossPhone"));
         ResponseData responseData = ResponseData.createOk();
         User user = null;
         Store store = null;
