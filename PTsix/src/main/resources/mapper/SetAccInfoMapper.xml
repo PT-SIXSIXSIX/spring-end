@@ -15,14 +15,8 @@
         inner join ykat_drivers on driver_id = ykat_drivers.id
         inner join ykat_stores on store_id = ykat_stores.id
         where user_id = #{map.userId,jdbcType=INTEGER}
-        <if test="map.state != null" >
-            and ykat_settle_account_records.status = #{map.state,jdbcType=INTEGER}
-        </if>
-        <if test="map.setAccId != null and map.setAccId != ''" >
-            and set_acc_id = #{map.setAccId,jdbcType=VARCHAR}
-        </if>
-        <if test="map.driverName != null and map.driverName != ''" >
-            and driver_name = #{map.driverName,jdbcType=VARCHAR}
+        <if test="map.str != null and map.str != ''" >
+            and (set_acc_id like '%${map.str}%' or driver_phone like '%${map.str}%' or driver_name like '%${map.str}%')
         </if>
     </select>
     <select id="countByFactors" resultType="java.lang.Integer" parameterType="map" >
@@ -31,14 +25,8 @@
         inner join ykat_drivers on driver_id = ykat_drivers.id
         inner join ykat_stores on store_id = ykat_stores.id
         where user_id = #{map.userId,jdbcType=INTEGER}
-        <if test="map.state != null" >
-            and ykat_settle_account_records.status = #{map.state,jdbcType=INTEGER}
-        </if>
-        <if test="map.setAccId != null and map.setAccId != ''" >
-            and set_acc_id = #{map.setAccId,jdbcType=VARCHAR}
-        </if>
-        <if test="map.driverName != null and map.driverName != ''" >
-            and driver_name = #{map.driverName,jdbcType=VARCHAR}
+        <if test="map.str != null and map.str != ''" >
+            and (set_acc_id like '%${map.str}%' or driver_phone like '%${map.str}%' or driver_name like '%${map.str}%')
         </if>
     </select>
 </mapper>

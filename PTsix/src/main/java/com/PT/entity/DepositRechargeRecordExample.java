@@ -404,6 +404,126 @@ public class DepositRechargeRecordExample {
             addCriterion("created_at not between", value1, value2, "createdAt");
             return (Criteria) this;
         }
+
+        public Criteria andCurrentMoneyIsNull() {
+            addCriterion("current_money is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentMoneyIsNotNull() {
+            addCriterion("current_money is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentMoneyEqualTo(Integer value) {
+            addCriterion("current_money =", value, "currentMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentMoneyNotEqualTo(Integer value) {
+            addCriterion("current_money <>", value, "currentMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentMoneyGreaterThan(Integer value) {
+            addCriterion("current_money >", value, "currentMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentMoneyGreaterThanOrEqualTo(Integer value) {
+            addCriterion("current_money >=", value, "currentMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentMoneyLessThan(Integer value) {
+            addCriterion("current_money <", value, "currentMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentMoneyLessThanOrEqualTo(Integer value) {
+            addCriterion("current_money <=", value, "currentMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentMoneyIn(List<Integer> values) {
+            addCriterion("current_money in", values, "currentMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentMoneyNotIn(List<Integer> values) {
+            addCriterion("current_money not in", values, "currentMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentMoneyBetween(Integer value1, Integer value2) {
+            addCriterion("current_money between", value1, value2, "currentMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentMoneyNotBetween(Integer value1, Integer value2) {
+            addCriterion("current_money not between", value1, value2, "currentMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNull() {
+            addCriterion("status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNotNull() {
+            addCriterion("status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusEqualTo(Integer value) {
+            addCriterion("status =", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotEqualTo(Integer value) {
+            addCriterion("status <>", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThan(Integer value) {
+            addCriterion("status >", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("status >=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThan(Integer value) {
+            addCriterion("status <", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("status <=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIn(List<Integer> values) {
+            addCriterion("status in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotIn(List<Integer> values) {
+            addCriterion("status not in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusBetween(Integer value1, Integer value2) {
+            addCriterion("status between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("status not between", value1, value2, "status");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
