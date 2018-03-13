@@ -13,6 +13,10 @@ public class DepositRechargeRecord {
 
     private Date createdAt;
 
+    private Integer currentMoney;
+
+    private Integer status;
+
     public Integer getId() {
         return id;
     }
@@ -51,5 +55,21 @@ public class DepositRechargeRecord {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Integer getCurrentMoney() {
+        return currentMoney;
+    }
+
+    public void setCurrentMoney(Integer currentMoney) {
+        this.currentMoney = currentMoney;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

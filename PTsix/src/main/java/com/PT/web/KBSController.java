@@ -17,7 +17,6 @@ import java.util.Map;
  * created by yxhuang
  */
 @Controller
-@CrossOrigin
 @RequestMapping("/book")
 public class KBSController {
 
