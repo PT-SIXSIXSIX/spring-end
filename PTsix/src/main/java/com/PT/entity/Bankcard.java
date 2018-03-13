@@ -13,6 +13,8 @@ public class Bankcard {
 
     private String bankName;
 
+    private Integer userId;
+
     public Integer getId() {
         return id;
     }
@@ -59,5 +61,13 @@ public class Bankcard {
 
     public void setBankName(String bankName) {
         this.bankName = bankName == null ? null : bankName.trim();
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

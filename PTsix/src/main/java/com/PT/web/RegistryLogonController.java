@@ -30,6 +30,7 @@ import javax.xml.ws.Response;
  * 登录和注册控制
  */
 @Controller
+@CrossOrigin
 @RequestMapping("/api/v1")
 public class RegistryLogonController {
 
@@ -59,30 +60,29 @@ public class RegistryLogonController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public @ResponseBody Map<String, Object> register(@RequestBody Map<String, Object> out, HttpServletResponse response) {
-        out.put("name", out.get("bossName"));
-        out.put("phone", out.get("bossPhone"));
         ResponseData responseData = ResponseData.createOk();
         User user = null;
         Store store = null;
         try {
             user = (User) BeanToMapUtil.convertMap(User.class, out);
             store = (Store) BeanToMapUtil.convertMap(Store.class, out);
+            User resultUser = registryLogonService.regist(user, store);
+            if(null != resultUser) {
+                String token = UUID.randomUUID().toString();
+                TokenOptions.setKey(TokenOptions.TOKEN_PREFIX+user.getId(), token);
+                responseData.putDataValue("userId", resultUser.getId());
+                responseData.putDataValue("name", resultUser.getName());
+                responseData.putDataValue("phone", resultUser.getPhone());
+                responseData.putDataValue("role", resultUser.getRole());
+                responseData.putDataValue("accessToken", token);
+                response.setStatus(201);
+            } else {
+                response.setStatus(400);
+                responseData.setError(1, "注册失败,该手机号已注册");
+            }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        User resultUser = registryLogonService.regist(user, store);
-        if(null != resultUser) {
-            String token = UUID.randomUUID().toString();
-            TokenOptions.setKey(TokenOptions.TOKEN_PREFIX+user.getId(), token);
-            responseData.putDataValue("userId", resultUser.getId());
-            responseData.putDataValue("name", resultUser.getName());
-            responseData.putDataValue("phone", resultUser.getPhone());
-            responseData.putDataValue("role", resultUser.getRole());
-            responseData.putDataValue("accessToken", token);
-            response.setStatus(201);
-        } else {
-            response.setStatus(400);
-            responseData.setError(1, "注册失败,该手机号已注册");
+            responseData.setError(1, e.getMessage());
         }
         return responseData.getBody();
     }

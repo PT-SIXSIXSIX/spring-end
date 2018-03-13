@@ -1,11 +1,8 @@
 package com.PT.dao;
 
-import com.PT.bean.order.OrderInfoBean;
 import com.PT.entity.Order;
 import com.PT.entity.OrderExample;
 import java.util.List;
-import java.util.Map;
-
 import org.apache.ibatis.annotations.Param;
 
 public interface OrderMapper {
@@ -31,11 +28,4 @@ public interface OrderMapper {
 
     int updateByPrimaryKey(Order record);
 
-    void getGeneratedOrderId(Map map);
-
-    List<Map<String,Object> > selectOrderFromViewByOrderID(String orderId);
-
-    List<Map> selectOrderInfoByFactor(@Param("map") Map map);
-
-    int countOrderInfoByFactor(@Param("map") Map map);
 }

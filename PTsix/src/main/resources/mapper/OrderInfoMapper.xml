@@ -57,4 +57,9 @@
             and oder.created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
         </if>
     </select>
+    <select id="getIdByProjectType" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select id
+        from ykat_projects
+        where ykat_projects.type = #{projectType,jdbcType=VARCHAR}
+    </select>
 </mapper>

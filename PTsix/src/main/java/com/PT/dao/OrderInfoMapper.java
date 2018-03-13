@@ -13,4 +13,6 @@ public interface OrderInfoMapper {
     List<Map> selectOrderInfoByFactor(@Param("map") Map map);
 
     int countOrderInfoByFactor(@Param("map") Map map);
+
+    Integer getIdByProjectType(String projectType);
 }

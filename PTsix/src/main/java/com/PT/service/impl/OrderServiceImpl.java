@@ -92,7 +92,7 @@ public class OrderServiceImpl implements OrderService{
         order.setType(orderType);
 
         //project Id 外键信息
-        Integer projectId = projectMapper.getIdByProjectType(projectType);
+        Integer projectId = orderInfoMapper.getIdByProjectType(projectType);
         if(projectId!=null){ //有没有这个项目
             order.setProjectId(projectId);
         }else{//没有这个项目就创建一个项目

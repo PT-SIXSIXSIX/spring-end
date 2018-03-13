@@ -12,18 +12,6 @@
     <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
     <result column="ordered_at" property="orderedAt" jdbcType="TIMESTAMP" />
   </resultMap>
-  <resultMap id="OrderInfoMapper" type="map">
-    <result property="orderId" column="order_id"/>
-    <result property="driverName" column="driver_name"/>
-    <result property="projectDescp" column="project_descp"/>
-    <result property="projectType" column="project_type"/>
-    <result property="state" column="state"/>
-    <result property="createdAt" column="created_at" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <resultMap id="OrderInfoMap" type="map">
-    <result property="id" column="id"/>
-    <result property="price" column="project_price"/>
-  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -99,35 +87,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectOrderInfoByFactor" resultMap="OrderInfoMapper" parameterType="map">
-    select
-    oder.order_id order_id, oder.status state, oder.created_at,
-    driver.driver_name driver_name,
-    project.descp project_descp, project.type project_type
-    from ykat_orders oder inner join ykat_drivers driver on oder.driver_id=driver.id
-    inner join ykat_projects project on project.id=oder.project_id
-    where oder.store_id = #{map.storeId,jdbcType=INTEGER}
-    and oder.type = #{map.orderType,jdbcType=VARCHAR}
-    <if test="map.state != null and map.state != '' ">
-      and oder.status = #{map.state,jdbcType=VARCHAR}
-    </if>
-    <if test="map.fromDate != null">
-      and oder.created_at >= #{map.fromDate,jdbcType=TIMESTAMP}
-    </if>
-    <if test="map.fromDate != null and map.toDate != null ">
-      and oder.created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
-    </if>
-  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from ykat_orders
     where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectOrderFromViewByOrderID" parameterType="java.lang.String" resultMap="OrderInfoMap">
-    select id, project_price
-    from order_info_v
-    where order_id = #{orderId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from ykat_orders
@@ -149,15 +113,6 @@
       #{driverId,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, #{orderedAt,jdbcType=TIMESTAMP}
       )
   </insert>
-  <select id="getGeneratedOrderId" parameterType="map" statementType="CALLABLE" resultType="map">
-    {
-         call genBillsNoPROC(
-               #{tableName,mode=IN,jdbcType=VARCHAR},
-               #{colName,mode=IN,jdbcType=VARCHAR},
-               #{billsNoResult,mode=OUT,jdbcType=VARCHAR}
-         )
-    }
-  </select>
   <insert id="insertSelective" parameterType="com.PT.entity.Order" >
     insert into ykat_orders
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -223,20 +178,6 @@
     select count(*) from ykat_orders
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <select id="countOrderInfoByFactor" resultType="java.lang.Integer" parameterType="map">
-    select
-    count(*)
-    from ykat_orders oder inner join ykat_drivers driver on oder.driver_id=driver.id
-    inner join ykat_projects project on project.id=oder.project_id
-    where oder.store_id = #{map.storeId,jdbcType=INTEGER}
-    and oder.type = #{map.orderType,jdbcType=VARCHAR}
-    <if test="map.state != null and map.state != '' ">
-      and oder.status = #{map.state,jdbcType=VARCHAR}
-    </if>
-    <if test="map.fromDate != null and map.toDate != null ">
-      and oder.created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
