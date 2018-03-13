@@ -1,16 +1,17 @@
 package com.PT.service.impl;
 
-import com.PT.bean.order.OrderInfoBean;
 import com.PT.dao.*;
 import com.PT.entity.*;
 
 import com.PT.service.OrderService;
+import com.PT.service.LogService;
 import com.PT.tools.QueryToMap;
+import com.PT.tools.ToStrings;
+import com.PT.tools.YkatCommonUtil;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,7 +19,10 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class OrdeServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService{
+
+    @Autowired
+    private OrderInfoMapper orderInfoMapper;
 
     @Autowired
     private OrderMapper orderMapper;
@@ -34,6 +38,10 @@ public class OrdeServiceImpl implements OrderService{
 
     @Autowired
     private ProjectMapper projectMapper;
+
+    @Autowired
+    private LogService logService;
+
     @Override
     public Map<String,Object> listOrder(String type, int page, int ipp, int userId, String queryCondition) throws Exception{
 
@@ -53,7 +61,7 @@ public class OrdeServiceImpl implements OrderService{
         if(queryCondition!=null && !"".equals(queryCondition)) { //有搜索条件时
             factors = QueryToMap.stringToMap(queryCondition);
             if (factors.containsKey("time")) {
-                putFromAndToDate(factors, (String) factors.get("time"));
+                YkatCommonUtil.putFromAndToDate(factors, (String) factors.get("time"));
             }
         }
         factors.put("storeId",storeID);
@@ -63,10 +71,10 @@ public class OrdeServiceImpl implements OrderService{
         //指定页数，ipp条内容
         PageHelper.startPage(page,ipp);
 
-        List<Map > orders = orderMapper.selectOrderInfoByFactor(factors);
+        List<Map > orders = orderInfoMapper.selectOrderInfoByFactor(factors);
         //PageHelper.clearPage();
         //查询总条数
-        int maxPage = (orderMapper.countOrderInfoByFactor(factors)-1)/ipp + 1;
+        int maxPage = (orderInfoMapper.countOrderInfoByFactor(factors)-1)/ipp + 1;
         Map<String,Object> map = new HashMap<>();
         map.put("maxPage",maxPage);
         map.put("records",orders);
@@ -84,10 +92,10 @@ public class OrdeServiceImpl implements OrderService{
         order.setType(orderType);
 
         //project Id 外键信息
-        Integer projectId = projectMapper.getIdByProjectType(projectType);
+        Integer projectId = orderInfoMapper.getIdByProjectType(projectType);
         if(projectId!=null){ //有没有这个项目
             order.setProjectId(projectId);
-        }else{
+        }else{//没有这个项目就创建一个项目
             Project project = new Project();
             project.setDescp(projectDescp);
             project.setType(projectType);
@@ -121,7 +129,8 @@ public class OrdeServiceImpl implements OrderService{
 
         orderMapper.insertSelective(order);
 
-
+        logService.insertLog(userId,"insert","into table ykat_oders whose driverId = "+driverId+" and " +
+                "orderId = "+generatedOrderId);
     }
     @Override
     public void deleteOrder(int userId, int type, List<String> orderIds) throws Exception{
@@ -134,12 +143,15 @@ public class OrdeServiceImpl implements OrderService{
         int res = orderMapper.deleteByExample(example);
         if(res<=0){
             throw new Exception("删除失败");
+        }else{
+            String desc = ToStrings.listToStrings(orderIds, '&');
+            logService.insertLog(userId, "delete","on table ykat_orders: by ids in ["+desc+"]");
         }
 
     }
 
     @Override
-    public void updateOrderState(String orderId, int userID, int status) throws Exception {
+    public void updateOrderState(String orderId, int userId, int status) throws Exception {
 
         OrderExample example = new OrderExample();
         OrderExample.Criteria criteria = example.createCriteria();
@@ -150,6 +162,9 @@ public class OrdeServiceImpl implements OrderService{
 
         int updateSize = orderMapper.updateByExampleSelective(order, example);//更新状态
 
+        if (updateSize>0){
+            logService.insertLog(userId,"update","on table ykaT_orders: set status to "+status);
+        }
 
         if( updateSize>0 && status == 1){//更新成功 接受订单，在结算管理增加一个数据
 
@@ -165,7 +180,7 @@ public class OrdeServiceImpl implements OrderService{
             settleRecord.setCreatedAt(new Date());//记录创建时间
             settleRecord.setStatus(1);//待结算
             //获取订单 主键id，订单价格
-            List<Map<String,Object> > orderInfoMaps = orderMapper.selectOrderFromViewByOrderID(orderId);
+            List<Map<String,Object> > orderInfoMaps = orderInfoMapper.selectOrderFromViewByOrderID(orderId);
             if(null!= orderInfoMaps && orderInfoMaps.size()>0){
                 Map<String,Object> infoMap = orderInfoMaps.get(0);
                 Integer id = (Integer) infoMap.get("id");
@@ -181,6 +196,11 @@ public class OrdeServiceImpl implements OrderService{
         }
     }
 
+    /**
+     * 有没有订单号为orderId的数据
+     * @param orderId
+     * @return
+     */
     @Override
     public boolean isOrderIdValid(String orderId){
         OrderExample example = new OrderExample();
@@ -198,8 +218,7 @@ public class OrdeServiceImpl implements OrderService{
 
         String[] factors = timePeriod.split("-");
         try {
-
-                SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 Date fromDate = format.parse(factors[0]);
                 Date toDate = format.parse(factors[1]);
                 map.put("fromDate", fromDate);

@@ -1,37 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.PT.dao.StoreMapper">
-  <resultMap id="BaseResultMap" type="com.PT.entity.Store">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
-    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
-    <result column="pic_head_url" jdbcType="VARCHAR" property="picHeadUrl" />
-    <result column="pic_tail_url" jdbcType="VARCHAR" property="picTailUrl" />
-    <result column="service_type" jdbcType="VARCHAR" property="serviceType" />
-    <result column="location" jdbcType="VARCHAR" property="location" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="deposit" jdbcType="INTEGER" property="deposit" />
-    <result column="reserve_phone" jdbcType="VARCHAR" property="reservePhone" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.PT.dao.StoreMapper" >
+  <resultMap id="BaseResultMap" type="com.PT.entity.Store" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="pic_head_url" property="picHeadUrl" jdbcType="VARCHAR" />
+    <result column="pic_tail_url" property="picTailUrl" jdbcType="VARCHAR" />
+    <result column="service_type" property="serviceType" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="deposit" property="deposit" jdbcType="INTEGER" />
+    <result column="reserve_phone" property="reservePhone" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -42,25 +42,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -71,41 +71,41 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     id, company_name, id_card, pic_head_url, pic_tail_url, service_type, location, user_id, 
     deposit, reserve_phone
   </sql>
-  <select id="selectByExample" parameterType="com.PT.entity.StoreExample" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.PT.entity.StoreExample" >
     select
-    <if test="distinct">
+    <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
     from ykat_stores
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null">
+    <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from ykat_stores
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from ykat_stores
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.PT.entity.StoreExample">
+  <delete id="deleteByExample" parameterType="com.PT.entity.StoreExample" >
     delete from ykat_stores
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.PT.entity.Store">
+  <insert id="insert" parameterType="com.PT.entity.Store" >
     insert into ykat_stores (id, company_name, id_card, 
       pic_head_url, pic_tail_url, service_type, 
       location, user_id, deposit, 
@@ -115,118 +115,118 @@
       #{location,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{deposit,jdbcType=INTEGER}, 
       #{reservePhone,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.PT.entity.Store">
+  <insert id="insertSelective" parameterType="com.PT.entity.Store" >
     insert into ykat_stores
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="companyName != null">
+      <if test="companyName != null" >
         company_name,
       </if>
-      <if test="idCard != null">
+      <if test="idCard != null" >
         id_card,
       </if>
-      <if test="picHeadUrl != null">
+      <if test="picHeadUrl != null" >
         pic_head_url,
       </if>
-      <if test="picTailUrl != null">
+      <if test="picTailUrl != null" >
         pic_tail_url,
       </if>
-      <if test="serviceType != null">
+      <if test="serviceType != null" >
         service_type,
       </if>
-      <if test="location != null">
+      <if test="location != null" >
         location,
       </if>
-      <if test="userId != null">
+      <if test="userId != null" >
         user_id,
       </if>
-      <if test="deposit != null">
+      <if test="deposit != null" >
         deposit,
       </if>
-      <if test="reservePhone != null">
+      <if test="reservePhone != null" >
         reserve_phone,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="companyName != null">
+      <if test="companyName != null" >
         #{companyName,jdbcType=VARCHAR},
       </if>
-      <if test="idCard != null">
+      <if test="idCard != null" >
         #{idCard,jdbcType=VARCHAR},
       </if>
-      <if test="picHeadUrl != null">
+      <if test="picHeadUrl != null" >
         #{picHeadUrl,jdbcType=VARCHAR},
       </if>
-      <if test="picTailUrl != null">
+      <if test="picTailUrl != null" >
         #{picTailUrl,jdbcType=VARCHAR},
       </if>
-      <if test="serviceType != null">
+      <if test="serviceType != null" >
         #{serviceType,jdbcType=VARCHAR},
       </if>
-      <if test="location != null">
+      <if test="location != null" >
         #{location,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null">
+      <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="deposit != null">
+      <if test="deposit != null" >
         #{deposit,jdbcType=INTEGER},
       </if>
-      <if test="reservePhone != null">
+      <if test="reservePhone != null" >
         #{reservePhone,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.PT.entity.StoreExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.PT.entity.StoreExample" resultType="java.lang.Integer" >
     select count(*) from ykat_stores
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <update id="updateByExampleSelective" parameterType="map" >
     update ykat_stores
-    <set>
-      <if test="record.id != null">
+    <set >
+      <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.companyName != null">
+      <if test="record.companyName != null" >
         company_name = #{record.companyName,jdbcType=VARCHAR},
       </if>
-      <if test="record.idCard != null">
+      <if test="record.idCard != null" >
         id_card = #{record.idCard,jdbcType=VARCHAR},
       </if>
-      <if test="record.picHeadUrl != null">
+      <if test="record.picHeadUrl != null" >
         pic_head_url = #{record.picHeadUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.picTailUrl != null">
+      <if test="record.picTailUrl != null" >
         pic_tail_url = #{record.picTailUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.serviceType != null">
+      <if test="record.serviceType != null" >
         service_type = #{record.serviceType,jdbcType=VARCHAR},
       </if>
-      <if test="record.location != null">
+      <if test="record.location != null" >
         location = #{record.location,jdbcType=VARCHAR},
       </if>
-      <if test="record.userId != null">
+      <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.deposit != null">
+      <if test="record.deposit != null" >
         deposit = #{record.deposit,jdbcType=INTEGER},
       </if>
-      <if test="record.reservePhone != null">
+      <if test="record.reservePhone != null" >
         reserve_phone = #{record.reservePhone,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map">
+  <update id="updateByExample" parameterType="map" >
     update ykat_stores
     set id = #{record.id,jdbcType=INTEGER},
       company_name = #{record.companyName,jdbcType=VARCHAR},
@@ -238,331 +238,44 @@
       user_id = #{record.userId,jdbcType=INTEGER},
       deposit = #{record.deposit,jdbcType=INTEGER},
       reserve_phone = #{record.reservePhone,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.PT.entity.Store">
+  <update id="updateByPrimaryKeySelective" parameterType="com.PT.entity.Store" >
     update ykat_stores
-    <set>
-      <if test="companyName != null">
+    <set >
+      <if test="companyName != null" >
         company_name = #{companyName,jdbcType=VARCHAR},
       </if>
-      <if test="idCard != null">
+      <if test="idCard != null" >
         id_card = #{idCard,jdbcType=VARCHAR},
       </if>
-      <if test="picHeadUrl != null">
+      <if test="picHeadUrl != null" >
         pic_head_url = #{picHeadUrl,jdbcType=VARCHAR},
       </if>
-      <if test="picTailUrl != null">
+      <if test="picTailUrl != null" >
         pic_tail_url = #{picTailUrl,jdbcType=VARCHAR},
       </if>
-      <if test="serviceType != null">
+      <if test="serviceType != null" >
         service_type = #{serviceType,jdbcType=VARCHAR},
       </if>
-      <if test="location != null">
+      <if test="location != null" >
         location = #{location,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null">
+      <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="deposit != null">
+      <if test="deposit != null" >
         deposit = #{deposit,jdbcType=INTEGER},
       </if>
-      <if test="reservePhone != null">
+      <if test="reservePhone != null" >
         reserve_phone = #{reservePhone,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.PT.entity.Store">
-    update ykat_stores
-    set company_name = #{companyName,jdbcType=VARCHAR},
-      id_card = #{idCard,jdbcType=VARCHAR},
-      pic_head_url = #{picHeadUrl,jdbcType=VARCHAR},
-      pic_tail_url = #{picTailUrl,jdbcType=VARCHAR},
-      service_type = #{serviceType,jdbcType=VARCHAR},
-      location = #{location,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER},
-      deposit = #{deposit,jdbcType=INTEGER},
-      reserve_phone = #{reservePhone,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.PT.entity.Store">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
-    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
-    <result column="pic_head_url" jdbcType="VARCHAR" property="picHeadUrl" />
-    <result column="pic_tail_url" jdbcType="VARCHAR" property="picTailUrl" />
-    <result column="service_type" jdbcType="VARCHAR" property="serviceType" />
-    <result column="location" jdbcType="VARCHAR" property="location" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="deposit" jdbcType="INTEGER" property="deposit" />
-    <result column="reserve_phone" jdbcType="VARCHAR" property="reservePhone" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    id, company_name, id_card, pic_head_url, pic_tail_url, service_type, location, user_id, 
-    deposit, reserve_phone
-  </sql>
-  <select id="selectByExample" parameterType="com.PT.entity.StoreExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from ykat_stores
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from ykat_stores
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from ykat_stores
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.PT.entity.StoreExample">
-    delete from ykat_stores
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.PT.entity.Store">
-    insert into ykat_stores (id, company_name, id_card, 
-      pic_head_url, pic_tail_url, service_type, 
-      location, user_id, deposit, 
-      reserve_phone)
-    values (#{id,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
-      #{picHeadUrl,jdbcType=VARCHAR}, #{picTailUrl,jdbcType=VARCHAR}, #{serviceType,jdbcType=VARCHAR}, 
-      #{location,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{deposit,jdbcType=INTEGER}, 
-      #{reservePhone,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.PT.entity.Store">
-    insert into ykat_stores
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="companyName != null">
-        company_name,
-      </if>
-      <if test="idCard != null">
-        id_card,
-      </if>
-      <if test="picHeadUrl != null">
-        pic_head_url,
-      </if>
-      <if test="picTailUrl != null">
-        pic_tail_url,
-      </if>
-      <if test="serviceType != null">
-        service_type,
-      </if>
-      <if test="location != null">
-        location,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="deposit != null">
-        deposit,
-      </if>
-      <if test="reservePhone != null">
-        reserve_phone,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="companyName != null">
-        #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="idCard != null">
-        #{idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="picHeadUrl != null">
-        #{picHeadUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="picTailUrl != null">
-        #{picTailUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="serviceType != null">
-        #{serviceType,jdbcType=VARCHAR},
-      </if>
-      <if test="location != null">
-        #{location,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="deposit != null">
-        #{deposit,jdbcType=INTEGER},
-      </if>
-      <if test="reservePhone != null">
-        #{reservePhone,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.PT.entity.StoreExample" resultType="java.lang.Integer">
-    select count(*) from ykat_stores
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update ykat_stores
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.companyName != null">
-        company_name = #{record.companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.idCard != null">
-        id_card = #{record.idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="record.picHeadUrl != null">
-        pic_head_url = #{record.picHeadUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="record.picTailUrl != null">
-        pic_tail_url = #{record.picTailUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="record.serviceType != null">
-        service_type = #{record.serviceType,jdbcType=VARCHAR},
-      </if>
-      <if test="record.location != null">
-        location = #{record.location,jdbcType=VARCHAR},
-      </if>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
-      </if>
-      <if test="record.deposit != null">
-        deposit = #{record.deposit,jdbcType=INTEGER},
-      </if>
-      <if test="record.reservePhone != null">
-        reserve_phone = #{record.reservePhone,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update ykat_stores
-    set id = #{record.id,jdbcType=INTEGER},
-      company_name = #{record.companyName,jdbcType=VARCHAR},
-      id_card = #{record.idCard,jdbcType=VARCHAR},
-      pic_head_url = #{record.picHeadUrl,jdbcType=VARCHAR},
-      pic_tail_url = #{record.picTailUrl,jdbcType=VARCHAR},
-      service_type = #{record.serviceType,jdbcType=VARCHAR},
-      location = #{record.location,jdbcType=VARCHAR},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      deposit = #{record.deposit,jdbcType=INTEGER},
-      reserve_phone = #{record.reservePhone,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.PT.entity.Store">
-    update ykat_stores
-    <set>
-      <if test="companyName != null">
-        company_name = #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="idCard != null">
-        id_card = #{idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="picHeadUrl != null">
-        pic_head_url = #{picHeadUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="picTailUrl != null">
-        pic_tail_url = #{picTailUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="serviceType != null">
-        service_type = #{serviceType,jdbcType=VARCHAR},
-      </if>
-      <if test="location != null">
-        location = #{location,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="deposit != null">
-        deposit = #{deposit,jdbcType=INTEGER},
-      </if>
-      <if test="reservePhone != null">
-        reserve_phone = #{reservePhone,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.PT.entity.Store">
+  <update id="updateByPrimaryKey" parameterType="com.PT.entity.Store" >
     update ykat_stores
     set company_name = #{companyName,jdbcType=VARCHAR},
       id_card = #{idCard,jdbcType=VARCHAR},

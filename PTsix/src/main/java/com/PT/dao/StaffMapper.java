@@ -1,6 +1,7 @@
 package com.PT.dao;
 
 import com.PT.bean.Staff.StaffInfoBean;
+import com.PT.entity.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface StaffMapper {
     int countByManagerId(Integer id);
     int countByFactor(@Param("map")Map map);
     int deleteRelationByUserId(Integer id);
+    int insertStaffSelective(User record);
+    void insertRelation(@Param("map") Map record);
 }

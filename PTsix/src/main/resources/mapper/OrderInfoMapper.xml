@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.PT.dao.OrderInfoMapper">
+    <resultMap id="OrderInfoMapper" type="map">
+        <result property="orderId" column="order_id"/>
+        <result property="driverName" column="driver_name"/>
+        <result property="projectDescp" column="project_descp"/>
+        <result property="projectType" column="project_type"/>
+        <result property="state" column="state"/>
+        <result property="createdAt" column="created_at" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <resultMap id="OrderPriceMap" type="map">
+        <result property="id" column="id"/>
+        <result property="price" column="project_price"/>
+    </resultMap>
+    <select id="selectOrderFromViewByOrderID" parameterType="java.lang.String" resultMap="OrderPriceMap">
+        select id, project_price
+        from order_info_v
+        where order_id = #{orderId,jdbcType=VARCHAR}
+    </select>
+    <select id="getGeneratedOrderId" parameterType="map" statementType="CALLABLE" resultType="map">
+        {
+        call genBillsNoPROC(
+        #{tableName,mode=IN,jdbcType=VARCHAR},
+        #{colName,mode=IN,jdbcType=VARCHAR},
+        #{billsNoResult,mode=OUT,jdbcType=VARCHAR}
+        )
+        }
+    </select>
+    <select id="selectOrderInfoByFactor" resultMap="OrderInfoMapper" parameterType="map">
+        select
+        oder.order_id order_id, oder.status state, oder.created_at,
+        driver.driver_name driver_name,
+        project.descp project_descp, project.type project_type
+        from ykat_orders oder inner join ykat_drivers driver on oder.driver_id=driver.id
+        inner join ykat_projects project on project.id=oder.project_id
+        where oder.store_id = #{map.storeId,jdbcType=INTEGER}
+        and oder.type = #{map.orderType,jdbcType=VARCHAR}
+        <if test="map.state != null and map.state != '' ">
+            and oder.status = #{map.state,jdbcType=VARCHAR}
+        </if>
+        <if test="map.fromDate != null and map.toDate != null ">
+            and oder.created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
+        </if>
+    </select>
+    <select id="countOrderInfoByFactor" resultType="java.lang.Integer" parameterType="map">
+        select
+        count(*)
+        from ykat_orders oder inner join ykat_drivers driver on oder.driver_id=driver.id
+        inner join ykat_projects project on project.id=oder.project_id
+        where oder.store_id = #{map.storeId,jdbcType=INTEGER}
+        and oder.type = #{map.orderType,jdbcType=VARCHAR}
+        <if test="map.state != null and map.state != '' ">
+            and oder.status = #{map.state,jdbcType=VARCHAR}
+        </if>
+        <if test="map.fromDate != null and map.toDate != null ">
+            and oder.created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
+        </if>
+    </select>
+    <select id="getIdByProjectType" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select id
+        from ykat_projects
+        where ykat_projects.type = #{projectType,jdbcType=VARCHAR}
+    </select>
+</mapper>

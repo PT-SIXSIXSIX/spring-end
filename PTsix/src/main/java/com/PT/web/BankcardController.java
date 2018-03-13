@@ -55,7 +55,7 @@ public class BankcardController {
         }
         return responseData.getBody();
     }
-    @RequestMapping(value = "/bankcards", method = RequestMethod.GET)
+    @RequestMapping(value = "/bankcards", method = RequestMethod.DELETE)
     public @ResponseBody
     Map<String, Object> deleteCardsByIds(@PathVariable("userId") int userId
             , @RequestBody Map map, HttpServletResponse response) {
