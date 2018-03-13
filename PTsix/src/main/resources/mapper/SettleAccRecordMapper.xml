@@ -1,34 +1,34 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.PT.dao.SettleAccRecordMapper" >
-  <resultMap id="BaseResultMap" type="com.PT.entity.SettleAccRecord" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="set_acc_id" property="setAccId" jdbcType="VARCHAR" />
-    <result column="trade_money" property="tradeMoney" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="traded_at" property="tradedAt" jdbcType="TIMESTAMP" />
-    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
-    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.PT.dao.SettleAccRecordMapper">
+  <resultMap id="BaseResultMap" type="com.PT.entity.SettleAccRecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="set_acc_id" jdbcType="VARCHAR" property="setAccId" />
+    <result column="trade_money" jdbcType="INTEGER" property="tradeMoney" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="traded_at" jdbcType="TIMESTAMP" property="tradedAt" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -39,25 +39,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -68,40 +68,40 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     id, set_acc_id, trade_money, status, traded_at, created_at, order_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.PT.entity.SettleAccRecordExample" >
+  <select id="selectByExample" parameterType="com.PT.entity.SettleAccRecordExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
     from ykat_settle_account_records
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from ykat_settle_account_records
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from ykat_settle_account_records
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.PT.entity.SettleAccRecordExample" >
+  <delete id="deleteByExample" parameterType="com.PT.entity.SettleAccRecordExample">
     delete from ykat_settle_account_records
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.PT.entity.SettleAccRecord" >
+  <insert id="insert" parameterType="com.PT.entity.SettleAccRecord">
     insert into ykat_settle_account_records (id, set_acc_id, trade_money, 
       status, traded_at, created_at, 
       order_id)
@@ -109,91 +109,91 @@
       #{status,jdbcType=INTEGER}, #{tradedAt,jdbcType=TIMESTAMP}, #{createdAt,jdbcType=TIMESTAMP}, 
       #{orderId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.PT.entity.SettleAccRecord" >
+  <insert id="insertSelective" parameterType="com.PT.entity.SettleAccRecord">
     insert into ykat_settle_account_records
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="setAccId != null" >
+      <if test="setAccId != null">
         set_acc_id,
       </if>
-      <if test="tradeMoney != null" >
+      <if test="tradeMoney != null">
         trade_money,
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status,
       </if>
-      <if test="tradedAt != null" >
+      <if test="tradedAt != null">
         traded_at,
       </if>
-      <if test="createdAt != null" >
+      <if test="createdAt != null">
         created_at,
       </if>
-      <if test="orderId != null" >
+      <if test="orderId != null">
         order_id,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="setAccId != null" >
+      <if test="setAccId != null">
         #{setAccId,jdbcType=VARCHAR},
       </if>
-      <if test="tradeMoney != null" >
+      <if test="tradeMoney != null">
         #{tradeMoney,jdbcType=INTEGER},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="tradedAt != null" >
+      <if test="tradedAt != null">
         #{tradedAt,jdbcType=TIMESTAMP},
       </if>
-      <if test="createdAt != null" >
+      <if test="createdAt != null">
         #{createdAt,jdbcType=TIMESTAMP},
       </if>
-      <if test="orderId != null" >
+      <if test="orderId != null">
         #{orderId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.PT.entity.SettleAccRecordExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.PT.entity.SettleAccRecordExample" resultType="java.lang.Integer">
     select count(*) from ykat_settle_account_records
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update ykat_settle_account_records
-    <set >
-      <if test="record.id != null" >
+    <set>
+      <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.setAccId != null" >
+      <if test="record.setAccId != null">
         set_acc_id = #{record.setAccId,jdbcType=VARCHAR},
       </if>
-      <if test="record.tradeMoney != null" >
+      <if test="record.tradeMoney != null">
         trade_money = #{record.tradeMoney,jdbcType=INTEGER},
       </if>
-      <if test="record.status != null" >
+      <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
-      <if test="record.tradedAt != null" >
+      <if test="record.tradedAt != null">
         traded_at = #{record.tradedAt,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.createdAt != null" >
+      <if test="record.createdAt != null">
         created_at = #{record.createdAt,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.orderId != null" >
+      <if test="record.orderId != null">
         order_id = #{record.orderId,jdbcType=INTEGER},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update ykat_settle_account_records
     set id = #{record.id,jdbcType=INTEGER},
       set_acc_id = #{record.setAccId,jdbcType=VARCHAR},
@@ -202,35 +202,274 @@
       traded_at = #{record.tradedAt,jdbcType=TIMESTAMP},
       created_at = #{record.createdAt,jdbcType=TIMESTAMP},
       order_id = #{record.orderId,jdbcType=INTEGER}
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.PT.entity.SettleAccRecord" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.PT.entity.SettleAccRecord">
     update ykat_settle_account_records
-    <set >
-      <if test="setAccId != null" >
+    <set>
+      <if test="setAccId != null">
         set_acc_id = #{setAccId,jdbcType=VARCHAR},
       </if>
-      <if test="tradeMoney != null" >
+      <if test="tradeMoney != null">
         trade_money = #{tradeMoney,jdbcType=INTEGER},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="tradedAt != null" >
+      <if test="tradedAt != null">
         traded_at = #{tradedAt,jdbcType=TIMESTAMP},
       </if>
-      <if test="createdAt != null" >
+      <if test="createdAt != null">
         created_at = #{createdAt,jdbcType=TIMESTAMP},
       </if>
-      <if test="orderId != null" >
+      <if test="orderId != null">
         order_id = #{orderId,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.PT.entity.SettleAccRecord" >
+  <update id="updateByPrimaryKey" parameterType="com.PT.entity.SettleAccRecord">
+    update ykat_settle_account_records
+    set set_acc_id = #{setAccId,jdbcType=VARCHAR},
+      trade_money = #{tradeMoney,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      traded_at = #{tradedAt,jdbcType=TIMESTAMP},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      order_id = #{orderId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.PT.entity.SettleAccRecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="set_acc_id" jdbcType="VARCHAR" property="setAccId" />
+    <result column="trade_money" jdbcType="INTEGER" property="tradeMoney" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="traded_at" jdbcType="TIMESTAMP" property="tradedAt" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, set_acc_id, trade_money, status, traded_at, created_at, order_id
+  </sql>
+  <select id="selectByExample" parameterType="com.PT.entity.SettleAccRecordExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ykat_settle_account_records
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ykat_settle_account_records
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ykat_settle_account_records
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.PT.entity.SettleAccRecordExample">
+    delete from ykat_settle_account_records
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.PT.entity.SettleAccRecord">
+    insert into ykat_settle_account_records (id, set_acc_id, trade_money, 
+      status, traded_at, created_at, 
+      order_id)
+    values (#{id,jdbcType=INTEGER}, #{setAccId,jdbcType=VARCHAR}, #{tradeMoney,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{tradedAt,jdbcType=TIMESTAMP}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{orderId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.PT.entity.SettleAccRecord">
+    insert into ykat_settle_account_records
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="setAccId != null">
+        set_acc_id,
+      </if>
+      <if test="tradeMoney != null">
+        trade_money,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="tradedAt != null">
+        traded_at,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="setAccId != null">
+        #{setAccId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeMoney != null">
+        #{tradeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="tradedAt != null">
+        #{tradedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.PT.entity.SettleAccRecordExample" resultType="java.lang.Integer">
+    select count(*) from ykat_settle_account_records
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ykat_settle_account_records
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.setAccId != null">
+        set_acc_id = #{record.setAccId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradeMoney != null">
+        trade_money = #{record.tradeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.tradedAt != null">
+        traded_at = #{record.tradedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ykat_settle_account_records
+    set id = #{record.id,jdbcType=INTEGER},
+      set_acc_id = #{record.setAccId,jdbcType=VARCHAR},
+      trade_money = #{record.tradeMoney,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      traded_at = #{record.tradedAt,jdbcType=TIMESTAMP},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      order_id = #{record.orderId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.PT.entity.SettleAccRecord">
+    update ykat_settle_account_records
+    <set>
+      <if test="setAccId != null">
+        set_acc_id = #{setAccId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeMoney != null">
+        trade_money = #{tradeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="tradedAt != null">
+        traded_at = #{tradedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.PT.entity.SettleAccRecord">
     update ykat_settle_account_records
     set set_acc_id = #{setAccId,jdbcType=VARCHAR},
       trade_money = #{tradeMoney,jdbcType=INTEGER},

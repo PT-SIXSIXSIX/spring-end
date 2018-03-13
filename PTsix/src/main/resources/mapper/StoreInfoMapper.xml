@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.PT.dao.StoreInfoMapper" >
+    <resultMap id="BaseResultMap" type="map" >
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+        <result column="reserve_phone" property="reservePhone" jdbcType="VARCHAR" />
+        <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+        <result column="location" property="location" jdbcType="VARCHAR" />
+        <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+        <result column="pic_head_url" property="picHeadUrl" jdbcType="VARCHAR" />
+        <result column="pic_tail_url" property="picTailUrl" jdbcType="VARCHAR" />
+        <result column="service_type" property="serviceType" jdbcType="VARCHAR" />
+        <result column="deposit" property="deposit" jdbcType="INTEGER" />
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <select id="selectByUserId" resultMap="BaseResultMap" parameterType="map" >
+        select name, phone, reserve_phone, company_name, location, id_card,
+        pic_head_url, pic_tail_url, service_type, deposit, created_at
+        from ykat_stores inner join ykat_users on user_id = ykat_users.id
+        where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <update id="updateStoreByUserId" parameterType="map">
+        update ykat_stores
+        <trim prefix="set" suffixOverrides=",">
+            <if test="map.reservePhone != null">
+                reserve_phone = #{map.reservePhone,jdbcType=VARCHAR},
+            </if>
+            <if test="map.companyName != null">
+                company_name = #{map.companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="map.location != null">
+                location = #{map.location,jdbcType=VARCHAR},
+            </if>
+            <if test="map.idCard != null">
+                id_card = #{map.idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="map.picHeadUrl != null">
+                pic_head_url = #{map.picHeadUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="map.picTailUrl != null">
+                pic_tail_url = #{map.picTailUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="map.serviceType != null">
+                service_type = #{map.serviceType,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        where user_id = #{map.userId,jdbcType=INTEGER}
+    </update>
+    <update id="updateUserByUserId" parameterType="map">
+        update ykat_users
+        <trim prefix="set" suffixOverrides=",">
+            <if test="map.name != null">
+                name = #{map.name,jdbcType=VARCHAR},
+            </if>
+            <if test="map.phone != null">
+                phone = #{map.phone,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        where id = #{map.userId,jdbcType=INTEGER}
+    </update>
+</mapper>

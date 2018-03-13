@@ -12,6 +12,7 @@ import com.PT.tools.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,13 +31,13 @@ public class RegistryLogonServiceImpl implements RegistryLogonService{
             String password = PasswordUtil.MD5Encode(user.getPassword(), ENCODE, false);
             user.setPassword(password);
             user.setRole(0);
-            System.out.println("encode_password:  "+password);
             UserExample userExample = new UserExample();
             userExample.createCriteria().andPhoneEqualTo(user.getPhone());
             if(userMapper.selectByExample(userExample).size() > 0) {
                 System.out.println("用户已存在");
                 return null;
             }
+            user.setCreatedAt(new Date());
             userMapper.insert(user);
             userExample.clear();
             userExample.createCriteria().andPhoneEqualTo(user.getPhone());

@@ -17,6 +17,7 @@ import java.util.Map;
  * 登录和注册控制
  */
 @Controller
+@CrossOrigin
 @RequestMapping("/api/v1/users/{userId}")
 public class SetAccRecController {
     @Autowired

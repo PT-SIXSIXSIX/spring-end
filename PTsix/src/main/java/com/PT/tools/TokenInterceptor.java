@@ -27,7 +27,7 @@ public class TokenInterceptor implements HandlerInterceptor{
         String sign = TokenOptions.getKey(TokenOptions.TOKEN_PREFIX+userId);
         ResponseData responseData = ResponseData.ok();
         if(null == sign || StringUtils.isBlank(sign)) {
-            responseData.putDataValue("message", "token过期");
+            responseData.setError(1,"token过期");
             responseMessage(response, response.getWriter(), responseData);
             return false;
         }
@@ -35,17 +35,16 @@ public class TokenInterceptor implements HandlerInterceptor{
             return true;
         }
         else {
-            responseData = ResponseData.forbidden();
-            responseData.putDataValue("message", "token验证失败");
+            responseData.setError(1,"token验证失败");
             responseMessage(response, response.getWriter(), responseData);
             return false;
         }
     }
     //请求不通过，返回错误信息给客户端
     private void responseMessage(HttpServletResponse response, PrintWriter out, ResponseData responseData) {
-        responseData = ResponseData.forbidden();
+        response.setStatus(400);
         response.setContentType("application/json; charset=utf-8");
-        String json = JSONObject.toJSONString(responseData);
+        String json = JSONObject.toJSONString(responseData.getBody());
         out.print(json);
         out.flush();
         out.close();
