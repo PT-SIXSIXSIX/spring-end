@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.PT.dao.DepositInfoMapper">
+    <resultMap id="DepositInfoMap" type="map">
+        <result column="id" property="desRcgId" jdbcType="INTEGER" />
+        <result column="recharge_money" property="rechargeMoney" jdbcType="INTEGER" />
+        <result column="recharge_time" property="rechargeTime" jdbcType="TIMESTAMP"/>
+        <result column="current_money" property="currentDeposit" jdbcType="INTEGER" />
+        <result column="status" property="state" jdbcType="INTEGER" />
+    </resultMap>
+    <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="DepositInfoMap">
+      select deposit.id, deposit.recharge_money, deposit.recharge_time, deposit.current_money, deposit.status
+      from ykat_deposit_recharge_records deposit, ykat_stores stores
+      where deposit.store_id=stores.id and stores.user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <select id="countByUserId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select  count(*)
+        from ykat_deposit_recharge_records deposit, ykat_stores stores
+      where deposit.store_id=stores.id and stores.user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <select id="selectByFactor" parameterType="map" resultMap="DepositInfoMap">
+        select deposit.id, deposit.recharge_money, deposit.recharge_time, deposit.current_money, deposit.status
+        from ykat_deposit_recharge_records deposit, ykat_stores stores
+        where deposit.store_id=stores.id and stores.user_id = #{map.userId,jdbcType=INTEGER}
+        <if test="map.state != null and map.state != '' ">
+            and deposit.status = #{map.state,jdbcType=VARCHAR}
+        </if>
+        <if test="map.fromDate != null and map.toDate != null ">
+            and deposit.created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
+        </if>
+    </select>
+    <select id="countByFactor" parameterType="map" resultType="java.lang.Integer">
+        select count(*)
+        from ykat_deposit_recharge_records deposit, ykat_stores stores
+        where deposit.store_id=stores.id and stores.user_id = #{map.userId,jdbcType=INTEGER}
+        <if test="map.state != null and map.state != '' ">
+            and deposit.status = #{map.state,jdbcType=VARCHAR}
+        </if>
+        <if test="map.fromDate != null and map.toDate != null ">
+            and deposit.created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
+        </if>
+    </select>
+</mapper>

@@ -12,4 +12,14 @@ public class ToStrings {
         }
         return buff.toString();
     }
+
+    public static String integerListToStrings(List<Integer> list, Character ch) {
+        StringBuilder buff = new StringBuilder();
+        for(int i = 0; i < list.size(); i++) {
+            if(i > 0)
+                buff.append(ch);
+            buff.append(list.get(i).toString());
+        }
+        return buff.toString();
+    }
 }
