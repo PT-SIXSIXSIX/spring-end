@@ -46,7 +46,6 @@ public class SetAccRecController {
         response.setStatus(200);
         Map result = null;
         try {
-            System.out.println(q);
             result = setAccRecService.listSetAccRec(page, ipp, userId, q);
         } catch (Exception e) {
             response.setStatus(400);
