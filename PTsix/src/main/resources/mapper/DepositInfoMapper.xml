@@ -40,4 +40,7 @@
             and deposit.created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
         </if>
     </select>
+    <select id="getCurrentDepositByUserId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select deposit from ykat_stores where user_id = #{userId,jdbcType=INTEGER}
+    </select>
 </mapper>
