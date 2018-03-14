@@ -80,7 +80,7 @@ public class StaffController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "/staffs/",method = RequestMethod.POST)
+    @RequestMapping(value = "/staffs",method = RequestMethod.POST)
     private Map addStaff(@PathVariable("user_id") int userId,
                            @RequestBody Map<String, Object> requestMap,HttpServletResponse response)
     {

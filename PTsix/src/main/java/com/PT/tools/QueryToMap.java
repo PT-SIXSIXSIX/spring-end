@@ -12,11 +12,15 @@ import java.util.Map;
 public class QueryToMap {
     public static Map<String, String> stringToMap(String method) {
         Map map = new HashMap<String, String>();
-        if(method == null || method == "") { return map; }
-        String[] factors = method.split("[ ,.]");
+        if(method == null || method.equals("")) { return map; }
+        String[] factors = method.split("[ ,.+]");
         for(int i = 0; i < factors.length; i++) {
             String[] temp = factors[i].split("[:]");
-            map.put(temp[0], temp[1]);
+            if(temp.length > 1) {
+                map.put(temp[0], temp[1]);
+            } else {
+                map.put(temp[0], "");
+            }
         }
         return map;
     }

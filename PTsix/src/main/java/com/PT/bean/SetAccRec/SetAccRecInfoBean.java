@@ -12,7 +12,7 @@ public class SetAccRecInfoBean {
     private String driverName;
     private String driverPhone;
     private int tradeMoney;
-    private Date tradeAt;
+    private String tradedAt;
     int state;
 
     public void print() {
@@ -22,10 +22,11 @@ public class SetAccRecInfoBean {
                 "\ndriverName:  " + driverName +
                 "\ndriverPhone: " + driverPhone +
                 "\ntradeMoney:  " + tradeMoney +
-                "\ntradeMoney:  " + tradeAt +
+                "\ntradeMoney:  " + tradedAt +
                 "\ntradeAt:     " + state
         );
     }
+
     public String getSetAccId() {
         return setAccId;
     }
@@ -66,12 +67,12 @@ public class SetAccRecInfoBean {
         this.tradeMoney = tradeMoney;
     }
 
-    public Date getTradeAt() {
-        return tradeAt;
+    public String getTradedAt() {
+        return tradedAt;
     }
 
-    public void setTradeAt(Date tradeAt) {
-        this.tradeAt = tradeAt;
+    public void setTradedAt(String tradedAt) {
+        this.tradedAt = tradedAt;
     }
 
     public int getState() {

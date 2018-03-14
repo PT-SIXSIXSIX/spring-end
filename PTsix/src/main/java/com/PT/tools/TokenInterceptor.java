@@ -35,6 +35,7 @@ public class TokenInterceptor implements HandlerInterceptor{
         String userId = request.getHeader("X-YKAT-USER-ID");
         String token = request.getHeader("X-YKAT-ACCESS-TOKEN");
 
+        System.out.println(userId+"   "+token);
         ResponseData responseData = ResponseData.ok();
         if(userId == null || token == null) {
             responseData.setError(1,"获取userId或者token为空，请检查字段是否正确");
