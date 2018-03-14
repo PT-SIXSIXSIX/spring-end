@@ -30,7 +30,7 @@ public class YkatCommonUtil {
         }
     }
 
-    private static Date getDateFromMillis(String millis) throws Exception{
+    public static Date getDateFromMillis(String millis) throws Exception{
         calendar.clear();
         calendar.setTimeInMillis(Long.valueOf(millis));
         return calendar.getTime();

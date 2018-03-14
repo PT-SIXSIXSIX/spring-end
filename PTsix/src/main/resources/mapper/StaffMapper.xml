@@ -17,11 +17,8 @@
       from ykat_users userTable inner join ykat_employee_relations relationTable on relationTable.employee_id = userTable.id
         inner join ykat_stores storeTable on storeTable.id = relationTable.store_id
       where storeTable.user_id = #{map.id,jdbcType=INTEGER} and userTable.role=1
-        <if test="map.name != null and map.name != '' ">
-            and userTable.name = #{map.name,jdbcType=VARCHAR}
-        </if>
-        <if test="map.phone != null and map.phone != '' ">
-            and userTable.name = #{map.phone,jdbcType=VARCHAR}
+        <if test="map.str != null and map.str != ''" >
+            and ( userTable.phone like '%${map.str}%' or userTable.name like '%${map.str}%')
         </if>
     </select>
     <select id="countByManagerId" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
@@ -35,11 +32,8 @@
         from ykat_users userTable inner join ykat_employee_relations relationTable on relationTable.employee_id = userTable.id
         inner join ykat_stores storeTable on storeTable.id = relationTable.store_id
         where storeTable.user_id = #{map.id,jdbcType=INTEGER} and userTable.role=1
-        <if test="map.name != null and map.name != '' ">
-            and userTable.name = #{map.name,jdbcType=VARCHAR}
-        </if>
-        <if test="map.phone != null and map.phone != '' ">
-            and userTable.name = #{map.phone,jdbcType=VARCHAR}
+        <if test="map.str != null and map.str != ''" >
+            and ( userTable.phone like '%${map.str}%' or userTable.name like '%${map.str}%')
         </if>
     </select>
     <delete id="deleteRelationByUserId" parameterType="java.lang.Integer">

@@ -11,6 +11,7 @@ import com.PT.tools.YkatCommonUtil;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -82,7 +83,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
 
-
+    @Transactional
     @Override
     public void addOrder(int userId, int driverId, String orderType, String projectType, String projectDescp) throws Exception {
         Order order = new Order();
@@ -132,6 +133,8 @@ public class OrderServiceImpl implements OrderService{
         logService.insertLog(userId,"insert","into table ykat_oders whose driverId = "+driverId+" and " +
                 "orderId = "+generatedOrderId);
     }
+
+    @Transactional
     @Override
     public void deleteOrder(int userId, int type, List<String> orderIds) throws Exception{
         OrderExample example = new OrderExample();
@@ -150,6 +153,7 @@ public class OrderServiceImpl implements OrderService{
 
     }
 
+    @Transactional
     @Override
     public void updateOrderState(String orderId, int userId, int status) throws Exception {
 
