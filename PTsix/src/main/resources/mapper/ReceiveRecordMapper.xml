@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.PT.dao.ReceiveRecordMapper" >
+    <resultMap id="BaseResultMap" type="map" >
+        <result column="set_acc_id" property="setAccId" jdbcType="VARCHAR" />
+        <result column="rev_mon_id" property="revMonId" jdbcType="VARCHAR" />
+        <result column="driver_name" property="driverName" jdbcType="VARCHAR" />
+        <result column="actual_money" property="actualMoney" jdbcType="INTEGER" />
+        <result column="traded_at" property="tradedAt" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <select id="selectByFactors" resultMap="BaseResultMap" parameterType="map" >
+        select setRecords.set_acc_id,setRecords.set_acc_id rev_mon_id, drivers.driver_name,
+          setRecords.trade_money*0.9 actual_money, setRecords.traded_at
+        from ykat_settle_account_records setRecords inner join ykat_orders orders on setRecords.order_id = orders.id
+          inner join ykat_drivers drivers on orders.driver_id = drivers.id
+          inner join ykat_stores stores on orders.store_id = stores.id
+        where stores.user_id = #{map.userId,jdbcType=INTEGER} and setRecords.traded_at is not null
+        <if test="map.driverName != null and map.driverName != ''" >
+            and  drivers.driver_name like '%${map.driverName}%'
+        </if>
+        <if test="map.tradedAt != null ">
+            and DATE(setRecords.traded_at) = #{map.tradedAt,jdbcType=TIMESTAMP}
+        </if>
+    </select>
+    <select id="countByFactors" resultType="java.lang.Integer" parameterType="map" >
+        select count(*)
+        from ykat_settle_account_records setRecords inner join ykat_orders orders on setRecords.order_id = orders.id
+        inner join ykat_drivers drivers on orders.driver_id = drivers.id
+        inner join ykat_stores stores on orders.store_id = stores.id
+        where stores.user_id = #{map.userId,jdbcType=INTEGER} and setRecords.traded_at is not null
+        <if test="map.tradedAt != null ">
+            and DATE(setRecords.traded_at) = #{map.tradedAt,jdbcType=TIMESTAMP}
+        </if>
+
+    </select>
+</mapper>

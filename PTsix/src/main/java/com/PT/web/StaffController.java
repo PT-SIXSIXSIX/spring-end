@@ -26,13 +26,22 @@ public class StaffController {
     private Map listStaffs(@PathVariable("user_id") int userId,
                            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                            @RequestParam(value = "ipp", required = false, defaultValue = "5") int ipp,
-                           @RequestParam(value = "q", required = false, defaultValue = "") String queryCondition)
+                           @RequestParam(value = "q", required = false, defaultValue = "") String queryCondition,
+                           HttpServletResponse response)
     {
+        ResponseData responseData = ResponseData.ok();
+        try{
+            Map<String,Object> resultMap = staffService.listStaff(userId,page,ipp,queryCondition);
+            response.setStatus(200);
+            return resultMap;
+        }catch(Exception e){
+            responseData = ResponseData.badRequest();
+            responseData.setError(1,e.getMessage());
+            response.setStatus(400);
+            return responseData.getBody();
 
-        Map<String,Object> resultMap = staffService.listStaff(userId,page,ipp,queryCondition);
+        }
 
-
-        return resultMap;
     }
 
     /**

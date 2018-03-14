@@ -11,6 +11,7 @@ import com.PT.tools.QueryToMap;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,7 @@ public class StaffServiceImpl implements StaffService {
 
         Map factors = new HashMap();
         if(queryCondition!=null && !"".equals(queryCondition)){
-            factors = QueryToMap.stringToMap(queryCondition);
+            factors.put("str",queryCondition);
         }
 
         factors.put("id",userId);
@@ -47,7 +48,8 @@ public class StaffServiceImpl implements StaffService {
         return map;
     }
 
-
+    @Transactional
+    @Override
     public void addStaff(int userId, Map factors) throws Exception{
         String name=null,password=null,phone=null;
         if(factors.containsKey("name") && factors.containsKey("password") && factors.containsKey("phone")){
@@ -71,12 +73,17 @@ public class StaffServiceImpl implements StaffService {
             staffMapper.insertRelation(map);
         }
     }
+
+    @Transactional
+    @Override
     public void deleteByStaffId(int userId, int staffId){
         int res = staffMapper.deleteRelationByUserId(staffId);
         userMapper.deleteByPrimaryKey(staffId);
         logService.insertLog(userId,"delete","on table ykat_users:"+"by id = "+staffId);
     }
 
+    @Transactional
+    @Override
     public void updateByStaffId(int userId, int staffId, Map<String,String> factor){
         UserExample example = new UserExample();
         example.createCriteria().andIdEqualTo(staffId);

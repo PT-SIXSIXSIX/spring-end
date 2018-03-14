@@ -11,6 +11,7 @@ import com.PT.tools.YkatCommonUtil;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -71,6 +72,8 @@ public class DepositServiceImpl implements DepositService {
         return resultMap;
     }
 
+    @Transactional
+    @Override
     public void deleteDepositRecord(int userId, List<Integer> ids) throws Exception
     {
 
