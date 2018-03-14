@@ -56,17 +56,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Map<String,Object> listOrder(String type, int page, int ipp, int userId, String queryCondition) throws Exception{
 
-        //根据userId 查询 storeID;
-        Integer storeID = null;
-        StoreExample example1 = new StoreExample();
-        example1.createCriteria().andUserIdEqualTo(userId);
-        List<Store> stores = storeMapper.selectByExample(example1);
-        if(null != stores && stores.size()>0){
-            Store store = stores.get(0);
-            storeID = store.getId();
-        }else{
-            throw new Exception("user_id没有对应的门店信息");
-        }
+
 
         Map factors = new HashMap();
         if(queryCondition!=null && !"".equals(queryCondition)) { //有搜索条件时

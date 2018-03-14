@@ -43,7 +43,7 @@ public class StaffServiceImpl implements StaffService {
 
         Map factors = new HashMap();
         if(queryCondition!=null && !"".equals(queryCondition)){
-            factors.put("str",queryCondition);
+            factors.put("content",queryCondition);
         }
 
         factors.put("id",userId);

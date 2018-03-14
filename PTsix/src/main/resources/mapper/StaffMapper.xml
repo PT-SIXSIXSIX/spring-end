@@ -17,8 +17,8 @@
       from ykat_users userTable inner join ykat_employee_relations relationTable on relationTable.employee_id = userTable.id
         inner join ykat_stores storeTable on storeTable.id = relationTable.store_id
       where storeTable.user_id = #{map.id,jdbcType=INTEGER} and userTable.role=1
-        <if test="map.str != null and map.str != ''" >
-            and ( userTable.phone like '%${map.str}%' or userTable.name like '%${map.str}%')
+        <if test="map.content != null and map.content != ''" >
+            and ( userTable.phone like '%${map.content}%' or userTable.name like '%${map.content}%')
         </if>
         order by userTable.id
     </select>
@@ -33,8 +33,8 @@
         from ykat_users userTable inner join ykat_employee_relations relationTable on relationTable.employee_id = userTable.id
         inner join ykat_stores storeTable on storeTable.id = relationTable.store_id
         where storeTable.user_id = #{map.id,jdbcType=INTEGER} and userTable.role=1
-        <if test="map.str != null and map.str != ''" >
-            and ( userTable.phone like '%${map.str}%' or userTable.name like '%${map.str}%')
+        <if test="map.content != null and map.content != ''" >
+            and ( userTable.phone like '%${map.content}%' or userTable.name like '%${map.content}%')
         </if>
         order by userTable.id
     </select>
