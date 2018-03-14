@@ -10,11 +10,24 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+/**
+ * created by yxhuang
+ * 操作日志业务实现类
+ */
 @Service
 public class LogServiceImpl implements LogService {
 
     @Autowired
     LogMapper logMapper;
+
+    /**
+     * 插入日志实现
+     * @param userId
+     * @param optType
+     * @param optDesc
+     * @return
+     */
     @Override
     public boolean insertLog(int userId, String optType, String optDesc) {
         try {
@@ -31,6 +44,11 @@ public class LogServiceImpl implements LogService {
         }
     }
 
+    /**
+     * 批量删除日志
+     * @param ids
+     * @return
+     */
     @Override
     public boolean deleteLogById(List<Integer> ids) {
         LogExample logExample = new LogExample();
@@ -44,6 +62,12 @@ public class LogServiceImpl implements LogService {
         }
     }
 
+    /**
+     * 时间范围删除日志
+     * @param start
+     * @param end
+     * @return
+     */
     @Override
     public boolean deleteLogBetweenTm(Date start, Date end) {
         LogExample logExample = new LogExample();
@@ -57,6 +81,12 @@ public class LogServiceImpl implements LogService {
         }
     }
 
+    /**
+     * 时间范围查找日志
+     * @param start
+     * @param end
+     * @return
+     */
     @Override
     public List<Log> selectLogBetweenTime(Date start, Date end) {
         LogExample logExample = new LogExample();

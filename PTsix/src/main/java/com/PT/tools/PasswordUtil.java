@@ -8,14 +8,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 /**
- * @see: PasswordUtil
- * @author: lnexin@aliyun.com
- * @date: 2017-04-29  10:12
+ * @author: yxhuang
  */
 public class PasswordUtil {
     /**
      * 使用:
-     *      直接使用即可,至于具体参数,看下面方法的说明即可;
      *      1. PasswordUtil.MD5Encode();  MD5不可逆简单加密:散列函数-基于HASH算法的编码
      *      2. PasswordUtil.AESEncrypt(); AES加密
      *      3. PasswordUtil.AESDecrypt(); AES解密
