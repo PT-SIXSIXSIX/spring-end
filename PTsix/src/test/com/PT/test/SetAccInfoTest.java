@@ -6,6 +6,8 @@ import com.PT.service.SetAccRecService;
 import com.PT.tools.OutputMessage;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,5 +31,14 @@ public class SetAccInfoTest extends BaseTest {
         Map result = setAccRecService.listSetAccRec(1, 1, 41, info);
 //        System.out.println(result.size());
         OutputMessage.outputMap(result);
+    }
+    @Test
+    public void settleAccountTest() {
+        List<String> list = new ArrayList<>();
+//        list.add("2000555555");
+        list.add("2000555556");
+        list.add("2000555557");
+        Boolean result = setAccRecService.updateSetAccState(list, 2, 41);
+        System.out.println(result);
     }
 }

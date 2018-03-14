@@ -1,7 +1,10 @@
 package com.PT.service.impl;
 
+import com.PT.dao.DriverMapper;
 import com.PT.dao.SetAccRecInfoMapper;
 import com.PT.dao.SettleAccRecordMapper;
+import com.PT.entity.Driver;
+import com.PT.entity.DriverExample;
 import com.PT.entity.SettleAccRecord;
 import com.PT.entity.SettleAccRecordExample;
 import com.PT.service.LogService;
@@ -10,8 +13,8 @@ import com.PT.tools.ToStrings;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +33,9 @@ public class SetAccRecServiceImpl implements SetAccRecService{
     SettleAccRecordMapper settleAccRecordMapper;
     @Autowired
     LogService logService;
+    @Autowired
+    DriverMapper driverMapper;
+
     @Override
     public Map<String, Object> listSetAccRec(int page, int ipp, int userId, String query) {
         Map<String, Object> map = new HashMap<>();
@@ -44,6 +50,7 @@ public class SetAccRecServiceImpl implements SetAccRecService{
         return map;
     }
 
+    @Transactional
     @Override
     public Boolean deleteSetAccRec(List<String> setAccIds, int userId) {
         SettleAccRecordExample example = new SettleAccRecordExample();
@@ -63,29 +70,46 @@ public class SetAccRecServiceImpl implements SetAccRecService{
         }
     }
 
+
     @Override
     public Boolean updateSetAccState(List<String> setAccIds, int state, int userId) {
-        SettleAccRecordExample example = new SettleAccRecordExample();
-        SettleAccRecordExample.Criteria criteria = example.createCriteria();
-        criteria.andSetAccIdIn(setAccIds);
-        SettleAccRecord record = new SettleAccRecord();
-        record.setStatus(state);
-        try {
-            String addCondition = new String();
-            if(state == 2) {
-                record.setTradedAt(new Date());
-                criteria.andStatusEqualTo(1);
-                addCondition = "and status = " + state;
-            }
+
+        if(state == 1) {
+            SettleAccRecordExample example = new SettleAccRecordExample();
+            example.createCriteria().andStatusEqualTo(0).andSetAccIdIn(setAccIds);
+            SettleAccRecord record = new SettleAccRecord();
+            record.setStatus(state);
             if(settleAccRecordMapper.updateByExampleSelective(record, example) > 0) {
                 String desc = ToStrings.listToStrings(setAccIds, '&');
                 logService.insertLog(userId, "update", "on table ykat_settle_account_records: "
-                        +"by ids in ["+desc+"] "+addCondition+". set status to "+state);
+                        +"by ids in ["+desc+"] "+" and status = 0"+". set status to "+state);
             }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            else return false;
+        } else {
+            return settleAccount(setAccIds, userId);
         }
+        return true;
     }
+
+    /**
+     * 结算操作，需要扣除司机佣金
+     * @param setAccIds
+     * @return
+     */
+    @Transactional
+    public Boolean settleAccount(List<String> setAccIds, int userId) {
+        int count = setAccRecInfoMapper.updateDriver(setAccIds);
+        count += setAccRecInfoMapper.updateSetAccRec(setAccIds);
+        DriverExample example = new DriverExample();
+        example.createCriteria().andStatusEqualTo(1);
+        Driver driver = new Driver();
+        driver.setStatus(0);
+        driverMapper.updateByExampleSelective(driver, example);
+        if(count <= 0) return false;
+        String desc = ToStrings.listToStrings(setAccIds, '&');
+                logService.insertLog(userId, "update", "on table ykat_settle_account_records: "
+                +"by ids in ["+desc+"] "+" and status = 1"+". set status to "+2);
+        return true;
+    }
+
 }

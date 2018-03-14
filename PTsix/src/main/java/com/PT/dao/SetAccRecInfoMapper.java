@@ -10,4 +10,6 @@ public interface SetAccRecInfoMapper {
 
     List<SetAccRecInfoBean> selectByFactors(@Param("map") Map map);
     int countByFactors(@Param("map") Map map);
+    int updateDriver(@Param("list") List<String> ids);
+    int updateSetAccRec(@Param("list") List<String> ids);
 }
