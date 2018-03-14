@@ -79,4 +79,10 @@ public class ToolTests extends BaseTest {
 //        }
 
     }
+    @Test
+    public void queryToMapTest() {
+        String me = "content:+time:1520870400000-1521043200000";
+        Map map = QueryToMap.stringToMap(me);
+        OutputMessage.outputMap(map);
+    }
 }

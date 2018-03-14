@@ -1,5 +1,6 @@
 package com.PT.service.impl;
 
+import com.PT.bean.SetAccRec.SetAccRecInfoBean;
 import com.PT.dao.DriverMapper;
 import com.PT.dao.SetAccRecInfoMapper;
 import com.PT.dao.SettleAccRecordMapper;
@@ -9,12 +10,15 @@ import com.PT.entity.SettleAccRecord;
 import com.PT.entity.SettleAccRecordExample;
 import com.PT.service.LogService;
 import com.PT.service.SetAccRecService;
+import com.PT.tools.OutputMessage;
+import com.PT.tools.QueryToMap;
 import com.PT.tools.ToStrings;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,16 +50,31 @@ public class SetAccRecServiceImpl implements SetAccRecService{
      */
     @Override
     public Map<String, Object> listSetAccRec(int page, int ipp, int userId, String query) {
-        Map<String, Object> map = new HashMap<>();
+        Map map = QueryToMap.stringToMap(query);
+        OutputMessage.outputMap(map);
+        String content = (String) map.get("content");
+        Map<String, Object> result = new HashMap<>();
         PageHelper.startPage(page, ipp);
         Map factors = new HashMap<String, Object>();
-        factors.put("str", query);
+        if(null != content) factors.put("str", content);
+        String date = (String) map.get("time");
+        Date start = null, end = null;
+        if(date != null) {
+            String[] temp = date.split("[-]");
+            for(int i = 0; i < temp.length; i++) {
+                System.out.println(temp[i]);
+            }
+            start = new Date(Long.valueOf(temp[0]));
+            end = new Date(Long.valueOf(temp[1]));
+            factors.put("st", start);
+            factors.put("ed", end);
+        }
         factors.put("userId", userId);
         List list = setAccRecInfoMapper.selectByFactors(factors);
         int maxPage = (setAccRecInfoMapper.countByFactors(factors)-1)/ipp+1;
-        map.put("maxPage", maxPage);
-        map.put("records", list);
-        return map;
+        result.put("maxPage", maxPage);
+        result.put("records", list);
+        return result;
     }
 
     /**
@@ -121,17 +140,22 @@ public class SetAccRecServiceImpl implements SetAccRecService{
      */
     @Transactional
     public Boolean settleAccount(List<String> setAccIds, int userId) {
-        int count = setAccRecInfoMapper.updateDriver(setAccIds);
-        count += setAccRecInfoMapper.updateSetAccRec(setAccIds);
-        DriverExample example = new DriverExample();
-        example.createCriteria().andStatusEqualTo(1);
-        Driver driver = new Driver();
-        driver.setStatus(0);
-        driverMapper.updateByExampleSelective(driver, example);
-        if(count <= 0) return false;
-        String desc = ToStrings.listToStrings(setAccIds, '&');
-                logService.insertLog(userId, "update", "on table ykat_settle_account_records: "
-                +"by ids in ["+desc+"] "+" and status = 1"+". set status to "+2);
+        try {
+            int count = setAccRecInfoMapper.updateDriver(setAccIds);
+            count += setAccRecInfoMapper.updateSetAccRec(setAccIds);
+            DriverExample example = new DriverExample();
+            example.createCriteria().andStatusEqualTo(1);
+            Driver driver = new Driver();
+            driver.setStatus(0);
+            driverMapper.updateByExampleSelective(driver, example);
+            if(count <= 0) return false;
+            String desc = ToStrings.listToStrings(setAccIds, '&');
+            logService.insertLog(userId, "update", "on table ykat_settle_account_records: "
+                    +"by ids in ["+desc+"] "+" and status = 1"+". set status to "+2);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+
         return true;
     }
 
