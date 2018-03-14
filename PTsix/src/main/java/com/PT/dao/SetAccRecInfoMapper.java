@@ -1,6 +1,6 @@
 package com.PT.dao;
 
-import com.PT.bean.SetAccRecInfoBean;
+import com.PT.bean.SetAccRec.SetAccRecInfoBean;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

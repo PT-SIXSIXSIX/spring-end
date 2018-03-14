@@ -1,6 +1,5 @@
 package com.PT.test;
 
-import com.PT.bean.SetAccRecInfoBean;
 import com.PT.dao.SetAccRecInfoMapper;
 import com.PT.service.SetAccRecService;
 import com.PT.tools.OutputMessage;

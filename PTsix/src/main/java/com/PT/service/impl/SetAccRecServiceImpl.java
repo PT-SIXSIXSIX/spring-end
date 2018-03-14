@@ -36,6 +36,14 @@ public class SetAccRecServiceImpl implements SetAccRecService{
     @Autowired
     DriverMapper driverMapper;
 
+    /**
+     * 分局page和ipp分页，根据userId相等，根据query模糊查询
+     * @param page
+     * @param ipp
+     * @param userId
+     * @param query
+     * @return
+     */
     @Override
     public Map<String, Object> listSetAccRec(int page, int ipp, int userId, String query) {
         Map<String, Object> map = new HashMap<>();
@@ -50,27 +58,42 @@ public class SetAccRecServiceImpl implements SetAccRecService{
         return map;
     }
 
+    /**
+     * 根据ids删除结算记录（设置status=3）
+     * 注意，事务回滚需要抛出Run的异常
+     * @param setAccIds
+     * @param userId
+     * @return
+     */
     @Transactional
     @Override
     public Boolean deleteSetAccRec(List<String> setAccIds, int userId) {
         SettleAccRecordExample example = new SettleAccRecordExample();
-        for(int i = 0; i < setAccIds.size(); i++)
-            System.out.println(setAccIds.get(i));
         example.createCriteria().andStatusEqualTo(2).andSetAccIdIn(setAccIds);
+        SettleAccRecord settleAccRecord = new SettleAccRecord();
+        settleAccRecord.setStatus(3);
         try {
-            if(settleAccRecordMapper.deleteByExample(example) > 0) {
+            if(settleAccRecordMapper.updateByExampleSelective(settleAccRecord, example) > 0) {
                 String desc = ToStrings.listToStrings(setAccIds, '&');
                 logService.insertLog(userId, "delete", "on table ykat_settle_account_records: "
                 +"by ids in ["+desc+"]");
             }
             return true;
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return false;
         }
     }
 
 
+    /**
+     * 根据ids来跟新状态，若state=2需要调用结算函数
+     * @param setAccIds
+     * @param state
+     * @param userId
+     * @return
+     */
+    @Transactional
     @Override
     public Boolean updateSetAccState(List<String> setAccIds, int state, int userId) {
 

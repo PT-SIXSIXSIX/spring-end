@@ -65,7 +65,14 @@ public class UnderlineToTumpUtil {
     }
 
 
-
+    /**
+     * 下划线命名的key转化为驼峰
+     * @param map
+     * @return
+     * @throws IntrospectionException
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     */
     public static Map underlineToTump(Map<String, Object> map)
             throws IntrospectionException, IllegalAccessException, InvocationTargetException {
         Map<String, Object> result = new HashMap<>();
@@ -75,6 +82,15 @@ public class UnderlineToTumpUtil {
         }
         return result;
     }
+
+    /**
+     * 驼峰命名的key转化为下划线
+     * @param map
+     * @return
+     * @throws IntrospectionException
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     */
     public static Map tumpToUnderline(Map<String, Object> map)
             throws IntrospectionException, IllegalAccessException, InvocationTargetException {
         Map<String, Object> result = new HashMap<>();

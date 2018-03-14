@@ -8,11 +8,21 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * created by yxhuang
+ * 门店管理员信息管理业务实现类
+ */
 @Service
 public class StoreServiceImpl implements StoreService {
 
     @Autowired
     StoreInfoMapper storeInfoMapper;
+
+    /**
+     * 根据userId来获取门店管理员信息
+     * @param userId
+     * @return
+     */
     @Override
     public Map<String, Object> getStoreByUserId(int userId) {
         Map map = new HashMap<String, Object>();
@@ -25,6 +35,12 @@ public class StoreServiceImpl implements StoreService {
         return map;
     }
 
+    /**
+     * 根据userId跟新管理员信息
+     * @param map
+     * @param userId
+     * @return
+     */
     @Override
     public Map<String, Object> updateStoreByUserId(Map map, int userId) {
         map.put("userId", userId);

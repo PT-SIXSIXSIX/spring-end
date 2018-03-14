@@ -17,7 +17,7 @@ import java.util.Map;
  * created by yxhuang
  */
 @Controller
-@RequestMapping("/book")
+@RequestMapping("/api/v1")
 public class KBSController {
 
 //    @Autowired

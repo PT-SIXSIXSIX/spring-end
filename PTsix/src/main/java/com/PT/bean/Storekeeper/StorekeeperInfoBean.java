@@ -1,5 +1,9 @@
-package com.PT.bean;
+package com.PT.bean.Storekeeper;
 
+/**
+ * created by yxhuang
+ * 门店管理员info查询bean
+ */
 public class StorekeeperInfoBean {
     private String name;
     private String phone;

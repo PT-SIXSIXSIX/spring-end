@@ -13,13 +13,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  * Enabling CORS support  - Access-Control-Allow-Origin
- * @author zeroows@gmail.com
+ * @author yxhuang
  *
  * <code>
 <!-- Add this to your web.xml to enable "CORS" -->
 <filter>
 <filter-name>cors</filter-name>
-<filter-class>com.elm.mb.rest.filters.CORSFilter</filter-class>
+<filter-class>com.PT.tools.CORSFilter</filter-class>
 </filter>
 
 <filter-mapping>
@@ -31,6 +31,14 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class CORSFilter extends OncePerRequestFilter {
     private static final Log LOG = LogFactory.getLog(CORSFilter.class);
 
+    /**
+     * 允许跨域请求，支持OPTIONS方法
+     * @param request
+     * @param response
+     * @param filterChain
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         response.addHeader("Access-Control-Allow-Origin", "*");

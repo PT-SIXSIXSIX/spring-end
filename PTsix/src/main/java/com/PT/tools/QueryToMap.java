@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * created by yxhuang
  * 用于解析条件
  * 把查询条件解析为map方便存取
  */

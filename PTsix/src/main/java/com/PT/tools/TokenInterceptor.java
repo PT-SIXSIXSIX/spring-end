@@ -6,6 +6,12 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+
+/**
+ * created by yxhuang
+ * 拦截器实现，获取解析token串
+ */
 public class TokenInterceptor implements HandlerInterceptor{
     @Override
     public void afterCompletion(HttpServletRequest request,
@@ -21,22 +27,29 @@ public class TokenInterceptor implements HandlerInterceptor{
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
                              Object handler) throws Exception {
 
+//        放过OPTIONS方法
         if(request.getMethod().equals("OPTIONS"))
             return true;
+//        获取token和userId
         response.setCharacterEncoding("utf-8");
         String userId = request.getHeader("X-YKAT-USER-ID");
         String token = request.getHeader("X-YKAT-ACCESS-TOKEN");
-        System.out.println("ID: "+userId+"  token: "+token);
 
-        if(userId.equals("41")) return true;
-        String sign = TokenOptions.getKey(TokenOptions.TOKEN_PREFIX+userId);
         ResponseData responseData = ResponseData.ok();
+        if(userId == null || token == null) {
+            responseData.setError(1,"获取userId或者token为空，请检查字段是否正确");
+            responseMessage(response, response.getWriter(), responseData);
+            return false;
+        }
+//        签名
+        String sign = TokenOptions.getKey(TokenOptions.TOKEN_PREFIX+userId);
         if(null == sign || StringUtils.isBlank(sign)) {
             responseData.setError(1,"token过期");
             responseMessage(response, response.getWriter(), responseData);
             return false;
         }
         else if(StringUtils.equals(sign, token)) {
+//            token验证正确
             return true;
         }
         else {
