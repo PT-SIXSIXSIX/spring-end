@@ -2,9 +2,11 @@ package com.PT.service.impl;
 
 import com.PT.dao.DepositInfoMapper;
 import com.PT.dao.DepositRechargeRecordMapper;
+import com.PT.dao.StoreMapper;
 import com.PT.dao.YkatCommonUtilMapper;
 import com.PT.entity.DepositRechargeRecord;
 import com.PT.entity.DepositRechargeRecordExample;
+import com.PT.entity.Store;
 import com.PT.service.DepositService;
 import com.PT.service.LogService;
 import com.PT.tools.QueryToMap;
@@ -33,6 +35,9 @@ public class DepositServiceImpl implements DepositService {
 
     @Autowired
     private LogService logService;
+
+    @Autowired
+    private StoreMapper storeMapper;
 
     @Autowired
     private YkatCommonUtilMapper ykatCommonUtilMapper;
@@ -121,9 +126,11 @@ public class DepositServiceImpl implements DepositService {
         rechargeRecord.setStoreId(storeId);
         Integer status = currentMoney >= YkatConstant.enoughDeposit ? 1:0;
         rechargeRecord.setStatus(status);
-        if(depositRechargeRecordMapper.insertSelective(rechargeRecord)>0){
-            logService.insertLog(userId,"insert","recharge deposit");
+        Store store = new Store();
+        store.setId(storeId);
+        store.setDeposit(currentMoney);
+        if(depositRechargeRecordMapper.insertSelective(rechargeRecord)>0 && storeMapper.updateByPrimaryKeySelective(store)>0){
+            logService.insertLog(userId,"insert","recharge deposit of store "+storeId+" "+rechargeMoney+" ¥");
         }
-
     }
 }

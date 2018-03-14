@@ -18,4 +18,11 @@ public interface YkatCommonUtilMapper {
     Integer getCurrentDepositByUserId(int userId);
     Integer getStoreIdByUserId(int userId);
 
+    /**
+     * 根据 用户唯一标识符 获得 用户角色
+     * @param userId
+     * @return
+     */
+    Integer getRoleByUserId(int userId);
+
 }

@@ -34,8 +34,9 @@
         from order_info_v
         where user_id = #{map.userId,jdbcType=INTEGER}
         and order_type = #{map.orderType,jdbcType=VARCHAR} and order_status <![CDATA[!=]]> 2
-        <if test="map.state != null and map.state != '' ">
-            and order_status = #{map.state,jdbcType=VARCHAR}
+        <if test="map.content != null and map.content != '' " >
+            and ( order_id like '${map.content}%' or project_type like '${map.content}%'
+                  or project_descp like '${map.content}%' or driver_name like '${map.content}%')
         </if>
         <if test="map.fromDate != null and map.toDate != null ">
             and order_created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
@@ -48,8 +49,9 @@
         from order_info_v
         where user_id = #{map.userId,jdbcType=INTEGER}
         and order_type = #{map.orderType,jdbcType=VARCHAR} and order_status <![CDATA[!=]]> 2
-        <if test="map.state != null and map.state != '' ">
-            and order_status = #{map.state,jdbcType=VARCHAR}
+        <if test="map.content != null and map.content != '' " >
+            and ( order_id like '${map.content}%' or project_type like '${map.content}%'
+            or project_descp like '${map.content}%' or driver_name like '${map.content}%')
         </if>
         <if test="map.fromDate != null and map.toDate != null ">
             and order_created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}

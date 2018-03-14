@@ -11,7 +11,7 @@ public interface StaffService {
      * @param queryCondition 查询语句
      * @return
      */
-    Map<String , Object> listStaff(int userId,int page,int ipp,String queryCondition);
+    Map<String , Object> listStaff(int userId,int page,int ipp,String queryCondition)  throws Exception;
 
     /**
      * 删除员工

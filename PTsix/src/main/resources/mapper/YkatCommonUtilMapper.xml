@@ -16,4 +16,7 @@
     <select id="getStoreIdByUserId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
         SELECT id from ykat_stores where user_id = #{userId,jdbcType=INTEGER}
     </select>
+    <select id="getRoleByUserId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        SELECT role from ykat_users where id = @{userId,jdbcType=INTEGER}
+    </select>
 </mapper>
