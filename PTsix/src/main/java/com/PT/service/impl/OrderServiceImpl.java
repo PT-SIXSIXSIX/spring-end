@@ -170,8 +170,11 @@ public class OrderServiceImpl implements OrderService{
         criteria.andOrderIdIn(orderIds);
         //criteria.andStoreIdEqualTo(userId);
         criteria.andTypeEqualTo(String.valueOf(type));
+        Order updateTo = new Order();
+        updateTo.setStatus(2);//删除状态;
 
-        int res = orderMapper.deleteByExample(example);
+
+        int res = orderMapper.updateByExampleSelective(updateTo,example);
         if(res<=0){
             throw new Exception("删除失败");
         }else{

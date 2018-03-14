@@ -58,6 +58,8 @@ public class DepositServiceImpl implements DepositService {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("records",records);
         resultMap.put("maxPage",maxPage);
+        Integer currentDeposit = depositInfoMapper.getCurrentDepositByUserId(userId);
+        resultMap.put("currentDeposit",currentDeposit);
         return resultMap;
     }
 

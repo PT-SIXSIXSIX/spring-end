@@ -120,6 +120,7 @@ public class StaffController {
         try{
             staffService.updateByStaffId(userId, staffId,requestMap);
             responseData.putDataValue("success",true);
+            response.setStatus(responseData.getCode());
         }catch (Exception e){
             response.setStatus(400);
             responseData = ResponseData.badRequest();
