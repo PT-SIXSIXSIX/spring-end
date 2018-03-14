@@ -36,7 +36,7 @@ public class OrderTest extends BaseTest{
         for(int i = 0; i < 100; i++) {
             int id = Math.abs(random.nextInt());
             System.out.println(id);
-            orderService.addOrder(41, 1, Integer.toString(id), list.get(id % 3), list.get(id % 3));
+            orderService.addOrder(41, 1, Integer.toString(id%3), list.get(id % 3), list.get(id % 3));
         }
     }
 }
