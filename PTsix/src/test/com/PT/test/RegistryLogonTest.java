@@ -1,12 +1,11 @@
 package com.PT.test;
 
-import com.PT.bean.StorekeeperInfoBean;
+import com.PT.bean.Storekeeper.StorekeeperInfoBean;
 import com.PT.dao.StoreMapper;
 import com.PT.dao.UserMapper;
 import com.PT.entity.Store;
 import com.PT.entity.User;
 import com.PT.service.RegistryLogonService;
-import com.PT.tools.PasswordUtil;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

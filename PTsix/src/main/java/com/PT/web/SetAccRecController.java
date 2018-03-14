@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * created by yxhuang
- * 登录和注册控制
+ * 结算管理信息控制器
  */
 @Controller
 @RequestMapping("/api/v1/users/{userId}")
@@ -23,6 +23,15 @@ public class SetAccRecController {
     SetAccRecService setAccRecService;
 
 
+    /**
+     * 根据userId和传入信息（可以为空）模糊查询结算信息
+     * @param userId
+     * @param page
+     * @param ipp
+     * @param q
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/settleAccountRecords", method = RequestMethod.GET)
     public @ResponseBody
     Map<String, Object> selectSetAccRecByFactors(@PathVariable("userId") int userId,
@@ -31,7 +40,7 @@ public class SetAccRecController {
                                  @RequestParam(value = "q", required = false, defaultValue = "") String q,
                                  HttpServletResponse response) {
         /**
-         * q：付款人姓名,或者手机号码,单号
+         * q：付款人姓名,或者手机号码,结算单号
          */
         ResponseData responseData = ResponseData.ok();
         response.setStatus(200);
@@ -47,6 +56,14 @@ public class SetAccRecController {
         }
         return result;
     }
+
+    /**
+     * 根据传入的userId和Ids，批量删除结算记录，只能删除已结算的记录(status:0-联保，1-待结算，2-已结算，3-已删除)
+     * @param userId
+     * @param mp
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/settleAccountRecords", method = RequestMethod.DELETE)
     public @ResponseBody
     Map<String, Object> deleteSetAccRecInIds(@PathVariable("userId") int userId,
@@ -60,6 +77,14 @@ public class SetAccRecController {
         return responseData.getBody();
     }
 
+    /**
+     * 根据ids批量更新结算表，（改为待结算或者改为结算）
+     * @param userId
+     * @param state
+     * @param mp
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/sa", method = RequestMethod.PUT)
     public @ResponseBody
     Map<String, Object> updateSetAccRecInIds(@PathVariable("userId") int userId,

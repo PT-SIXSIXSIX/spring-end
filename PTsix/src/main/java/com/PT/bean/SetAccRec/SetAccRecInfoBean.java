@@ -1,8 +1,11 @@
-package com.PT.bean;
+package com.PT.bean.SetAccRec;
 
 import java.util.Date;
 
-
+/**
+ * created by yxhuang
+ * 查询结算info存储bean
+ */
 public class SetAccRecInfoBean {
     private String setAccId;
     private String companyName;

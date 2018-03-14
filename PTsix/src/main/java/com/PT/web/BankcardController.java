@@ -15,6 +15,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * created by yxhuang
+ * 店长个人银行卡管理控制器
+ */
 @Controller
 @RequestMapping("/api/v1/users/{userId}")
 public class BankcardController {
@@ -22,6 +27,12 @@ public class BankcardController {
     BankcardService bankcardService;
 
 
+    /**
+     * 根据个人userId获取银行卡
+     * @param userId
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/bankcards", method = RequestMethod.GET)
     public @ResponseBody
     Map<String, Object> getCardsByUserId(@PathVariable("userId") int userId
@@ -37,6 +48,17 @@ public class BankcardController {
         return responseData.getBody();
     }
 
+    /**
+     * 根据个人userId和银行卡信息添加银行卡，每个人最多绑定3张银行卡
+     * @param userId
+     * @param map
+     * @param response
+     * @return
+     * @throws InvocationTargetException
+     * @throws IntrospectionException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
     @RequestMapping(value = "/bankcards", method = RequestMethod.POST)
     public @ResponseBody
     Map<String, Object> addCardsByUserId(@PathVariable("userId") int userId
@@ -57,6 +79,13 @@ public class BankcardController {
         return responseData.getBody();
     }
 
+    /**
+     * 银行卡解除绑定
+     * @param userId
+     * @param map
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/bankcards", method = RequestMethod.DELETE)
     public @ResponseBody
     Map<String, Object> deleteCardsByIds(@PathVariable("userId") int userId

@@ -1,7 +1,7 @@
 package com.PT.web;
 
 
-import com.PT.bean.StorekeeperInfoBean;
+import com.PT.bean.Storekeeper.StorekeeperInfoBean;
 import com.PT.entity.Store;
 import com.PT.entity.User;
 import com.PT.service.RegistryLogonService;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.Response;
 
 
 /**
@@ -38,6 +37,12 @@ public class RegistryLogonController {
     RegistryLogonService registryLogonService;
 
 
+    /**
+     * 登录控制器，根据电话号和密码登录
+     * @param map
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public @ResponseBody Map<String, Object> login(@RequestBody Map<String, String> map, HttpServletResponse response) {
         String phone = map.get("phone");
@@ -59,6 +64,12 @@ public class RegistryLogonController {
         return responseData.getData();
     }
 
+    /**
+     * 注册，根据用户传入信息注册，后端不验证数据正确性
+     * @param out
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public @ResponseBody Map<String, Object> register(@RequestBody Map<String, Object> out, HttpServletResponse response) {
         ResponseData responseData = ResponseData.createOk();
@@ -78,6 +89,7 @@ public class RegistryLogonController {
                 responseData.putDataValue("accessToken", token);
                 response.setStatus(201);
             } else {
+//                注册失败，返回信息
                 response.setStatus(400);
                 responseData.setError(1, "注册失败,该手机号已注册");
             }
@@ -88,6 +100,13 @@ public class RegistryLogonController {
         return responseData.getBody();
     }
 
+    /**
+     * 验证手机号是否存在于数据库中
+     * 存在返回1，否则返回0
+     * @param verifyPhone
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public @ResponseBody Map<String, Object> register(@RequestParam("verifyPhone") String verifyPhone, HttpServletResponse response) {
         ResponseData responseData = ResponseData.ok();
@@ -101,13 +120,25 @@ public class RegistryLogonController {
     }
 
 
+    /**
+     * 验证用户电话，身份证，姓名，更改为新密码
+     * @param out
+     * @param response
+     * @return
+     * @throws InvocationTargetException
+     * @throws IntrospectionException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
     @RequestMapping(value = "/user/password", method = RequestMethod.POST)
-    public @ResponseBody Map<String, Object> forgetPwd(@RequestBody Map<String, Object> out, HttpServletResponse response) throws InvocationTargetException, IntrospectionException, InstantiationException, IllegalAccessException {
-        out.put("name", out.get("bossName"));
+    public @ResponseBody Map<String, Object> forgetPwd(@RequestBody Map<String, Object> out
+            , HttpServletResponse response) throws InvocationTargetException
+            , IntrospectionException, InstantiationException, IllegalAccessException {
         String pwd = (String) out.get("password");
         ResponseData responseData = ResponseData.ok();
         response.setStatus(200);
-        StorekeeperInfoBean info = (StorekeeperInfoBean) BeanToMapUtil.convertMap(StorekeeperInfoBean.class, out);
+        StorekeeperInfoBean info = (StorekeeperInfoBean)
+                BeanToMapUtil.convertMap(StorekeeperInfoBean.class, out);
         if(false == registryLogonService.changePassword(info, pwd)) {
             response.setStatus(400);
             responseData.setError(1, "信息验证失败");
@@ -115,7 +146,17 @@ public class RegistryLogonController {
         return responseData.getBody();
     }
 
-
+    /**
+     * 根据userId和旧密码验证，更改用户密码
+     * @param request
+     * @param out
+     * @param response
+     * @return
+     * @throws InvocationTargetException
+     * @throws IntrospectionException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
     @RequestMapping(value = "/user/newPassword", method = RequestMethod.PUT)
     public @ResponseBody Map<String, Object> changePwd(HttpServletRequest request, @RequestBody Map<String, Object> out, HttpServletResponse response) throws InvocationTargetException, IntrospectionException, InstantiationException, IllegalAccessException {
         String oldPwd = (String) out.get("oldPassword");

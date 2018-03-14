@@ -1,6 +1,6 @@
 package com.PT.service.impl;
 
-import com.PT.bean.StorekeeperInfoBean;
+import com.PT.bean.Storekeeper.StorekeeperInfoBean;
 import com.PT.dao.StoreMapper;
 import com.PT.dao.UserMapper;
 import com.PT.dao.StorekeeperInfoMapper;
@@ -16,6 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 注册业务层实现类
+ */
 @Service
 public class RegistryLogonServiceImpl implements RegistryLogonService{
     @Autowired
@@ -27,18 +30,24 @@ public class RegistryLogonServiceImpl implements RegistryLogonService{
 
     static String ENCODE = "utf-8";
 
+    /**
+     * 注册，同时插入两表，需要事务注解
+     * @param user
+     * @param store
+     * @return
+     */
     @Transactional
     @Override
     public User regist(User user, Store store) {
         try {
+//            加密密码
             String password = PasswordUtil.MD5Encode(user.getPassword(), ENCODE, false);
             user.setPassword(password);
             user.setRole(0);
             UserExample userExample = new UserExample();
             userExample.createCriteria().andPhoneEqualTo(user.getPhone());
             if(userMapper.selectByExample(userExample).size() > 0) {
-                System.out.println("用户已存在");
-                return null;
+                throw new RuntimeException("用户手机已经注册");
             }
             user.setCreatedAt(new Date());
             userMapper.insert(user);
@@ -87,6 +96,11 @@ public class RegistryLogonServiceImpl implements RegistryLogonService{
 
     }
 
+    /**
+     * 验证手机是否存在
+     * @param phone
+     * @return
+     */
     @Override
     public boolean verifyPhone(String phone) {
         UserExample userExample = new UserExample();
@@ -96,6 +110,13 @@ public class RegistryLogonServiceImpl implements RegistryLogonService{
         return false;
     }
 
+    /**
+     * 根据userId和旧密码验证更改新密码
+     * @param id
+     * @param old
+     * @param pwd
+     * @return
+     */
     @Override
     public boolean changePassword(int id, String  old, String pwd) {
         try {
@@ -114,6 +135,12 @@ public class RegistryLogonServiceImpl implements RegistryLogonService{
         }
     }
 
+    /**
+     * 忘了密码，根据用户信息找回
+     * @param info
+     * @param pwd
+     * @return
+     */
     @Override
     public boolean changePassword(StorekeeperInfoBean info, String pwd) {
         StorekeeperInfoBean storekeeperInfoBean =

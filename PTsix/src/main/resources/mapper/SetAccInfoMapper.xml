@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.PT.dao.SetAccRecInfoMapper" >
-    <resultMap id="BaseResultMap" type="com.PT.bean.SetAccRecInfoBean" >
+    <resultMap id="BaseResultMap" type="com.PT.bean.SetAccRec.SetAccRecInfoBean" >
         <result column="set_acc_id" property="setAccId" jdbcType="VARCHAR" />
         <result column="company_name" property="companyName" jdbcType="VARCHAR" />
         <result column="driver_name" property="driverName" jdbcType="VARCHAR" />
@@ -15,6 +15,7 @@
         inner join ykat_drivers on driver_id = ykat_drivers.id
         inner join ykat_stores on store_id = ykat_stores.id
         where user_id = #{map.userId,jdbcType=INTEGER}
+        and ykat_settle_account_records.status <![CDATA[ <> ]]> 3
         <if test="map.str != null and map.str != ''" >
             and (set_acc_id like '%${map.str}%' or driver_phone like '%${map.str}%' or driver_name like '%${map.str}%')
         </if>
@@ -37,7 +38,7 @@
         = ykat_orders.id
         inner join ykat_drivers on driver_id = ykat_drivers.id
         ) money
-        set a.status = 2
+        set a.status = 2, a.traded_at = now()
         where a.status = 1 and a.set_acc_id in
         <trim prefix="(" prefixOverrides="[" suffix=")" suffixOverrides="]">${list}</trim>
         and a.id = money.id

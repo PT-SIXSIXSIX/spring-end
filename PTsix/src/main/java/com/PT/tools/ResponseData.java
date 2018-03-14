@@ -1,6 +1,11 @@
 package com.PT.tools;
 import java.util.HashMap;
 import java.util.Map;
+
+/**
+ * created by yxhuang
+ * 快速返回信息类，包括很多常用操作
+ */
 public class ResponseData {
     private String message;
     private int code;
