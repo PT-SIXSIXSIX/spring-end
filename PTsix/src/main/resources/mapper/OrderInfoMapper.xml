@@ -29,32 +29,29 @@
     </select>
     <select id="selectOrderInfoByFactor" resultMap="OrderInfoMapper" parameterType="map">
         select
-        oder.order_id order_id, oder.status state, oder.created_at,
-        driver.driver_name driver_name,
-        project.descp project_descp, project.type project_type
-        from ykat_orders oder inner join ykat_drivers driver on oder.driver_id=driver.id
-        inner join ykat_projects project on project.id=oder.project_id
-        where oder.store_id = #{map.storeId,jdbcType=INTEGER}
-        and oder.type = #{map.orderType,jdbcType=VARCHAR}
+        order_id , order_status state, order_created_at created_at,
+        driver_name ,project_descp, project_type
+        from order_info_v
+        where user_id = #{map.userId,jdbcType=INTEGER}
+        and order_type = #{map.orderType,jdbcType=VARCHAR}
         <if test="map.state != null and map.state != '' ">
-            and oder.status = #{map.state,jdbcType=VARCHAR}
+            and order_status = #{map.state,jdbcType=VARCHAR}
         </if>
         <if test="map.fromDate != null and map.toDate != null ">
-            and oder.created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
+            and order_created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
         </if>
     </select>
     <select id="countOrderInfoByFactor" resultType="java.lang.Integer" parameterType="map">
         select
         count(*)
-        from ykat_orders oder inner join ykat_drivers driver on oder.driver_id=driver.id
-        inner join ykat_projects project on project.id=oder.project_id
-        where oder.store_id = #{map.storeId,jdbcType=INTEGER}
-        and oder.type = #{map.orderType,jdbcType=VARCHAR}
+        from order_info_v
+        where user_id = #{map.userId,jdbcType=INTEGER}
+        and order_type = #{map.orderType,jdbcType=VARCHAR}
         <if test="map.state != null and map.state != '' ">
-            and oder.status = #{map.state,jdbcType=VARCHAR}
+            and order_status = #{map.state,jdbcType=VARCHAR}
         </if>
         <if test="map.fromDate != null and map.toDate != null ">
-            and oder.created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
+            and order_created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
         </if>
     </select>
     <select id="getIdByProjectType" parameterType="java.lang.String" resultType="java.lang.Integer">

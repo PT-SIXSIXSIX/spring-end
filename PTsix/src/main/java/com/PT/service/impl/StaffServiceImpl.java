@@ -29,6 +29,14 @@ public class StaffServiceImpl implements StaffService {
     @Autowired
     private LogService logService;
 
+    /**
+     * 查找店员
+     * @param userId 唯一用户标识
+     * @param page 页数
+     * @param ipp 每页数据量
+     * @param queryCondition 查询语句
+     * @return
+     */
     public Map<String , Object> listStaff(int userId, int page, int ipp, String queryCondition){
 
         PageHelper.startPage(page,ipp);
@@ -48,6 +56,12 @@ public class StaffServiceImpl implements StaffService {
         return map;
     }
 
+    /**
+     * 添加店员
+     * @param userId 唯一用户标识
+     * @param factors 参数 ，密码，姓名，电话
+     * @throws Exception
+     */
     @Transactional
     @Override
     public void addStaff(int userId, Map factors) throws Exception{
@@ -74,6 +88,11 @@ public class StaffServiceImpl implements StaffService {
         }
     }
 
+    /**
+     * 删除员工
+     * @param userId 唯一用户表示
+     * @param staffId 员工唯一用户标识
+     */
     @Transactional
     @Override
     public void deleteByStaffId(int userId, int staffId){
@@ -84,6 +103,12 @@ public class StaffServiceImpl implements StaffService {
 
     @Transactional
     @Override
+    /**
+     * 更新员工信息
+     * @param userId 唯一用户表示
+     * @param staffId 要更新信息的员工标识
+     * @param factor 更新参数， 包含电话，姓名
+     */
     public void updateByStaffId(int userId, int staffId, Map<String,String> factor){
         UserExample example = new UserExample();
         example.createCriteria().andIdEqualTo(staffId);

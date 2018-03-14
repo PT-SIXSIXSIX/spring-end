@@ -3,7 +3,9 @@ package com.PT.web;
 import com.PT.bean.order.OrderInfoBean;
 import com.PT.entity.Order;
 import com.PT.service.OrderService;
+import com.PT.tools.PasswordUtil;
 import com.PT.tools.ResponseData;
+import com.PT.tools.YkatCommonUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,19 +32,7 @@ public class OrderController {
      * @param ipp 每页项
      * @param queryCondition 查询条件
      * @return 订单列表json
-     * {
-            "max_page": 1,
-            "records": [
-                {
-                "order_id": 1,
-                "driver_name": "Hello, world!",
-                "created_at": "Hello, world!",
-                "project_type": "Hello, world!",
-                "project_descp": "Hello, world!",
-                "state": 1
-                }
-            ]
-        }
+     *
      */
     @RequestMapping(value = "/orders/{type}", method = RequestMethod.GET)
     private Map listOrders(@PathVariable("user_id") int userId,
@@ -81,10 +71,17 @@ public class OrderController {
                          @PathVariable("type") String type,
                          @RequestBody Map<String,Object> requestMap)
     {
-        int driverId = (int) requestMap.get("driverId");
-        String projectType = (String) requestMap.get("projectType");
-        String projectDescp = (String) requestMap.get("projectDescp");
         try {
+            String checkMessage = YkatCommonUtil.checkMapHasNull(requestMap);
+            if(!"success".equals(checkMessage)){
+                throw new Exception(checkMessage);
+            }
+
+            int driverId = (int) requestMap.get("driverId");
+            String projectType = (String) requestMap.get("projectType");
+            String projectDescp = (String) requestMap.get("projectDescp");
+
+
             orderService.addOrder(userId,driverId,type,projectType,projectDescp);
         }catch (Exception e){
             Map<String,Object> map = new HashMap();

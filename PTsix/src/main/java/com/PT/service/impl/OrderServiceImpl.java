@@ -43,6 +43,16 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private LogService logService;
 
+    /**
+     * 获取 订单信息列表。
+     * @param type 订单类型，有保养，维修，抢修，拖车 不同订单类型
+     * @param page 第几页
+     * @param ipp 每页有多少
+     * @param userId 唯一用户标识
+     * @param queryCondition 查询语句
+     * @return
+     * @throws Exception
+     */
     @Override
     public Map<String,Object> listOrder(String type, int page, int ipp, int userId, String queryCondition) throws Exception{
 
@@ -65,7 +75,7 @@ public class OrderServiceImpl implements OrderService{
                 YkatCommonUtil.putFromAndToDate(factors, (String) factors.get("time"));
             }
         }
-        factors.put("storeId",storeID);
+        factors.put("userId",userId);
         factors.put("orderType",type);
 
 
@@ -82,10 +92,21 @@ public class OrderServiceImpl implements OrderService{
         return map;
     }
 
-
+    /**
+     * 添加一个订单
+     * @param userId 唯一用户标识
+     * @param driverId 卡车司机唯一标识
+     * @param orderType 订单类型
+     * @param projectType 服务项目类型
+     * @param projectDescp 服务项目描述
+     * @throws Exception
+     */
     @Transactional
     @Override
     public void addOrder(int userId, int driverId, String orderType, String projectType, String projectDescp) throws Exception {
+
+
+
         Order order = new Order();
         order.setCreatedAt(new Date());//创建时间
         order.setDriverId(driverId);//司机ID
@@ -134,6 +155,13 @@ public class OrderServiceImpl implements OrderService{
                 "orderId = "+generatedOrderId);
     }
 
+    /**
+     * 删除订单
+     * @param userId 唯一用户标识
+     * @param type 订单类型
+     * @param orderIds 一组订单号
+     * @throws Exception
+     */
     @Transactional
     @Override
     public void deleteOrder(int userId, int type, List<String> orderIds) throws Exception{
@@ -153,6 +181,13 @@ public class OrderServiceImpl implements OrderService{
 
     }
 
+    /**
+     * 处理订单
+     * @param orderId 订单号 String
+     * @param userId 用户唯一标识
+     * @param status 更新订单后的 订单状态
+     * @throws Exception
+     */
     @Transactional
     @Override
     public void updateOrderState(String orderId, int userId, int status) throws Exception {
