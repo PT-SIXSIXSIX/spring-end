@@ -23,4 +23,12 @@ public interface DepositService {
      * @throws Exception
      */
     void deleteDepositRecord(int userId, List<Integer> ids) throws Exception;
+
+    /**
+     * 添加保证金补足记录
+     * @param userId
+     * @param rechargeMoney
+     * @throws Exception
+     */
+    void addDepositRecord(int userId, Map<String, Object> map) throws Exception;
 }

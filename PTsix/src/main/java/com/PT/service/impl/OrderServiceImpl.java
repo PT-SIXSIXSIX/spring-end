@@ -261,6 +261,7 @@ public class OrderServiceImpl implements OrderService{
         String[] factors = timePeriod.split("-");
         try {
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
                 Date fromDate = format.parse(factors[0]);
                 Date toDate = format.parse(factors[1]);
                 map.put("fromDate", fromDate);

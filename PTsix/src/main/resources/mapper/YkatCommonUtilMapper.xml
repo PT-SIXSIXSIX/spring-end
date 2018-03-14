@@ -10,4 +10,10 @@
           )
         }
     </select>
+    <select id="getCurrentDepositByUserId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select deposit from ykat_stores where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <select id="getStoreIdByUserId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        SELECT id from ykat_stores where user_id = #{userId,jdbcType=INTEGER}
+    </select>
 </mapper>

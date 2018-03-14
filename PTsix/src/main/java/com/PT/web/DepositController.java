@@ -62,4 +62,21 @@ public class DepositController {
         return responseData.getBody();
     }
 
+    @RequestMapping(value = "/deposits",method = RequestMethod.POST)
+    private Map addDeposit(@PathVariable("user_id") int userId,
+                           @RequestBody Map<String, Object> map,
+                           HttpServletResponse response)
+    {
+        ResponseData responseData = ResponseData.ok();
+        try{
+            depositService.addDepositRecord(userId,map);
+            response.setStatus(200);
+        }catch(Exception e){
+            responseData = ResponseData.badRequest();
+            responseData.setError(1,e.getMessage());
+            response.setStatus(400);
+        }
+
+        return responseData.getBody();
+    }
 }
