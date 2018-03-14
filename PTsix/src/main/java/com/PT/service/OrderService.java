@@ -9,9 +9,51 @@ import java.util.Map;
 
 public interface OrderService {
 
+    /**
+     * 获取 订单信息列表。
+     * @param type 订单类型，有保养，维修，抢修，拖车 不同订单类型
+     * @param page 第几页
+     * @param ipp 每页有多少
+     * @param userId 唯一用户标识
+     * @param queryCondition 查询语句
+     * @return
+     * @throws Exception
+     */
     Map<String,Object> listOrder(String type, int page, int ipp, int userId,String queryCondition) throws Exception;
+
+    /**
+     * 添加一个订单
+     * @param userID 唯一用户标识
+     * @param driverId 卡车司机唯一标识
+     * @param orderType 订单类型
+     * @param projectType 服务项目类型
+     * @param projectDescp 服务项目描述
+     * @throws Exception
+     */
     void addOrder(int userID,int driverId,String orderType,String projectType,String projectDescp) throws Exception;
+
+    /**
+     * 删除订单
+     * @param userId 唯一用户标识
+     * @param type 订单类型
+     * @param orderIds 一组订单号
+     * @throws Exception
+     */
     void deleteOrder(int userId, int type, List<String> orderIds) throws Exception;
-    void updateOrderState(String orderId,int storeId,int state) throws Exception;
+
+    /**
+     * 处理订单
+     * @param orderId 订单号 String
+     * @param userId 用户唯一标识
+     * @param state 更新订单后的 订单状态
+     * @throws Exception
+     */
+    void updateOrderState(String orderId,int userId,int state) throws Exception;
+
+    /**
+     * 根据 存在 此订单号 的记录 返回true，没有返回false
+     * @param orderId
+     * @return
+     */
     boolean isOrderIdValid(String orderId);
 }

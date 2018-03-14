@@ -23,6 +23,15 @@ public class ReceiveRecordDServiceImpl implements ReceiveRecordService{
     @Autowired
     private ReceiveRecordMapper receiveRecordMapper;
 
+    /**
+     * 查询收账记录
+     * @param userId 唯一用户请求
+     * @param page 页码
+     * @param ipp 没有数据量
+     * @param queryCondition 查询条件
+     * @return
+     * @throws Exception
+     */
     @Override
     public Map<String, Object> listReceiveRecord(int userId, int page, int ipp, String queryCondition) throws Exception{
 
@@ -51,7 +60,12 @@ public class ReceiveRecordDServiceImpl implements ReceiveRecordService{
         return map;
     }
 
-
+    /**
+     * 删除收账记录
+     * @param userId
+     * @param ids
+     * @throws Exception
+     */
     @Transactional
     @Override
     public void deleteReceiveRecord(int userId, List<Integer> ids) throws Exception{

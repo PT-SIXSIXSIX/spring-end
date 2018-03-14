@@ -8,8 +8,9 @@ import java.util.Map;
 public class YkatCommonUtil {
 
     private static Calendar calendar = Calendar.getInstance();
+
     /**
-     *
+     *  把 搜索语句2018-3-6日-2018年3月7日 Map类型的数据中去
      * @param map
      * @param timePeriod eg. 2018-3-6日-2018年3月7日
      * @throws Exception
@@ -30,9 +31,37 @@ public class YkatCommonUtil {
         }
     }
 
+    /**
+     * 把用毫秒表示的时间转换为 Date
+     * @param millis
+     * @return
+     * @throws Exception
+     */
     public static Date getDateFromMillis(String millis) throws Exception{
         calendar.clear();
         calendar.setTimeInMillis(Long.valueOf(millis));
         return calendar.getTime();
+    }
+
+
+    public static String checkMapHasNull(Map<String, Object> map){
+
+        StringBuffer sb = new StringBuffer();
+
+        for (Map.Entry entry : map.entrySet()){
+            if (entry.getValue()==null){
+                sb.append("parameter: "+entry.getKey()+"&");
+            }
+        }
+        String result = null;
+        if (sb.length() == 0) sb.append("success");
+        else {
+            result = sb.toString();
+            result = result.substring(0,result.length()-1);
+            result += " lack value!";
+            return result;
+        }
+
+        return sb.toString();
     }
 }

@@ -29,27 +29,16 @@ public class DepositServiceImpl implements DepositService {
 
     @Autowired
     private LogService logService;
+
     /**
-     * {
-     "max_page": 1,
-     "records": [
-     {
-     "des_rcg_id": 1,
-     "recharge_money": 1,
-     "recharge_time": "Hello, world!",
-     "current_deposit": 1,
-     "state": 1
-     }
-     ]
-     }
-     * @param userId
+     * 查询保证金补足记录
+     * @param userId 唯一用户标识
      * @param page
      * @param ipp
      * @param queryCondition
      * @return
      * @throws Exception
      */
-
     public Map<String,Object> listDepositRecord(int userId, int page, int ipp, String queryCondition) throws Exception
     {
         Map factors = new HashMap();
@@ -72,6 +61,12 @@ public class DepositServiceImpl implements DepositService {
         return resultMap;
     }
 
+    /**
+     * 删除保证金补足记录
+     * @param userId 唯一用户表示
+     * @param ids 一组保证金 id号
+     * @throws Exception
+     */
     @Transactional
     @Override
     public void deleteDepositRecord(int userId, List<Integer> ids) throws Exception
