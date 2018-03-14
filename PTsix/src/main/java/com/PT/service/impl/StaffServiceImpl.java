@@ -52,7 +52,7 @@ public class StaffServiceImpl implements StaffService {
         int maxPage = (staffMapper.countByFactor(factors)-1)/ipp + 1;
         Map<String,Object> map = new HashMap<>();
         map.put("maxPage",maxPage);
-        map.put("records",staffs);
+        map.put("staffs",staffs);
         return map;
     }
 

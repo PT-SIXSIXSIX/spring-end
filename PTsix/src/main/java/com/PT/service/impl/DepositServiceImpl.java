@@ -2,17 +2,21 @@ package com.PT.service.impl;
 
 import com.PT.dao.DepositInfoMapper;
 import com.PT.dao.DepositRechargeRecordMapper;
+import com.PT.dao.YkatCommonUtilMapper;
+import com.PT.entity.DepositRechargeRecord;
 import com.PT.entity.DepositRechargeRecordExample;
 import com.PT.service.DepositService;
 import com.PT.service.LogService;
 import com.PT.tools.QueryToMap;
 import com.PT.tools.ToStrings;
 import com.PT.tools.YkatCommonUtil;
+import com.PT.tools.YkatConstant;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +33,9 @@ public class DepositServiceImpl implements DepositService {
 
     @Autowired
     private LogService logService;
+
+    @Autowired
+    private YkatCommonUtilMapper ykatCommonUtilMapper;
 
     /**
      * 查询保证金补足记录
@@ -58,7 +65,7 @@ public class DepositServiceImpl implements DepositService {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("records",records);
         resultMap.put("maxPage",maxPage);
-        Integer currentDeposit = depositInfoMapper.getCurrentDepositByUserId(userId);
+        Integer currentDeposit = ykatCommonUtilMapper.getCurrentDepositByUserId(userId);
         resultMap.put("currentDeposit",currentDeposit);
         return resultMap;
     }
@@ -84,5 +91,39 @@ public class DepositServiceImpl implements DepositService {
         int deleteResult = depositRechargeRecordMapper.deleteByExample(example);
         logService.insertLog(userId,"delete","on table ykat_deposit_recharge_records " +
                 "by ids in ["+descp+"]");
+    }
+
+    /**
+     * 添加保证金补足记录
+     * @param userId
+     * @param parameterMap
+     * @throws Exception
+     */
+    @Transactional
+    @Override
+    public void addDepositRecord(int userId, Map<String, Object> parameterMap) throws Exception{
+
+        String checkMessage = YkatCommonUtil.checkMapHasNull(parameterMap);
+        if(!"success".equals(checkMessage)){
+            throw new Exception(checkMessage);
+        }
+
+        Integer rechargeMoney = (Integer) parameterMap.get("money");
+        Integer currentMoney = ykatCommonUtilMapper.getCurrentDepositByUserId(userId);//当前商店的保证金
+        Integer storeId = ykatCommonUtilMapper.getStoreIdByUserId(userId);//商店的id主键
+        currentMoney += rechargeMoney;
+
+        DepositRechargeRecord rechargeRecord = new DepositRechargeRecord();
+        rechargeRecord.setCreatedAt(new Date());
+        rechargeRecord.setRechargeMoney(rechargeMoney);
+        rechargeRecord.setCurrentMoney(currentMoney);
+        rechargeRecord.setRechargeTime(new Date());
+        rechargeRecord.setStoreId(storeId);
+        Integer status = currentMoney >= YkatConstant.enoughDeposit ? 1:0;
+        rechargeRecord.setStatus(status);
+        if(depositRechargeRecordMapper.insertSelective(rechargeRecord)>0){
+            logService.insertLog(userId,"insert","recharge deposit");
+        }
+
     }
 }

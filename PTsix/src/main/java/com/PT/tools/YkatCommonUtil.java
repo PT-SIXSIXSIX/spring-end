@@ -64,4 +64,16 @@ public class YkatCommonUtil {
 
         return sb.toString();
     }
+
+    /**
+     * 将Date 按照 format的格式解析
+     * @param date
+     * @param format
+     * @return
+     */
+    public static String dateToStringByFormat(Date date, String format){
+        SimpleDateFormat formater = new SimpleDateFormat(format);
+        String dateString = formater.format(date);
+        return dateString;
+    }
 }

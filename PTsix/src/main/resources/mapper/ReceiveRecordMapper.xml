@@ -6,11 +6,11 @@
         <result column="rev_mon_id" property="revMonId" jdbcType="VARCHAR" />
         <result column="driver_name" property="driverName" jdbcType="VARCHAR" />
         <result column="actual_money" property="actualMoney" jdbcType="INTEGER" />
-        <result column="traded_at" property="tradedAt" jdbcType="TIMESTAMP" />
+        <result column="traded_at" property="tradedAt" jdbcType="VARCHAR" />
     </resultMap>
     <select id="selectByFactors" resultMap="BaseResultMap" parameterType="map" >
         select setRecords.set_acc_id,setRecords.set_acc_id rev_mon_id, drivers.driver_name,
-          setRecords.trade_money*0.9 actual_money, setRecords.traded_at
+          setRecords.trade_money*0.9 actual_money, date_format(setRecords.traded_at,'%Y年%m月%d日') traded_at
         from ykat_settle_account_records setRecords inner join ykat_orders orders on setRecords.order_id = orders.id
           inner join ykat_drivers drivers on orders.driver_id = drivers.id
           inner join ykat_stores stores on orders.store_id = stores.id

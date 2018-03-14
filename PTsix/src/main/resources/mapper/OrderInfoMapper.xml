@@ -29,7 +29,7 @@
     </select>
     <select id="selectOrderInfoByFactor" resultMap="OrderInfoMapper" parameterType="map">
         select
-        order_id , order_status state, order_created_at created_at,
+        order_id , order_status state, date_format(order_created_at ,'%Y-%m-%d') created_at,
         driver_name ,project_descp, project_type
         from order_info_v
         where user_id = #{map.userId,jdbcType=INTEGER}
@@ -40,6 +40,7 @@
         <if test="map.fromDate != null and map.toDate != null ">
             and order_created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
         </if>
+        order by order_id
     </select>
     <select id="countOrderInfoByFactor" resultType="java.lang.Integer" parameterType="map">
         select
@@ -53,6 +54,7 @@
         <if test="map.fromDate != null and map.toDate != null ">
             and order_created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
         </if>
+        order by order_id
     </select>
     <select id="getIdByProjectType" parameterType="java.lang.String" resultType="java.lang.Integer">
         select id
