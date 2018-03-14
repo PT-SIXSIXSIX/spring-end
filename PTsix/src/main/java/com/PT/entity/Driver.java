@@ -13,6 +13,8 @@ public class Driver {
 
     private Date createdAt;
 
+    private Integer status;
+
     public Integer getId() {
         return id;
     }
@@ -51,5 +53,13 @@ public class Driver {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

@@ -11,6 +11,7 @@ import com.PT.service.RegistryLogonService;
 import com.PT.tools.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -25,6 +26,8 @@ public class RegistryLogonServiceImpl implements RegistryLogonService{
     private StorekeeperInfoMapper storekeeperInfoMapper;
 
     static String ENCODE = "utf-8";
+
+    @Transactional
     @Override
     public User regist(User user, Store store) {
         try {

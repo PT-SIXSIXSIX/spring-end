@@ -29,4 +29,31 @@
             and (set_acc_id like '%${map.str}%' or driver_phone like '%${map.str}%' or driver_name like '%${map.str}%')
         </if>
     </select>
+
+    <update id="updateSetAccRec" parameterType="map">
+        update ykat_settle_account_records a,
+        (select balance, b.id, ykat_drivers.status
+        from ykat_settle_account_records b inner join ykat_orders on b.order_id
+        = ykat_orders.id
+        inner join ykat_drivers on driver_id = ykat_drivers.id
+        ) money
+        set a.status = 2
+        where a.status = 1 and a.set_acc_id in
+        <trim prefix="(" prefixOverrides="[" suffix=")" suffixOverrides="]">${list}</trim>
+        and a.id = money.id
+        and money.status = 1
+    </update>
+    <update id="updateDriver" parameterType="map">
+        update ykat_drivers a,
+        (select sum(b.trade_money) trade_money, driver.id
+        from ykat_settle_account_records b inner join ykat_orders on b.order_id = ykat_orders.id
+        inner join ykat_drivers driver on driver_id = driver.id
+        where b.set_acc_id in
+        <trim prefix="(" prefixOverrides="[" suffix=")" suffixOverrides="]">${list}</trim>
+        and b.status = 1
+        group by driver.id) money
+        set a.balance = a.balance - money.trade_money, a.status = 1
+        where a.id = money.id
+        and a.balance &gt;= money.trade_money
+    </update>
 </mapper>
