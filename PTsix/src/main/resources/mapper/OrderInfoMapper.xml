@@ -33,7 +33,7 @@
         driver_name ,project_descp, project_type
         from order_info_v
         where user_id = #{map.userId,jdbcType=INTEGER}
-        and order_type = #{map.orderType,jdbcType=VARCHAR}
+        and order_type = #{map.orderType,jdbcType=VARCHAR} and order_status <![CDATA[!=]]> 2
         <if test="map.state != null and map.state != '' ">
             and order_status = #{map.state,jdbcType=VARCHAR}
         </if>
@@ -46,7 +46,7 @@
         count(*)
         from order_info_v
         where user_id = #{map.userId,jdbcType=INTEGER}
-        and order_type = #{map.orderType,jdbcType=VARCHAR}
+        and order_type = #{map.orderType,jdbcType=VARCHAR} and order_status <![CDATA[!=]]> 2
         <if test="map.state != null and map.state != '' ">
             and order_status = #{map.state,jdbcType=VARCHAR}
         </if>

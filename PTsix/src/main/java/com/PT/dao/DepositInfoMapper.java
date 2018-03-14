@@ -11,5 +11,6 @@ public interface DepositInfoMapper {
     int countByUserId(Integer userId);
     List< Map<String, Object> > selectByFactor(@Param("map") Map map);
     int countByFactor(@Param("map") Map map);
+    Integer getCurrentDepositByUserId(int userId);
 
 }
