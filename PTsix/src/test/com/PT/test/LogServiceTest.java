@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class LogTest extends BaseTest{
+public class LogServiceTest extends BaseTest{
     @Autowired
     LogService logService;
     @Test public void insertLog() {
@@ -18,7 +18,7 @@ public class LogTest extends BaseTest{
         String optDesc = "删除订单";
         logService.insertLog(userId,optType, optDesc);
     }
-    @Test public void deleteByIds() {
+    @Test public void deleteLogByIds() {
         List<Integer> list = new ArrayList<Integer>();
         list.add(1);
         logService.deleteLogById(list);
