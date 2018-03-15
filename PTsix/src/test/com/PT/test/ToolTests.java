@@ -56,30 +56,6 @@ public class ToolTests extends BaseTest {
                 ""+driver.getDriverPhone());
     }
     @Test
-    public void TestJWTSigner() {
-
-//        User user = registryLogonService.login("267453437","awerytuese");
-//        String token = AuthHelper.createJsonWebToken("123", (long) 1000);
-//        System.out.println(token);
-        try {
-
-//            TokenInfo info = AuthHelper.verifyToken(token);
-//            System.out.println(info.getUserId());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("userId", 100);
-//        String token = JWT.createJavaWebToken(map);
-//        System.out.println(token);
-//        Map<String, Object> mp2 = JWT.parserJavaWebToken(token);
-//
-//        for(Map.Entry entry: mp2.entrySet()) {
-//            System.out.println(entry.getKey()+"   "+entry.getValue());
-//        }
-
-    }
-    @Test
     public void queryToMapTest() {
         String me = "content:+time:1520870400000-1521043200000";
         Map map = QueryToMap.stringToMap(me);

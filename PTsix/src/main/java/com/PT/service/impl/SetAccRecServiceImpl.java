@@ -59,7 +59,7 @@ public class SetAccRecServiceImpl implements SetAccRecService{
         if(null != content) factors.put("str", content);
         String date = (String) map.get("time");
         Date start = null, end = null;
-        if(date != null) {
+        if(date != null && date != "") {
             String[] temp = date.split("[-]");
             for(int i = 0; i < temp.length; i++) {
                 System.out.println(temp[i]);

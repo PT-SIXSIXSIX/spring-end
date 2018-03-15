@@ -34,8 +34,6 @@ public class TokenInterceptor implements HandlerInterceptor{
         response.setCharacterEncoding("utf-8");
         String userId = request.getHeader("X-YKAT-USER-ID");
         String token = request.getHeader("X-YKAT-ACCESS-TOKEN");
-
-        System.out.println(userId+"   "+token);
         ResponseData responseData = ResponseData.ok();
         if(userId == null || token == null) {
             responseData.setError(1,"获取userId或者token为空，请检查字段是否正确");
@@ -44,6 +42,7 @@ public class TokenInterceptor implements HandlerInterceptor{
         }
 //        签名
         String sign = TokenOptions.getKey(TokenOptions.TOKEN_PREFIX+userId);
+        System.out.println("result: " + TokenOptions.TOKEN_PREFIX+userId+" : "+token);
         if(null == sign || StringUtils.isBlank(sign)) {
             responseData.setError(1,"token过期");
             responseMessage(response, response.getWriter(), responseData);
