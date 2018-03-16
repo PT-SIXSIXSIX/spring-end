@@ -8,7 +8,33 @@ public class YkatConstant {
      * 保证金大于这个的时候 表示充足
      *
      */
-    public static final Integer enoughDeposit= 2000;
+    public static final Integer ENOUGH_DEPOSIT= 2000;
+
+    public static final Integer ENOUGH_DEPOSIT_STATE = 1;
+
+    public static final Integer SHORT_OF_DEPOSIT_STATE = 0;
+
+    public static final Integer ORDER_STATE_IDLE = 0;
+
+    public static final Integer ORDER_STATE_ACCEPT = 1;
+
+    public static final Integer ORDER_STATE_REFUSE = -1;
+
+    public static final Integer ORDER_STATE_DELETE = 2;
+
+    public static final Integer SETTEL_RECORD_STATE_IDLE = 1;
+
+    public static final Integer SETTEL_RECORD_STATE_ACCEPT = 2;
+
+    public static final Integer SETTEL_RECORD_STATE_DELETE = 3;
+
+    public static final Integer SETTEL_RECORD_STATE_GURANTEE = 0;
+
+    public static final Integer DRIVER_STATUS_PROCESSED = 0;
+
+    public static final Integer DRIVER_STATUS_UNPROCESSED = 1;
+
+    
 
 }
 

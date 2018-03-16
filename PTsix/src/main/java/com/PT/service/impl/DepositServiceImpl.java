@@ -124,7 +124,7 @@ public class DepositServiceImpl implements DepositService {
         rechargeRecord.setCurrentMoney(currentMoney);
         rechargeRecord.setRechargeTime(new Date());
         rechargeRecord.setStoreId(storeId);
-        Integer status = currentMoney >= YkatConstant.enoughDeposit ? 1:0;
+        Integer status = currentMoney >= YkatConstant.ENOUGH_DEPOSIT ? 1:0;
         rechargeRecord.setStatus(status);
         Store store = new Store();
         store.setId(storeId);
