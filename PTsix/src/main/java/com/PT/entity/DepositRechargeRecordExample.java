@@ -524,6 +524,66 @@ public class DepositRechargeRecordExample {
             addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }
+
+        public Criteria andBankcardIdIsNull() {
+            addCriterion("bankcard_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankcardIdIsNotNull() {
+            addCriterion("bankcard_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankcardIdEqualTo(Integer value) {
+            addCriterion("bankcard_id =", value, "bankcardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankcardIdNotEqualTo(Integer value) {
+            addCriterion("bankcard_id <>", value, "bankcardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankcardIdGreaterThan(Integer value) {
+            addCriterion("bankcard_id >", value, "bankcardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankcardIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("bankcard_id >=", value, "bankcardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankcardIdLessThan(Integer value) {
+            addCriterion("bankcard_id <", value, "bankcardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankcardIdLessThanOrEqualTo(Integer value) {
+            addCriterion("bankcard_id <=", value, "bankcardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankcardIdIn(List<Integer> values) {
+            addCriterion("bankcard_id in", values, "bankcardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankcardIdNotIn(List<Integer> values) {
+            addCriterion("bankcard_id not in", values, "bankcardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankcardIdBetween(Integer value1, Integer value2) {
+            addCriterion("bankcard_id between", value1, value2, "bankcardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankcardIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("bankcard_id not between", value1, value2, "bankcardId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
