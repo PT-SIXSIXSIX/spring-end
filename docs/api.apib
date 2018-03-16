@@ -149,11 +149,7 @@ FORMAT: v1
 + Parameters
      + page (number) - 第<page>页
      + ipp (number) - 每页<ipp>项
-     + q (string)
-
-         查询条件，格式如下，中间是加号:
-
-         + name:张三+phone:12345668899
+     + q (string) - 查询字符串
 
 + Response 200 (application/json)
     + Attributes
@@ -177,11 +173,8 @@ FORMAT: v1
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
-### 修改店员信息 [PUT]
-    修改店员信息
-
-+ Parameters
-    + staff_id (number) - 管理员唯一标识
+### 添加店员 [POST]
+    添加店员
 
 + Request (application/json)
     + Headers
@@ -191,7 +184,8 @@ FORMAT: v1
 
     + Attributes
         + name (string) - 店员姓名
-        + phone (number) - 手机号码，11位，前后端都要正则验证
+        + phone (string) - 手机号码，11位，前后端都要正则验证
+        + password (string) - 密码
 
 + Response 200 (application/json)
 
@@ -308,15 +302,31 @@ FORMAT: v1
      + ipp (number) - 每页<ipp>项
      + q (string)
 
-        查询条件，格式如下，以加号:
+        查询条件，格式如下，中间加号分割字段:
 
-        + state:0|1+time:2018年3月6日-2018年3月7日
+        + content:xxx+time:1521182267898-1521182267898
 
 
 + Response 200 (application/json)
     + Attributes
         + max_page (number) - 最大页数
         + records (array[DepositRechargeRecordInfo]) - 保证金补足记录列表
+
+### 补足保证金 [POST]
+
++ Request
+    + Headers
+
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
+
+    + Attributes
+            + money (number) - 补足金额
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
 
 ### 删除补足记录 [DELETE]
     删除补足记录
@@ -353,9 +363,9 @@ FORMAT: v1
      + ipp (number) - 每页<ipp>项
      + q (string)
 
-         查询条件，格式如下，中间是加号:
+         查询条件，格式如下，中间加号分割字段:
 
-         + driver_name:王五+traded_at:2017年3月7日
+         + content:xxx+time:1521182267898-1521182267898
 
 + Response 200 (application/json)
     + Attributes
@@ -399,9 +409,9 @@ FORMAT: v1
      + ipp (number) - 每页<ipp>项
      + q (string)
 
-         查询条件，格式如下，中间是加号:
+         查询条件，格式如下，中间加号分割字段:
 
-         + state:0|1|-1+time:2018年3月6日-2018年3月7日
+         + content:xxx+time:1521182267898-1521182267898
 
 + Response 200 (application/json)
     + Attributes
