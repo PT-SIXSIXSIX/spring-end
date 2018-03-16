@@ -17,6 +17,8 @@ public class DepositRechargeRecord {
 
     private Integer status;
 
+    private Integer bankcardId;
+
     public Integer getId() {
         return id;
     }
@@ -71,5 +73,13 @@ public class DepositRechargeRecord {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getBankcardId() {
+        return bankcardId;
+    }
+
+    public void setBankcardId(Integer bankcardId) {
+        this.bankcardId = bankcardId;
     }
 }
