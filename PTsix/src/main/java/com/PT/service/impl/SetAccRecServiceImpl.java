@@ -120,7 +120,7 @@ public class SetAccRecServiceImpl implements SetAccRecService{
     @Transactional
     @Override
     public Boolean updateSetAccState(List<String> setAccIds, int state, int userId) {
-        if(state == 1) {
+        if(state == YkatConstant.SETTEL_RECORD_STATE_IDLE) {
             try {
                 SettleAccRecordExample example = new SettleAccRecordExample();
                 example.createCriteria().andStatusEqualTo(YkatConstant.SETTEL_RECORD_STATE_GURANTEE).andSetAccIdIn(setAccIds);
