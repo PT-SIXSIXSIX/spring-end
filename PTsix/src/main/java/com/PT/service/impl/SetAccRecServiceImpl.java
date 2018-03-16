@@ -1,6 +1,5 @@
 package com.PT.service.impl;
 
-import com.PT.bean.SetAccRec.SetAccRecInfoBean;
 import com.PT.dao.DriverMapper;
 import com.PT.dao.SetAccRecInfoMapper;
 import com.PT.dao.SettleAccRecordMapper;
@@ -13,6 +12,7 @@ import com.PT.service.SetAccRecService;
 import com.PT.tools.OutputMessage;
 import com.PT.tools.QueryToMap;
 import com.PT.tools.ToStrings;
+import com.PT.tools.YkatConstant;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,31 +50,35 @@ public class SetAccRecServiceImpl implements SetAccRecService{
      */
     @Override
     public Map<String, Object> listSetAccRec(int page, int ipp, int userId, String query) {
-        Map map = QueryToMap.stringToMap(query);
-        OutputMessage.outputMap(map);
-        String content = (String) map.get("content");
-        Map<String, Object> result = new HashMap<>();
-        PageHelper.startPage(page, ipp);
-        Map factors = new HashMap<String, Object>();
-        if(null != content) factors.put("str", content);
-        String date = (String) map.get("time");
-        Date start = null, end = null;
-        if(date != null && date != "") {
-            String[] temp = date.split("[-]");
-            for(int i = 0; i < temp.length; i++) {
-                System.out.println(temp[i]);
+        try {
+            Map map = QueryToMap.stringToMap(query);
+            OutputMessage.outputMap(map);
+            String content = (String) map.get("content");
+            Map<String, Object> result = new HashMap<>();
+            PageHelper.startPage(page, ipp);
+            Map factors = new HashMap<String, Object>();
+            if(null != content) factors.put("str", content);
+            String date = (String) map.get("time");
+            Date start = null, end = null;
+            if(date != null && date != "") {
+                String[] temp = date.split("[-]");
+                for(int i = 0; i < temp.length; i++) {
+                    System.out.println(temp[i]);
+                }
+                start = new Date(Long.valueOf(temp[0]));
+                end = new Date(Long.valueOf(temp[1]));
+                factors.put("st", start);
+                factors.put("ed", end);
             }
-            start = new Date(Long.valueOf(temp[0]));
-            end = new Date(Long.valueOf(temp[1]));
-            factors.put("st", start);
-            factors.put("ed", end);
+            factors.put("userId", userId);
+            List list = setAccRecInfoMapper.selectByFactors(factors);
+            int maxPage = (setAccRecInfoMapper.countByFactors(factors)-1)/ipp+1;
+            result.put("maxPage", maxPage);
+            result.put("records", list);
+            return result;
+        } catch (Exception e) {
+            throw e;
         }
-        factors.put("userId", userId);
-        List list = setAccRecInfoMapper.selectByFactors(factors);
-        int maxPage = (setAccRecInfoMapper.countByFactors(factors)-1)/ipp+1;
-        result.put("maxPage", maxPage);
-        result.put("records", list);
-        return result;
     }
 
     /**
@@ -88,20 +92,21 @@ public class SetAccRecServiceImpl implements SetAccRecService{
     @Override
     public Boolean deleteSetAccRec(List<String> setAccIds, int userId) {
         SettleAccRecordExample example = new SettleAccRecordExample();
-        example.createCriteria().andStatusEqualTo(2).andSetAccIdIn(setAccIds);
+        example.createCriteria().andStatusEqualTo(YkatConstant.SETTEL_RECORD_STATE_ACCEPT)
+                .andSetAccIdIn(setAccIds);
         SettleAccRecord settleAccRecord = new SettleAccRecord();
-        settleAccRecord.setStatus(3);
+        settleAccRecord.setStatus(YkatConstant.SETTEL_RECORD_STATE_DELETE);
         try {
             if(settleAccRecordMapper.updateByExampleSelective(settleAccRecord, example) > 0) {
                 String desc = ToStrings.listToStrings(setAccIds, '&');
                 logService.insertLog(userId, "delete", "on table ykat_settle_account_records: "
                 +"by ids in ["+desc+"]");
             }
-            return true;
         } catch (RuntimeException e) {
             e.printStackTrace();
-            return false;
+            throw e;
         }
+        return true;
     }
 
 
@@ -115,22 +120,26 @@ public class SetAccRecServiceImpl implements SetAccRecService{
     @Transactional
     @Override
     public Boolean updateSetAccState(List<String> setAccIds, int state, int userId) {
-
         if(state == 1) {
-            SettleAccRecordExample example = new SettleAccRecordExample();
-            example.createCriteria().andStatusEqualTo(0).andSetAccIdIn(setAccIds);
-            SettleAccRecord record = new SettleAccRecord();
-            record.setStatus(state);
-            if(settleAccRecordMapper.updateByExampleSelective(record, example) > 0) {
-                String desc = ToStrings.listToStrings(setAccIds, '&');
-                logService.insertLog(userId, "update", "on table ykat_settle_account_records: "
-                        +"by ids in ["+desc+"] "+" and status = 0"+". set status to "+state);
+            try {
+                SettleAccRecordExample example = new SettleAccRecordExample();
+                example.createCriteria().andStatusEqualTo(YkatConstant.SETTEL_RECORD_STATE_GURANTEE).andSetAccIdIn(setAccIds);
+                SettleAccRecord record = new SettleAccRecord();
+                record.setStatus(state);
+                if(settleAccRecordMapper.updateByExampleSelective(record, example) > 0) {
+                    String desc = ToStrings.listToStrings(setAccIds, '&');
+                    logService.insertLog(userId, "update", "on table ykat_settle_account_records: "
+                            +"by ids in ["+desc+"] "+" and status = 0"+". set status to "+state);
+                }
+                else return false;
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw e;
             }
-            else return false;
         } else {
             return settleAccount(setAccIds, userId);
         }
-        return true;
     }
 
     /**
@@ -144,19 +153,18 @@ public class SetAccRecServiceImpl implements SetAccRecService{
             int count = setAccRecInfoMapper.updateDriver(setAccIds);
             count += setAccRecInfoMapper.updateSetAccRec(setAccIds);
             DriverExample example = new DriverExample();
-            example.createCriteria().andStatusEqualTo(1);
+            example.createCriteria().andStatusEqualTo(YkatConstant.DRIVER_STATUS_UNPROCESSED);
             Driver driver = new Driver();
-            driver.setStatus(0);
+            driver.setStatus(YkatConstant.DRIVER_STATUS_PROCESSED);
             driverMapper.updateByExampleSelective(driver, example);
             if(count <= 0) return false;
             String desc = ToStrings.listToStrings(setAccIds, '&');
             logService.insertLog(userId, "update", "on table ykat_settle_account_records: "
                     +"by ids in ["+desc+"] "+" and status = 1"+". set status to "+2);
+            return true;
         } catch (RuntimeException e) {
             e.printStackTrace();
+            throw e;
         }
-
-        return true;
     }
-
 }
