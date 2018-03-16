@@ -34,7 +34,7 @@ public class YkatConstant {
 
     public static final Integer DRIVER_STATUS_UNPROCESSED = 1;
 
-    
+
 
 }
 

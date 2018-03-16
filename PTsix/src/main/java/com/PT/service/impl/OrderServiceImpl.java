@@ -8,6 +8,7 @@ import com.PT.service.LogService;
 import com.PT.tools.QueryToMap;
 import com.PT.tools.ToStrings;
 import com.PT.tools.YkatCommonUtil;
+import com.PT.tools.YkatConstant;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,7 +101,7 @@ public class OrderServiceImpl implements OrderService{
         Order order = new Order();
         order.setCreatedAt(new Date());//创建时间
         order.setDriverId(driverId);//司机ID
-        order.setStatus(0);//订单状态
+        order.setStatus(YkatConstant.ORDER_STATE_IDLE);//订单状态
         order.setType(orderType);
 
         //project Id 外键信息
@@ -161,7 +162,7 @@ public class OrderServiceImpl implements OrderService{
         //criteria.andStoreIdEqualTo(userId);
         criteria.andTypeEqualTo(String.valueOf(type));
         Order updateTo = new Order();
-        updateTo.setStatus(2);//删除状态;
+        updateTo.setStatus(YkatConstant.ORDER_STATE_DELETE);//删除状态;
 
 
         int res = orderMapper.updateByExampleSelective(updateTo,example);
@@ -210,7 +211,7 @@ public class OrderServiceImpl implements OrderService{
 
             settleRecord.setSetAccId(generatedSettleId);//结算单号
             settleRecord.setCreatedAt(new Date());//记录创建时间
-            settleRecord.setStatus(1);//待结算
+            settleRecord.setStatus(YkatConstant.SETTEL_RECORD_STATE_IDLE);//待结算
             //获取订单 主键id，订单价格
             List<Map<String,Object> > orderInfoMaps = orderInfoMapper.selectOrderFromViewByOrderID(orderId);
             if(null!= orderInfoMaps && orderInfoMaps.size()>0){
