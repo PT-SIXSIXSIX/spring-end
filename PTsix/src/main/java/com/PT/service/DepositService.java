@@ -27,7 +27,7 @@ public interface DepositService {
     /**
      * 添加保证金补足记录
      * @param userId
-     * @param rechargeMoney
+     * @param map
      * @throws Exception
      */
     void addDepositRecord(int userId, Map<String, Object> map) throws Exception;

@@ -71,7 +71,7 @@ public class RegistryLogonController {
      * @return
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public @ResponseBody Map<String, Object> register(@RequestBody Map<String, Object> out, HttpServletResponse response) {
+    public synchronized @ResponseBody Map<String, Object> register(@RequestBody Map<String, Object> out, HttpServletResponse response) {
         ResponseData responseData = ResponseData.createOk();
         User user = null;
         Store store = null;
@@ -81,7 +81,7 @@ public class RegistryLogonController {
             User resultUser = registryLogonService.regist(user, store);
             if(null != resultUser) {
                 String token = UUID.randomUUID().toString();
-                TokenOptions.setKey(TokenOptions.TOKEN_PREFIX+user.getId(), token);
+                TokenOptions.setKey(TokenOptions.TOKEN_PREFIX+resultUser.getId(), token);
                 responseData.putDataValue("userId", resultUser.getId());
                 responseData.putDataValue("name", resultUser.getName());
                 responseData.putDataValue("phone", resultUser.getPhone());
@@ -108,7 +108,7 @@ public class RegistryLogonController {
      * @return
      */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public @ResponseBody Map<String, Object> register(@RequestParam("verifyPhone") String verifyPhone, HttpServletResponse response) {
+    public synchronized @ResponseBody Map<String, Object> register(@RequestParam("verifyPhone") String verifyPhone, HttpServletResponse response) {
         ResponseData responseData = ResponseData.ok();
         response.setStatus(200);
         if(true == registryLogonService.verifyPhone(verifyPhone)) {
