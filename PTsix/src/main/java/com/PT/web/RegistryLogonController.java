@@ -78,7 +78,7 @@ public class RegistryLogonController {
         try {
             user = (User) BeanToMapUtil.convertMap(User.class, out);
             store = (Store) BeanToMapUtil.convertMap(Store.class, out);
-            User resultUser = registryLogonService.regist(user, store);
+            User resultUser = registryLogonService.register(user, store);
             if(null != resultUser) {
                 String token = UUID.randomUUID().toString();
                 TokenOptions.setKey(TokenOptions.TOKEN_PREFIX+resultUser.getId(), token);

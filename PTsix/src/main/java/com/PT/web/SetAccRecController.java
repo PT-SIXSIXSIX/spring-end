@@ -21,8 +21,6 @@ import java.util.Map;
 public class SetAccRecController {
     @Autowired
     SetAccRecService setAccRecService;
-
-
     /**
      * 根据userId和传入信息（可以为空）模糊查询结算信息
      * @param userId
