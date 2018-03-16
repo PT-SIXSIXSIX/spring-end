@@ -33,7 +33,7 @@ public class BankcardServiceTest extends BaseTest {
      */
     @Test
     public void addBankcard() {
-        int userId = 41;
+        int userId = 1;
         Bankcard bankcard = new Bankcard();
         bankcard.setBankName("中国银行");
         bankcard.setCardId("312035429365234634623");

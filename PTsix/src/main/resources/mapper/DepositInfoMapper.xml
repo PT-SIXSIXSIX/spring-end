@@ -21,7 +21,7 @@
     <select id="selectByFactor" parameterType="map" resultMap="DepositInfoMap">
         select deposit.id, deposit.recharge_money, DATE_FORMAT(deposit.recharge_time ,'%Y-%m-%d') recharge_time, deposit.current_money, deposit.status
         from ykat_deposit_recharge_records deposit, ykat_stores stores
-        where deposit.store_id=stores.id and stores.user_id = #{map.userId,jdbcType=INTEGER}
+        where deposit.store_id=stores.id and stores.user_id = #{map.userId,jdbcType=INTEGER} and deposit.status <![CDATA[!=]]> 2
         <if test="map.state != null and map.state != '' ">
             and deposit.status = #{map.state,jdbcType=VARCHAR}
         </if>
@@ -33,7 +33,7 @@
     <select id="countByFactor" parameterType="map" resultType="java.lang.Integer">
         select count(*)
         from ykat_deposit_recharge_records deposit, ykat_stores stores
-        where deposit.store_id=stores.id and stores.user_id = #{map.userId,jdbcType=INTEGER}
+        where deposit.store_id=stores.id and stores.user_id = #{map.userId,jdbcType=INTEGER} and deposit.status <![CDATA[!=]]> 2
         <if test="map.state != null and map.state != '' ">
             and deposit.status = #{map.state,jdbcType=VARCHAR}
         </if>
