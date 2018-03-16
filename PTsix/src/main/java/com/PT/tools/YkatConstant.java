@@ -34,6 +34,9 @@ public class YkatConstant {
 
     public static final Integer DRIVER_STATUS_UNPROCESSED = 1;
 
+    public static final Integer USER_ROLE_STAFF=1;
+
+    public static final Integer USER_ROLE_MANAGER = 0;
 
 
 }

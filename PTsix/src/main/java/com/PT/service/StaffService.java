@@ -18,7 +18,7 @@ public interface StaffService {
      * @param userId 唯一用户表示
      * @param staffId 员工唯一用户标识
      */
-    void deleteByStaffId(int userId, int staffId);
+    void deleteByStaffId(int userId, int staffId) throws  Exception;
 
     /**
      * 更新员工信息

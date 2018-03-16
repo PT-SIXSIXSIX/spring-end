@@ -21,7 +21,7 @@ public class YkatCommonUtil {
 
         String[] factors = timePeriod.split("-");
         try {
-
+            
             Date fromDate = getDateFromMillis(factors[0]);
             Date toDate = getDateFromMillis(factors[1]);
             map.put("fromDate", fromDate);

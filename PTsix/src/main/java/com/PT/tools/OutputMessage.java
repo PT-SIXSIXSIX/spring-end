@@ -34,4 +34,11 @@ public class OutputMessage {
         Map map = BeanToMapUtil.convertBean(bean);
         outputMap(map);
     }
+
+    public static  void outputListOfMap(List<Map<String, Object> > list) throws IllegalAccessException, IntrospectionException, InvocationTargetException {
+        for(int i = 0; i < list.size(); i++) {
+            Map<String, Object> map = list.get(i);
+            outputMap(map);
+        }
+    }
 }

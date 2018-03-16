@@ -2,12 +2,14 @@ package com.PT.service.impl;
 
 import com.PT.dao.StaffMapper;
 import com.PT.dao.UserMapper;
+import com.PT.dao.YkatCommonUtilMapper;
 import com.PT.entity.User;
 import com.PT.entity.UserExample;
 import com.PT.service.LogService;
 import com.PT.service.StaffService;
 import com.PT.tools.PasswordUtil;
 import com.PT.tools.QueryToMap;
+import com.PT.tools.YkatConstant;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,9 @@ public class StaffServiceImpl implements StaffService {
 
     @Autowired
     private LogService logService;
+
+    @Autowired
+    private YkatCommonUtilMapper ykatCommonUtilMapper;
 
     /**
      * 查找店员
@@ -95,8 +100,12 @@ public class StaffServiceImpl implements StaffService {
      */
     @Transactional
     @Override
-    public void deleteByStaffId(int userId, int staffId){
+    public void deleteByStaffId(int userId, int staffId) throws  Exception{
         int res = staffMapper.deleteRelationByUserId(staffId);
+        Integer role = ykatCommonUtilMapper.getRoleByUserId(staffId);
+        if (!role.equals(YkatConstant.USER_ROLE_STAFF)){
+            throw new Exception("要删除的用户不是店员");
+        }
         userMapper.deleteByPrimaryKey(staffId);
         logService.insertLog(userId,"delete","on table ykat_users:"+"by id = "+staffId);
     }

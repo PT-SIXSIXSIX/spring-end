@@ -21,4 +21,13 @@ public class DepositTest extends  BaseTest{
             e.printStackTrace();
         }
     }
+
+    /**
+     * 测试补足 保证金
+     *
+     */
+    @Test
+    public void rechargeDepositTest(){
+
+    }
 }
