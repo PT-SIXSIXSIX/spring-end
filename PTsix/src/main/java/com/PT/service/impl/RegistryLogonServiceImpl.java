@@ -38,7 +38,7 @@ public class RegistryLogonServiceImpl implements RegistryLogonService{
      */
     @Transactional
     @Override
-    public User regist(User user, Store store) {
+    public User register(User user, Store store) {
         try {
 //            加密密码
             String password = PasswordUtil.MD5Encode(user.getPassword(), ENCODE, false);

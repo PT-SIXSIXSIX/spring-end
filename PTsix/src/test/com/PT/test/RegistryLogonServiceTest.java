@@ -28,7 +28,7 @@ public class RegistryLogonServiceTest extends BaseTest {
      * 注册时，联合插入测试
      */
     @Test
-    public void regist() throws IllegalAccessException, IntrospectionException, InvocationTargetException {
+    public void register() throws IllegalAccessException, IntrospectionException, InvocationTargetException {
         // role=1（员工），role=0（店长）
         User user = new User();
         user.setRole(0);
@@ -40,7 +40,7 @@ public class RegistryLogonServiceTest extends BaseTest {
         Store store = new Store();
         store.setIdCard("510252362346");
         store.setCompanyName("朝天门公司");
-        User result = service.regist(user, store);
+        User result = service.register(user, store);
         OutputMessage.outputBean(result);
     }
     /**

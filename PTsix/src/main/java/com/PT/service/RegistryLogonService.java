@@ -14,7 +14,7 @@ public interface RegistryLogonService {
      * @param store
      * @return 用户信息
      */
-    public User regist(User user, Store store);
+    public User register(User user, Store store);
 
     /**
      * 根据电话号，密码来登录
