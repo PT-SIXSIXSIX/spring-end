@@ -49,7 +49,7 @@ public class CORSFilter extends OncePerRequestFilter {
             response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
 //			response.addHeader("Access-Control-Allow-Headers", "Authorization");
             response.addHeader("Access-Control-Allow-Headers", "*");
-            response.addHeader("Access-Control-Max-Age", "1");
+//            response.addHeader("Access-Control-Max-Age", "1");
         }
 
         filterChain.doFilter(request, response);

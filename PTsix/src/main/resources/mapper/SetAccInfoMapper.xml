@@ -22,8 +22,11 @@
             and (set_acc_id like '%${map.str}%' or driver_phone like '%${map.str}%' or driver_name like '%${map.str}%')
         </if>
         <if test="map.st != null and map.ed != null" >
-            and ykat_settle_account_records.traded_at between #{map.st,jdbcType=TIMESTAMP} and #{map.ed,jdbcType=TIMESTAMP}
+            and ((ykat_settle_account_records.traded_at between #{map.st,jdbcType=TIMESTAMP} and
+            #{map.ed,jdbcType=TIMESTAMP})
+            or ykat_settle_account_records.traded_at is null)
         </if>
+        order by ykat_settle_account_records.traded_at desc
     </select>
     <select id="countByFactors" resultType="java.lang.Integer" parameterType="map" >
         select count(*)
@@ -36,7 +39,9 @@
             and (set_acc_id like '%${map.str}%' or driver_phone like '%${map.str}%' or driver_name like '%${map.str}%')
         </if>
         <if test="map.st != null and map.ed != null" >
-            and ykat_settle_account_records.traded_at between #{map.st,jdbcType=TIMESTAMP} and #{map.ed,jdbcType=TIMESTAMP}
+            and ((ykat_settle_account_records.traded_at between #{map.st,jdbcType=TIMESTAMP} and
+            #{map.ed,jdbcType=TIMESTAMP})
+            or ykat_settle_account_records.traded_at is null)
         </if>
     </select>
 

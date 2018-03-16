@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 配置spring和junit整合，junit启动时加载springIOC容器 spring-test,junit
  */
 
-@Transactional
+//@Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 // 告诉junit spring配置文件
 @ContextConfiguration(locations = {"classpath:spring/spring-*"})
