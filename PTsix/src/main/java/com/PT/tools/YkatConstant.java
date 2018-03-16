@@ -14,6 +14,8 @@ public class YkatConstant {
 
     public static final Integer SHORT_OF_DEPOSIT_STATE = 0;
 
+    public static final Integer DELETE_DEPOSIT_STATE = 2;
+
     public static final Integer ORDER_STATE_IDLE = 0;
 
     public static final Integer ORDER_STATE_ACCEPT = 1;
@@ -34,6 +36,9 @@ public class YkatConstant {
 
     public static final Integer DRIVER_STATUS_UNPROCESSED = 1;
 
+    public static final Integer USER_ROLE_STAFF=1;
+
+    public static final Integer USER_ROLE_MANAGER = 0;
 
 
 }

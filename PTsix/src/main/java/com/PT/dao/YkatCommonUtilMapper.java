@@ -25,4 +25,11 @@ public interface YkatCommonUtilMapper {
      */
     Integer getRoleByUserId(int userId);
 
+    /**
+     * 根据银行卡号 返回银行卡的数据库主键
+     * @param cardId
+     * @return
+     */
+    Integer getBankcardPrimaryKeyByCardId(String cardId);
+
 }

@@ -68,7 +68,7 @@ public class StaffController {
             response.setStatus(400);//设置response status码
             responseData = ResponseData.badRequest();
             responseData.putDataValue("statusCode", 1);
-            responseData.putDataValue("errorDesc", "删除失败");
+            responseData.putDataValue("errorDesc", e.getMessage());
         }
         return responseData.getBody();
     }

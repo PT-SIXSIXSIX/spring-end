@@ -17,6 +17,9 @@
         SELECT id from ykat_stores where user_id = #{userId,jdbcType=INTEGER}
     </select>
     <select id="getRoleByUserId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
-        SELECT role from ykat_users where id = @{userId,jdbcType=INTEGER}
+        SELECT role from ykat_users where id = #{userId,jdbcType=INTEGER}
+    </select>
+    <select id="getBankcardPrimaryKeyByCardId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select id from ykat_bankcards where card_id = #{cardId,jdbcType=VARCHAR}
     </select>
 </mapper>

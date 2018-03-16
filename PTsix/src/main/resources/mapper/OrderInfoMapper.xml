@@ -63,4 +63,7 @@
         from ykat_projects
         where ykat_projects.type = #{projectType,jdbcType=VARCHAR}
     </select>
+    <select id="getStatusByOrderId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select status from ykat_orders where order_id = #{orderId,jdbcType=VARCHAR}
+    </select>
 </mapper>

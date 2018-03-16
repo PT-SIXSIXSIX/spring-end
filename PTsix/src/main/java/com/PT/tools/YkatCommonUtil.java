@@ -21,7 +21,7 @@ public class YkatCommonUtil {
 
         String[] factors = timePeriod.split("-");
         try {
-
+            
             Date fromDate = getDateFromMillis(factors[0]);
             Date toDate = getDateFromMillis(factors[1]);
             map.put("fromDate", fromDate);
@@ -43,6 +43,21 @@ public class YkatCommonUtil {
         return calendar.getTime();
     }
 
+    public static Date getYesterday(){
+        Date today = new Date();
+        calendar.clear();
+        calendar.setTime(today);
+        calendar.add(Calendar.DAY_OF_MONTH,-1);
+        return  calendar.getTime();
+    }
+
+    public static Date getTomorrow(){
+        Date today = new Date();
+        calendar.clear();
+        calendar.setTime(today);
+        calendar.add(Calendar.DAY_OF_MONTH,1);
+        return  calendar.getTime();
+    }
 
     public static String checkMapHasNull(Map<String, Object> map){
 

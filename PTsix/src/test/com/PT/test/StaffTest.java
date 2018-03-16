@@ -44,4 +44,16 @@ public class StaffTest extends BaseTest {
 
         System.out.println(date);
     }
+
+    @Test
+    public void deleteStaffTest(){
+        int userId = 1;
+        int staffId = 3;
+        try{
+            staffService.deleteByStaffId(userId,staffId);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
 }

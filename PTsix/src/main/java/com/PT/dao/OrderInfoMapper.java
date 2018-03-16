@@ -15,4 +15,6 @@ public interface OrderInfoMapper {
     int countOrderInfoByFactor(@Param("map") Map map);
 
     Integer getIdByProjectType(String projectType);
+
+    Integer getStatusByOrderId(String orderId);
 }
