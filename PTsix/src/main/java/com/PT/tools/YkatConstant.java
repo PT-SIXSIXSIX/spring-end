@@ -14,6 +14,8 @@ public class YkatConstant {
 
     public static final Integer SHORT_OF_DEPOSIT_STATE = 0;
 
+    public static final Integer DELETE_DEPOSIT_STATE = 2;
+
     public static final Integer ORDER_STATE_IDLE = 0;
 
     public static final Integer ORDER_STATE_ACCEPT = 1;

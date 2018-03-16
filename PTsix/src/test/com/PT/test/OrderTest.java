@@ -4,6 +4,7 @@ import com.PT.service.OrderService;
 import com.PT.tools.OutputMessage;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -55,6 +56,18 @@ public class OrderTest extends BaseTest{
         System.out.println(orderId);
         try{
             orderService.deleteOrder(userId,0,orderIdsToDelete);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void acceptOrder(){
+        int userId = 1,status=1;
+        String orderId = "20180312000001";
+        try{
+            orderService.updateOrderState(orderId,userId,status);
         }catch(Exception e){
             e.printStackTrace();
         }

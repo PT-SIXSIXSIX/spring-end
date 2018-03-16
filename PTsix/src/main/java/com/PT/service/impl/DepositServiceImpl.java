@@ -93,7 +93,10 @@ public class DepositServiceImpl implements DepositService {
         DepositRechargeRecordExample example = new DepositRechargeRecordExample();
         example.createCriteria().andIdIn(ids);
         String descp = ToStrings.integerListToStrings(ids,'&');
-        int deleteResult = depositRechargeRecordMapper.deleteByExample(example);
+        DepositRechargeRecord deleteTo = new DepositRechargeRecord();
+        deleteTo.setStatus(YkatConstant.DELETE_DEPOSIT_STATE);
+        int deleteResult = depositRechargeRecordMapper.updateByExampleSelective(deleteTo,example);
+
         logService.insertLog(userId,"delete","on table ykat_deposit_recharge_records " +
                 "by ids in ["+descp+"]");
     }
@@ -114,6 +117,9 @@ public class DepositServiceImpl implements DepositService {
         }
 
         Integer rechargeMoney = (Integer) parameterMap.get("money");
+        String bankcardId = (String) parameterMap.get("cardId");
+        Integer bankcardPrimaryKey = ykatCommonUtilMapper.getBankcardPrimaryKeyByCardId(bankcardId);//获得主键
+
         Integer currentMoney = ykatCommonUtilMapper.getCurrentDepositByUserId(userId);//当前商店的保证金
         Integer storeId = ykatCommonUtilMapper.getStoreIdByUserId(userId);//商店的id主键
         currentMoney += rechargeMoney;
@@ -124,6 +130,7 @@ public class DepositServiceImpl implements DepositService {
         rechargeRecord.setCurrentMoney(currentMoney);
         rechargeRecord.setRechargeTime(new Date());
         rechargeRecord.setStoreId(storeId);
+        rechargeRecord.setBankcardId(bankcardPrimaryKey);
         Integer status = currentMoney >= YkatConstant.ENOUGH_DEPOSIT ? YkatConstant.ENOUGH_DEPOSIT_STATE:YkatConstant.SHORT_OF_DEPOSIT_STATE;
         rechargeRecord.setStatus(status);
         Store store = new Store();
@@ -131,6 +138,8 @@ public class DepositServiceImpl implements DepositService {
         store.setDeposit(currentMoney);
         if(depositRechargeRecordMapper.insertSelective(rechargeRecord)>0 && storeMapper.updateByPrimaryKeySelective(store)>0){
             logService.insertLog(userId,"insert","recharge deposit of store "+storeId+" "+rechargeMoney+" ¥");
+        }else{
+            throw new RuntimeException("添加保证金失败");
         }
     }
 }

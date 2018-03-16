@@ -100,6 +100,7 @@ public class OrderServiceImpl implements OrderService{
 
         Order order = new Order();
         order.setCreatedAt(new Date());//创建时间
+        order.setOrderedAt(YkatCommonUtil.getTomorrow());
         order.setDriverId(driverId);//司机ID
         order.setStatus(YkatConstant.ORDER_STATE_IDLE);//订单状态
         order.setType(orderType);
@@ -186,9 +187,17 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public void updateOrderState(String orderId, int userId, int status) throws Exception {
 
+
+        Integer orderStatus = orderInfoMapper.getStatusByOrderId(orderId);
+        //判断订单状态，只有 status=0 待处理状态
+        if( !orderStatus.equals(YkatConstant.ORDER_STATE_IDLE) ){
+            throw new Exception("只能处理\"待处理\"状态下的订单");
+        }
+
         OrderExample example = new OrderExample();
         OrderExample.Criteria criteria = example.createCriteria();
         criteria.andOrderIdEqualTo(orderId);
+
 
         Order order = new Order();
         order.setStatus(status);
@@ -196,37 +205,36 @@ public class OrderServiceImpl implements OrderService{
         int updateSize = orderMapper.updateByExampleSelective(order, example);//更新状态
 
         if (updateSize>0){
-            logService.insertLog(userId,"update","on table ykaT_orders: set status to "+status);
-        }
+            logService.insertLog(userId,"update","on table ykat_orders: set status to "+status);
+            if(status==1) {//接受订单
+                SettleAccRecord settleRecord = new SettleAccRecord();
 
-        if( updateSize>0 && status == 1){//更新成功 接受订单，在结算管理增加一个数据
+                Map<String,String> paramMap = new HashMap();
+                paramMap.put("tableName","ykat_settle_account_records");
+                paramMap.put("colName","set_acc_id");
+                ykatCommonUtilMapper.generateAutoIncrementId(paramMap);
+                String generatedSettleId = paramMap.get("billsNoResult");//获取结算订单号
 
-            SettleAccRecord settleRecord = new SettleAccRecord();
+                settleRecord.setSetAccId(generatedSettleId);//结算单号
+                settleRecord.setCreatedAt(new Date());//记录创建时间
+                settleRecord.setStatus(YkatConstant.SETTEL_RECORD_STATE_IDLE);//待结算
+                //获取订单 主键id，订单价格
+                List<Map<String,Object> > orderInfoMaps = orderInfoMapper.selectOrderFromViewByOrderID(orderId);
+                if(null!= orderInfoMaps && orderInfoMaps.size()>0){
+                    Map<String,Object> infoMap = orderInfoMaps.get(0);
+                    Integer id = (Integer) infoMap.get("id");
+                    Integer price = (Integer) infoMap.get("price");
+                    settleRecord.setOrderId(id);
+                    settleRecord.setTradeMoney(price);
+                }else{
+                    throw new Exception("添加结算记录失败");
+                }
 
-            Map<String,String> paramMap = new HashMap();
-            paramMap.put("tableName","ykat_settle_account_records");
-            paramMap.put("colName","set_acc_id");
-            ykatCommonUtilMapper.generateAutoIncrementId(paramMap);
-            String generatedSettleId = paramMap.get("billsNoResult");//获取结算订单号
-
-            settleRecord.setSetAccId(generatedSettleId);//结算单号
-            settleRecord.setCreatedAt(new Date());//记录创建时间
-            settleRecord.setStatus(YkatConstant.SETTEL_RECORD_STATE_IDLE);//待结算
-            //获取订单 主键id，订单价格
-            List<Map<String,Object> > orderInfoMaps = orderInfoMapper.selectOrderFromViewByOrderID(orderId);
-            if(null!= orderInfoMaps && orderInfoMaps.size()>0){
-                Map<String,Object> infoMap = orderInfoMaps.get(0);
-                Integer id = (Integer) infoMap.get("id");
-                Integer price = (Integer) infoMap.get("price");
-                settleRecord.setOrderId(id);
-                settleRecord.setTradeMoney(price);
-            }else{
-                throw new Exception("添加结算记录失败");
+                settleAccRecordMapper.insertSelective(settleRecord);
             }
-
-            settleAccRecordMapper.insertSelective(settleRecord);
-
         }
+
+
     }
 
     /**
