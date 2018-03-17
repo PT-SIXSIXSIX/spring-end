@@ -7,7 +7,7 @@
         <result property="projectDescp" column="project_descp"/>
         <result property="projectType" column="project_type"/>
         <result property="state" column="state"/>
-        <result property="createdAt" column="created_at" jdbcType="TIMESTAMP" />
+        <result property="orderedAt" column="order_ordered_at" jdbcType="TIMESTAMP" />
     </resultMap>
     <resultMap id="OrderPriceMap" type="map">
         <result property="id" column="id"/>
@@ -29,7 +29,7 @@
     </select>
     <select id="selectOrderInfoByFactor" resultMap="OrderInfoMapper" parameterType="map">
         select
-        order_id , order_status state, date_format(order_created_at ,'%Y-%m-%d') created_at,
+        order_id , order_status state, date_format(order_ordered_at ,'%Y-%m-%d') order_ordered_at,
         driver_name ,project_descp, project_type
         from order_info_v
         where user_id = #{map.userId,jdbcType=INTEGER}
@@ -39,7 +39,7 @@
                   or project_descp like '${map.content}%' or driver_name like '${map.content}%')
         </if>
         <if test="map.fromDate != null and map.toDate != null ">
-            and order_created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
+            and order_ordered_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
         </if>
         order by order_id
     </select>
@@ -54,7 +54,7 @@
             or project_descp like '${map.content}%' or driver_name like '${map.content}%')
         </if>
         <if test="map.fromDate != null and map.toDate != null ">
-            and order_created_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
+            and order_ordered_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
         </if>
         order by order_id
     </select>

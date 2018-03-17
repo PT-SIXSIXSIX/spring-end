@@ -36,7 +36,7 @@ public class OrderTest extends BaseTest{
         list.add("车损修理");
         for(int i = 0; i < 10; i++) {
             int id = Math.abs(random.nextInt());
-            orderService.addOrder(4, 1, Integer.toString(id%3), list.get(id % 3), list.get(id % 3));
+            //orderService.addOrder(4, 1, Integer.toString(id%3), list.get(id % 3), list.get(id % 3));
         }
     }
 
