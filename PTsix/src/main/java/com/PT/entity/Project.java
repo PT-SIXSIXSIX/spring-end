@@ -1,5 +1,7 @@
 package com.PT.entity;
 
+import java.util.Date;
+
 public class Project {
     private Integer id;
 
@@ -8,6 +10,12 @@ public class Project {
     private String type;
 
     private String descp;
+
+    private Integer userId;
+
+    private Date createdAt;
+
+    private Integer status;
 
     public Integer getId() {
         return id;
@@ -39,5 +47,29 @@ public class Project {
 
     public void setDescp(String descp) {
         this.descp = descp == null ? null : descp.trim();
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

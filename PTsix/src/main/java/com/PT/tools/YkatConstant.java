@@ -40,6 +40,10 @@ public class YkatConstant {
 
     public static final Integer USER_ROLE_MANAGER = 0;
 
+    public static final Integer PROJECTS_DELETE = 1;
+
+    public static final Integer PROJECTS_LIVE = 0;
+
 
 }
 
