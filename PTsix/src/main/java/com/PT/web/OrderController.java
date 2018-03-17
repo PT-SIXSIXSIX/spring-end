@@ -68,7 +68,8 @@ public class OrderController {
     @RequestMapping(value = "/orders/{type}", method = RequestMethod.POST)
     private Map addOrder(@PathVariable("user_id") int userId,
                          @PathVariable("type") String type,
-                         @RequestBody Map<String,Object> requestMap)
+                         @RequestBody Map<String,Object> requestMap,
+                         HttpServletResponse response)
     {
         try {
             String checkMessage = YkatCommonUtil.checkMapHasNull(requestMap);
@@ -86,6 +87,7 @@ public class OrderController {
             Map<String,Object> map = new HashMap();
             map.put("statusCode",1);
             map.put("errorDesc",e.getMessage());
+            response.setStatus(400);
             return map;
         }
 

@@ -43,12 +43,13 @@ public class CORSFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         response.addHeader("Access-Control-Allow-Origin", "*");
 
+        System.out.println("let it go???");
         if (request.getHeader("Access-Control-Request-Method") != null && "OPTIONS".equals(request.getMethod())) {
             LOG.trace("Sending Header....");
             // CORS "pre-flight" request
             response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
 //			response.addHeader("Access-Control-Allow-Headers", "Authorization");
-            response.addHeader("Access-Control-Allow-Headers", "*");
+            response.addHeader("Access-Control-Allow-Headers", "accept, content-type, x-ykat-user-id, x-ykat-access-token");
 //            response.addHeader("Access-Control-Max-Age", "1");
         }
 
