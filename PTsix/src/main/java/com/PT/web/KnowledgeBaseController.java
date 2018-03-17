@@ -46,6 +46,4 @@ public class KnowledgeBaseController {
         return responseData.getBody();
     }
 
-
-
 }

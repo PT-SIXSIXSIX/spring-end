@@ -164,6 +164,76 @@ public class KnowledgeExample {
             return (Criteria) this;
         }
 
+        public Criteria andKnowledgeIdIsNull() {
+            addCriterion("knowledge_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andKnowledgeIdIsNotNull() {
+            addCriterion("knowledge_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andKnowledgeIdEqualTo(String value) {
+            addCriterion("knowledge_id =", value, "knowledgeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andKnowledgeIdNotEqualTo(String value) {
+            addCriterion("knowledge_id <>", value, "knowledgeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andKnowledgeIdGreaterThan(String value) {
+            addCriterion("knowledge_id >", value, "knowledgeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andKnowledgeIdGreaterThanOrEqualTo(String value) {
+            addCriterion("knowledge_id >=", value, "knowledgeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andKnowledgeIdLessThan(String value) {
+            addCriterion("knowledge_id <", value, "knowledgeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andKnowledgeIdLessThanOrEqualTo(String value) {
+            addCriterion("knowledge_id <=", value, "knowledgeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andKnowledgeIdLike(String value) {
+            addCriterion("knowledge_id like", value, "knowledgeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andKnowledgeIdNotLike(String value) {
+            addCriterion("knowledge_id not like", value, "knowledgeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andKnowledgeIdIn(List<String> values) {
+            addCriterion("knowledge_id in", values, "knowledgeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andKnowledgeIdNotIn(List<String> values) {
+            addCriterion("knowledge_id not in", values, "knowledgeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andKnowledgeIdBetween(String value1, String value2) {
+            addCriterion("knowledge_id between", value1, value2, "knowledgeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andKnowledgeIdNotBetween(String value1, String value2) {
+            addCriterion("knowledge_id not between", value1, value2, "knowledgeId");
+            return (Criteria) this;
+        }
+
         public Criteria andTypeIsNull() {
             addCriterion("type is null");
             return (Criteria) this;
@@ -231,6 +301,66 @@ public class KnowledgeExample {
 
         public Criteria andTypeNotBetween(String value1, String value2) {
             addCriterion("type not between", value1, value2, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreIdIsNull() {
+            addCriterion("store_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreIdIsNotNull() {
+            addCriterion("store_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreIdEqualTo(Integer value) {
+            addCriterion("store_id =", value, "storeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreIdNotEqualTo(Integer value) {
+            addCriterion("store_id <>", value, "storeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreIdGreaterThan(Integer value) {
+            addCriterion("store_id >", value, "storeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("store_id >=", value, "storeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreIdLessThan(Integer value) {
+            addCriterion("store_id <", value, "storeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreIdLessThanOrEqualTo(Integer value) {
+            addCriterion("store_id <=", value, "storeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreIdIn(List<Integer> values) {
+            addCriterion("store_id in", values, "storeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreIdNotIn(List<Integer> values) {
+            addCriterion("store_id not in", values, "storeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreIdBetween(Integer value1, Integer value2) {
+            addCriterion("store_id between", value1, value2, "storeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("store_id not between", value1, value2, "storeId");
             return (Criteria) this;
         }
 

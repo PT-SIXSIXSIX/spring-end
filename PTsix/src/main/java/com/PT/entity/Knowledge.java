@@ -3,7 +3,11 @@ package com.PT.entity;
 public class Knowledge {
     private Integer id;
 
+    private String knowledgeId;
+
     private String type;
+
+    private Integer storeId;
 
     private String title;
 
@@ -23,12 +27,28 @@ public class Knowledge {
         this.id = id;
     }
 
+    public String getKnowledgeId() {
+        return knowledgeId;
+    }
+
+    public void setKnowledgeId(String knowledgeId) {
+        this.knowledgeId = knowledgeId == null ? null : knowledgeId.trim();
+    }
+
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
+    }
+
+    public Integer getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
     }
 
     public String getTitle() {
