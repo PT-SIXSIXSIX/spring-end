@@ -100,7 +100,7 @@ public class OrderServiceImpl implements OrderService{
             throw new Exception(checkMessage);
         }
 
-        Date orderedAt = (Date)parameterMap.get("orderedAt");
+        Date orderedAt = YkatCommonUtil.getDateFromMillis((Long) parameterMap.get("orderedAt"));
         Integer driverId = (Integer) parameterMap.get("driverId");
         String projectType = (String) parameterMap.get("projectType");
         String projectDescp = (String)parameterMap.get("projectDescp");

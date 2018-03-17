@@ -77,12 +77,9 @@ public class OrderController {
                 throw new Exception(checkMessage);
             }
 
-            int driverId = (int) requestMap.get("driverId");
-            String projectType = (String) requestMap.get("projectType");
-            String projectDescp = (String) requestMap.get("projectDescp");
 
 
-            orderService.addOrder(userId,driverId,type,projectType,projectDescp);
+            orderService.addOrder(userId,type,requestMap);
         }catch (Exception e){
             Map<String,Object> map = new HashMap();
             map.put("statusCode",1);

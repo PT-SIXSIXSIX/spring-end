@@ -43,6 +43,12 @@ public class YkatCommonUtil {
         return calendar.getTime();
     }
 
+    public static Date getDateFromMillis(Long millis) throws Exception{
+        calendar.clear();
+        calendar.setTimeInMillis(millis);
+        return calendar.getTime();
+    }
+
     public static Date getYesterday(){
         Date today = new Date();
         calendar.clear();
