@@ -102,8 +102,7 @@ public class OrderServiceImpl implements OrderService{
 
         Date orderedAt = YkatCommonUtil.getDateFromMillis((Long) parameterMap.get("orderedAt"));
         Integer driverId = (Integer) parameterMap.get("driverId");
-        String projectType = (String) parameterMap.get("projectType");
-        String projectDescp = (String)parameterMap.get("projectDescp");
+        Integer projectId = (Integer)parameterMap.get("projectId");
 
 
 
@@ -113,19 +112,9 @@ public class OrderServiceImpl implements OrderService{
         order.setDriverId(driverId);//司机ID
         order.setStatus(YkatConstant.ORDER_STATE_IDLE);//订单状态
         order.setType(orderType);
+        order.setProjectId(projectId);
 
-        //project Id 外键信息
-        Integer projectId = orderInfoMapper.getIdByProjectType(projectType);
-        if(projectId!=null){ //有没有这个项目
-            order.setProjectId(projectId);
-        }else{//没有这个项目就创建一个项目
-            Project project = new Project();
-            project.setDescp(projectDescp);
-            project.setType(projectType);
-            project.setPrice(100);
-            projectMapper.insertSelective(project);
-            order.setProjectId(project.getId());//会写项目id 主键
-        }
+
 
         //订单号
         Map<String,String> map = new HashMap();
@@ -137,18 +126,10 @@ public class OrderServiceImpl implements OrderService{
         order.setOrderId(generatedOrderId);//
 
         //根据userId 查询 storeID;
-        Integer storeID = null;
-        StoreExample example1 = new StoreExample();
-        example1.createCriteria().andUserIdEqualTo(userId);
-        List<Store> stores = storeMapper.selectByExample(example1);
-        if(null != stores && stores.size()>0){
-            Store store = stores.get(0);
-            storeID = store.getId();
-        }else{
-            throw new Exception("userId没有对应的门店信息");
-        }
+        Integer storeId = ykatCommonUtilMapper.getStoreIdByUserId(userId);
 
-        order.setStoreId(storeID);
+
+        order.setStoreId(storeId);
 
         orderMapper.insertSelective(order);
 
