@@ -22,15 +22,13 @@ public interface OrderService {
     Map<String,Object> listOrder(String type, int page, int ipp, int userId,String queryCondition) throws Exception;
 
     /**
-     * 添加一个订单
-     * @param userID 唯一用户标识
-     * @param driverId 卡车司机唯一标识
-     * @param orderType 订单类型
-     * @param projectType 服务项目类型
-     * @param projectDescp 服务项目描述
+     * 添加订单
+     * @param userID
+     * @param orderType
+     * @param paramMap
      * @throws Exception
      */
-    void addOrder(int userID,int driverId,String orderType,String projectType,String projectDescp) throws Exception;
+    void addOrder(int userID,String orderType,Map<String, Object> paramMap) throws Exception;
 
     /**
      * 删除订单
