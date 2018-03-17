@@ -30,15 +30,15 @@ public class ProjectsServiceTest extends BaseTest {
         List list = new ArrayList<Integer>();
         list.add(1);
         list.add(2);
-        projectsService.deleteProjects(list);
+        projectsService.deleteProjects(list, 41);
     }
 
     @Test
     public void getByUserIdAndType() throws IllegalAccessException, IntrospectionException, InvocationTargetException {
         Integer userId = 41;
         String q1 = "";
-        String q2 = "";
-        List list = projectsService.getByUserIdAndType(userId, q1);
+        String q2 = "2";
+        List list = projectsService.getByUserIdAndType(userId, q2);
         OutputMessage.outputList(list);
     }
 }

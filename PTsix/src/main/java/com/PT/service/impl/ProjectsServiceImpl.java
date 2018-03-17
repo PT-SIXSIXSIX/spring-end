@@ -45,13 +45,15 @@ public class ProjectsServiceImpl implements ProjectsService {
     }
 
     @Override
-    public Boolean deleteProjects(List<Integer> ids) {
+    public Boolean deleteProjects(List<Integer> ids, int userId) {
         ProjectExample example = new ProjectExample();
-        example.createCriteria().andIdIn(ids);
+        example.createCriteria().andUserIdEqualTo(userId).
+                andStatusEqualTo(YkatConstant.PROJECTS_LIVE).andIdIn(ids);
         Project project = new Project();
         project.setStatus(1);
         try {
-            projectMapper.updateByExampleSelective(project, example);
+            if(projectMapper.updateByExampleSelective(project, example) == 0)
+                return false;
             return true;
         } catch (Exception e) {
             throw e;
@@ -59,17 +61,15 @@ public class ProjectsServiceImpl implements ProjectsService {
     }
 
     @Override
-    public List<Project> getByUserIdAndType(int userId, String q) {
+    public List<Project> getByUserIdAndType(int userId, String type) {
         ProjectExample example = new ProjectExample();
         try {
             ProjectExample.Criteria criteria = example.createCriteria();
-            criteria.andStatusEqualTo(YkatConstant.PROJECTS_LIVE);
-            if(null == q || "".equals(q)) {
-                example.setDistinct(true);
-                example.setOrderByClause("type");
-                criteria.andUserIdEqualTo(userId);
+            criteria.andStatusEqualTo(YkatConstant.PROJECTS_LIVE).andUserIdEqualTo(userId);
+            example.setOrderByClause("type");
+            if(null == type || "".equals(type)) {
             } else {
-                criteria.andUserIdEqualTo(userId).andDescpEqualTo(q);
+                criteria.andTypeEqualTo(type);
             }
             List list = projectMapper.selectByExample(example);
             return list;
