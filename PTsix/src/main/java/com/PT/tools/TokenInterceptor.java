@@ -28,8 +28,11 @@ public class TokenInterceptor implements HandlerInterceptor{
                              Object handler) throws Exception {
 
 //        放过OPTIONS方法
-        if(request.getMethod().equals("OPTIONS"))
+        if(request.getMethod().equals("OPTIONS")) {
+            System.out.println("let OPTIONS go");
             return true;
+        }
+
 //        获取token和userId
         response.setCharacterEncoding("utf-8");
         String userId = request.getHeader("X-YKAT-USER-ID");
