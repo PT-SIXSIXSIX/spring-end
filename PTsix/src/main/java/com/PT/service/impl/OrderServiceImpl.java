@@ -85,22 +85,31 @@ public class OrderServiceImpl implements OrderService{
 
     /**
      * 添加一个订单
-     * @param userId 唯一用户标识
-     * @param driverId 卡车司机唯一标识
-     * @param orderType 订单类型
-     * @param projectType 服务项目类型
-     * @param projectDescp 服务项目描述
+     * @param userId
+     * @param orderType
+     * @param parameterMap
      * @throws Exception
      */
+
     @Transactional
     @Override
-    public void addOrder(int userId, int driverId, String orderType, String projectType, String projectDescp) throws Exception {
+    public void addOrder(int userId, String orderType, Map<String, Object> parameterMap) throws Exception {
+
+        String checkMessage = YkatCommonUtil.checkMapHasNull(parameterMap);
+        if(!"success".equals(checkMessage)){
+            throw new Exception(checkMessage);
+        }
+
+        Date orderedAt = (Date)parameterMap.get("orderedAt");
+        Integer driverId = (Integer) parameterMap.get("driverId");
+        String projectType = (String) parameterMap.get("projectType");
+        String projectDescp = (String)parameterMap.get("projectDescp");
 
 
 
         Order order = new Order();
         order.setCreatedAt(new Date());//创建时间
-        order.setOrderedAt(YkatCommonUtil.getTomorrow());
+        order.setOrderedAt(orderedAt);
         order.setDriverId(driverId);//司机ID
         order.setStatus(YkatConstant.ORDER_STATE_IDLE);//订单状态
         order.setType(orderType);
