@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.PT.dao.ArticleInfoMapper">
+    <resultMap id="ArticleInfoMapper" type="map">
+        <result property="articleId" column="article_id"/>
+        <result property="title" column="title"/>
+        <result property="type" column="article_type"/>
+        <result property="summary" column="summary"/>
+        <result property="content" column="content"/>
+        <result property="bannerUrl" column="banner_url"/>
+        <result property="author" column="author"/>
+        <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <resultMap id="ArticleDetailMapper" type="map">
+        <result property="articleId" column="article_id"/>
+        <result property="title" column="title"/>
+        <result property="type" column="article_type"/>
+        <result property="summary" column="summary"/>
+        <result property="content" column="content"/>
+        <result property="bannerUrl" column="banner_url"/>
+        <result property="author" column="author"/>
+    </resultMap>
+
+    <select id="selectArticleInfoByFactor" parameterType="map" resultMap="ArticleInfoMapper">
+        select article_id,title,article_type,summary,content,banner_url,author,date_format(updated_at ,'%Y-%m-%d') updated_at
+        from article_info_v
+        where user_id = #{map.userId,jdbcType=INTEGER}
+        and article_type = #{map.articleType,jdbcType=VARCHAR}
+        and article_status <![CDATA[!=]]> 2
+        <if test="map.content != null and map.content != '' " >
+            and ( author like '${map.content}%' or title like '${map.content}%'
+            or summary like '${map.content}%' )
+        </if>
+        <if test="map.fromDate != null and map.toDate != null ">
+            and updated_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
+        </if>
+            order by updated_at desc
+    </select>
+    <select id="countArticleInfoByFactor" parameterType="map" resultType="java.lang.Integer">
+        select count(*)
+        from article_info_v
+        where user_id = #{map.userId,jdbcType=INTEGER}
+        and article_type = #{map.articleType,jdbcType=VARCHAR}
+        and article_status <![CDATA[!=]]> 2
+        <if test="map.content != null and map.content != '' " >
+            and ( author like '${map.content}%' or title like '${map.content}%'
+            or summary like '${map.content}%' )
+        </if>
+        <if test="map.fromDate != null and map.toDate != null ">
+            and updated_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
+        </if>
+        order by updated_at desc
+    </select>
+    <select id="selectArticleDetailByArticleId" parameterType="java.lang.String" resultMap="ArticleDetailMapper">
+        select article_id,title,article_type,summary,content,banner_url,author
+        from article_info_v
+        where article_id = #{articleId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>
