@@ -1,9 +1,11 @@
 package com.PT.entity;
 
-public class Knowledge {
+import java.util.Date;
+
+public class Article {
     private Integer id;
 
-    private String knowledgeId;
+    private String articleId;
 
     private String type;
 
@@ -15,9 +17,15 @@ public class Knowledge {
 
     private String content;
 
-    private Integer knowledgeTypeId;
-
     private String author;
+
+    private Date createdAt;
+
+    private Date updatedAt;
+
+    private String bannerUrl;
+
+    private Integer status;
 
     public Integer getId() {
         return id;
@@ -27,12 +35,12 @@ public class Knowledge {
         this.id = id;
     }
 
-    public String getKnowledgeId() {
-        return knowledgeId;
+    public String getArticleId() {
+        return articleId;
     }
 
-    public void setKnowledgeId(String knowledgeId) {
-        this.knowledgeId = knowledgeId == null ? null : knowledgeId.trim();
+    public void setArticleId(String articleId) {
+        this.articleId = articleId == null ? null : articleId.trim();
     }
 
     public String getType() {
@@ -75,19 +83,43 @@ public class Knowledge {
         this.content = content == null ? null : content.trim();
     }
 
-    public Integer getKnowledgeTypeId() {
-        return knowledgeTypeId;
-    }
-
-    public void setKnowledgeTypeId(Integer knowledgeTypeId) {
-        this.knowledgeTypeId = knowledgeTypeId;
-    }
-
     public String getAuthor() {
         return author;
     }
 
     public void setAuthor(String author) {
         this.author = author == null ? null : author.trim();
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getBannerUrl() {
+        return bannerUrl;
+    }
+
+    public void setBannerUrl(String bannerUrl) {
+        this.bannerUrl = bannerUrl == null ? null : bannerUrl.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

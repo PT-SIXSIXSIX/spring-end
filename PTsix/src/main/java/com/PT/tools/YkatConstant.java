@@ -44,6 +44,10 @@ public class YkatConstant {
 
     public static final Integer PROJECTS_LIVE = 0;
 
+    public static final Integer ARTICLE_STATE_DEFAULT = 0;
+
+    public static final Integer ARTICLE_STATE_DELETE = 2;
+
 
 }
 
