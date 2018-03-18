@@ -42,7 +42,7 @@ public class KnowledgeArticleTest extends BaseTest {
 
         int userId = 1;String type="1";
         try{
-            knowledgeService.addKnowledge(userId,type,param);
+            knowledgeService.addKnowledge(userId,param);
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -63,7 +63,7 @@ public class KnowledgeArticleTest extends BaseTest {
 
         int userId = 1;String type="1",articleId = "20180318000001";
         try{
-            knowledgeService.updateKnowledge(userId,"1",articleId,param);
+            knowledgeService.updateKnowledge(userId,articleId,param);
         }catch(Exception e){
             e.printStackTrace();
         }

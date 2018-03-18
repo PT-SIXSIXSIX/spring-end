@@ -72,7 +72,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
     }
 
 
-    public void addKnowledge(int userId,String type, Map parameterMap) throws Exception
+    public void addKnowledge(int userId, Map parameterMap) throws Exception
     {
         String checkMessage = YkatCommonUtil.checkMapHasNull(parameterMap);
         if(!"success".equals(checkMessage)){
@@ -80,10 +80,6 @@ public class KnowledgeServiceImpl implements KnowledgeService {
         }
 
         String title = (String) parameterMap.get("title");
-        String summary = (String) parameterMap.get("summary");
-        String content = (String) parameterMap.get("content");
-        String bannerUrl = (String) parameterMap.get("bannerUrl");
-        String author = (String) parameterMap.get("author");
 
 
         Date today = new Date();
@@ -92,7 +88,6 @@ public class KnowledgeServiceImpl implements KnowledgeService {
         article.setCreatedAt(today);
         article.setUpdatedAt(today);
         article.setStatus(YkatConstant.ARTICLE_STATE_DEFAULT);
-        article.setType(type);
 
         Integer storeId = ykatCommonUtilMapper.getStoreIdByUserId(userId);
         article.setStoreId(storeId);
@@ -113,7 +108,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 
     }
 
-    public void updateKnowledge(int userId,String type, String articleId,Map parameterMap) throws Exception
+    public void updateKnowledge(int userId, String articleId,Map parameterMap) throws Exception
     {
         String checkMessage = YkatCommonUtil.checkMapHasNull(parameterMap);
         if(!"success".equals(checkMessage)){
@@ -129,6 +124,22 @@ public class KnowledgeServiceImpl implements KnowledgeService {
         if(articleMapper.updateByExampleSelective(updateTo,articleExample)>0){
             logService.insertLog(userId,"update","on table ykat_articles whose"+
                     " orderId = "+articleId);
+        }
+    }
+
+    public Map<String, Object> viewArticleDetail(int userId, String articleId) throws Exception
+    {
+
+        ArticleExample articleExample = new ArticleExample();
+        articleExample.createCriteria().andArticleIdEqualTo(articleId);
+
+        List<Map> articles = articleInfoMapper.selectArticleDetailByArticleId(articleId);
+        if (articles.size()>0){
+            Map<String, Object> resultMap = new HashMap<>();
+            resultMap.put("article",articles.get(0));
+            return resultMap;
+        }else{
+            throw new Exception("没有找到该文章");
         }
 
     }

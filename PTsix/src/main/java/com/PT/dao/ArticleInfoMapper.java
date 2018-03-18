@@ -11,5 +11,6 @@ public interface ArticleInfoMapper {
 
     int countArticleInfoByFactor(@Param("map") Map map);
 
+    List<Map> selectArticleDetailByArticleId(String articleId);
 
 }

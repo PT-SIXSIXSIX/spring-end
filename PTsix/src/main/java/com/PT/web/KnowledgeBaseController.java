@@ -1,14 +1,18 @@
 package com.PT.web;
 
 
+import com.PT.entity.Article;
 import com.PT.service.KnowledgeService;
+import com.PT.tools.BeanToMapUtil;
 import com.PT.tools.ResponseData;
 import com.PT.tools.YkatCommonUtil;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,9 +33,9 @@ public class KnowledgeBaseController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "/articles/{type}",method = RequestMethod.GET)
+    @RequestMapping(value = "/articles",method = RequestMethod.GET)
     private Map listKnowledge(@PathVariable("user_id") int userId,
-                              @PathVariable("type") String type,
+                              @RequestParam(value = "type", required = true,defaultValue = "1")String type,
                               @RequestParam(value = "page",required = true, defaultValue = "1") int page,
                               @RequestParam(value = "ipp",required = true, defaultValue = "5") int ipp,
                               @RequestParam(value = "q",required = true, defaultValue = "") String queryString,
@@ -58,15 +62,14 @@ public class KnowledgeBaseController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "/articles/{type}",method = RequestMethod.POST)
+    @RequestMapping(value = "/articles",method = RequestMethod.POST)
     private Map addArticle(@PathVariable("user_id") int userId,
-                           @PathVariable("type") String type,
                            @RequestBody Map<String, Object> parameterMap,
                            HttpServletResponse response)
     {
         ResponseData responseData = ResponseData.ok();
         try{
-            knowledgeService.addKnowledge(userId,type,parameterMap);
+            knowledgeService.addKnowledge(userId,parameterMap);
             response.setStatus(200);
         }catch(Exception e){
             responseData = ResponseData.badRequest();
@@ -81,14 +84,12 @@ public class KnowledgeBaseController {
     /**
      * 修改文章
      * @param userId
-     * @param type
      * @param articleId
      * @param response
      * @return
      */
-    @RequestMapping(value = "/articles/{type}/{article_id}",method = RequestMethod.PUT)
+    @RequestMapping(value = "/articles/{article_id}",method = RequestMethod.PUT)
     private Map updateArticle(@PathVariable("user_id") int userId,
-                              @PathVariable("type") String type,
                               @RequestBody Map<String, Object> parameterMap,
                               @PathVariable("article_id") String articleId,
                               HttpServletResponse response)
@@ -96,7 +97,7 @@ public class KnowledgeBaseController {
     {
         ResponseData responseData = ResponseData.ok();
         try{
-            knowledgeService.updateKnowledge(userId,type,articleId,parameterMap);
+            knowledgeService.updateKnowledge(userId,articleId,parameterMap);
             response.setStatus(200);
         }catch(Exception e){
             responseData = ResponseData.badRequest();
@@ -112,14 +113,12 @@ public class KnowledgeBaseController {
     /**
      * 删除文章
      * @param userId
-     * @param type
      * @param parameterMap
      * @param response
      * @return
      */
-    @RequestMapping(value = "/articles/{type}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/articles",method = RequestMethod.DELETE)
     private Map deleteArticle(@PathVariable("user_id") int userId,
-                              @PathVariable("type") String type,
                               @RequestBody Map<String, Object> parameterMap,
                               HttpServletResponse response)
 
@@ -136,6 +135,32 @@ public class KnowledgeBaseController {
             knowledgeService.deleteKnowledge(userId,articleIds);
             responseData.putDataValue("success",true);
             response.setStatus(200);
+        }catch(Exception e){
+            responseData = ResponseData.badRequest();
+            responseData.setError(1,e.getMessage());
+            response.setStatus(400);
+        }
+
+        return responseData.getBody();
+    }
+
+    /**
+     * 查看详情
+     * @param userId
+     * @param articleId
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/articles/{article_id}",method = RequestMethod.GET)
+    private Map viewArticleDetail(@PathVariable("user_id") int userId,
+                                  @PathVariable("article_id") String articleId,
+                                  HttpServletResponse response)
+    {
+        ResponseData responseData = ResponseData.ok();
+        try{
+            Map<String,Object> articleMap = knowledgeService.viewArticleDetail(userId,articleId);
+            response.setStatus(200);
+            return articleMap;
         }catch(Exception e){
             responseData = ResponseData.badRequest();
             responseData.setError(1,e.getMessage());
