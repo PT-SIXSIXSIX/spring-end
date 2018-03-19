@@ -22,7 +22,7 @@ public interface BankcardService {
      * @param userId
      * @return 绑定的结果
      */
-    Boolean addBankcard(Bankcard bankcard, int userId);
+    Boolean addBankcard(Bankcard bankcard, int userId) throws Exception;
 
     /**
      * 根据userId和ids删除银行卡

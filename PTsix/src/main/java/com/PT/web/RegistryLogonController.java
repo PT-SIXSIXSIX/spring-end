@@ -6,6 +6,7 @@ import com.PT.entity.Store;
 import com.PT.entity.User;
 import com.PT.service.RegistryLogonService;
 import com.PT.tools.BeanToMapUtil;
+import com.PT.tools.InfoCheckUtil;
 import com.PT.tools.ResponseData;
 import com.PT.tools.TokenOptions;
 import org.springframework.stereotype.Controller;
@@ -78,6 +79,29 @@ public class RegistryLogonController {
         try {
             user = (User) BeanToMapUtil.convertMap(User.class, out);
             store = (Store) BeanToMapUtil.convertMap(Store.class, out);
+            /**
+             * check info
+             */
+            if(!InfoCheckUtil.passwordCheck(user.getPassword())) {
+                response.setStatus(400);
+                responseData.setError(1, "密码验证失败，必须为数字或者字母，长度为6-20");
+                return responseData.getBody();
+            }
+            if(!InfoCheckUtil.phoneNoCheck(user.getPhone())) {
+                response.setStatus(400);
+                responseData.setError(1, "手机验证失败");
+                return responseData.getBody();
+            }
+            if(!InfoCheckUtil.IDCardCheck(store.getIdCard())) {
+                response.setStatus(400);
+                responseData.setError(1, "身份证校验失败");
+                return responseData.getBody();
+            }
+            if(!InfoCheckUtil.phoneNoCheck(store.getReservePhone())) {
+                response.setStatus(400);
+                responseData.setError(1, "备用手机验证失败");
+                return responseData.getBody();
+            }
             User resultUser = registryLogonService.register(user, store);
             if(null != resultUser) {
                 String token = UUID.randomUUID().toString();
@@ -94,7 +118,6 @@ public class RegistryLogonController {
                 responseData.setError(1, "注册失败,该手机号已注册");
             }
         } catch (Exception e) {
-            e.printStackTrace();
             responseData.setError(1, e.getMessage());
         }
         return responseData.getBody();
