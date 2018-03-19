@@ -545,6 +545,93 @@ FORMAT: v1
 + Response 400 (application/json)
     + Attributes (ErrorInfo)
 
+# Group 知识库管理
+
+## 知识库管理 [/api/v1/users/{user_id}/articles/{type}{?page}{?ipp}{?q}]
+
++ Parameters
+    + user_id (number) - 管理员唯一标识
+    + type (number) - 知识库类型, 0代表案例分享、1代表修车助手、2代表自我诊断、3代表健康助手、4代表为你省钱
+
+### 查询文章 [GET]
+
++ Request
+    + Headers
+
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
+
++ Parameters
+     + page (number) - 第<page>页
+     + ipp (number) - 每页<ipp>项
+     + q (string)
+
+         查询条件，格式如下，中间加号分割字段:
+
+         + content:xxx+time:1521182267898-1521182267898
+
++ Response 200 (application/json)
+    + Attributes
+        + max_page (number) - 最大页数
+        + articles (array[ArticleInfo]) - 知识库
+
+### 添加文章 [POST]
+
++ Request (application/json)
+    + Headers
+
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
+
+    + Attributes
+        + title (string) - 标题
+        + type (string) - 类型
+        + banner_url (string) - 头图url
+        + author (string) - 编写文章管理员名字
+        + summary (string) - 摘要
+        + content (string) - 内容
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
+
+### 修改文章 [PUT]
+
++ Request (application/json)
+    + Headers
+
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
+
+    + Attributes
+        + title (string) - 标题
+        + type (string) - 类型
+        + banner_url (string) - 头图url
+        + author (string) - 编写文章管理员名字
+        + summary (string) - 摘要
+        + content (string) - 内容
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
+
+### 删除文章 [DELETE]
+
++ Request (application/json)
+    + Headers
+
+            X-YKAT-USER-ID: user_id
+            X-YKAT-ACCESS-TOKEN: access_token
+
+    + Attributes
+        + article_ids (array[string]) - 文章id列表
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (ErrorInfo)
 
 # Data Structures
 
@@ -616,3 +703,13 @@ FORMAT: v1
 + driver_name (string) - 付款人
 + traded_at (string) - 付款时间，对于待结算和联保中，这个字段为空
 + actual_money (number) - 实际金额
+
+## ArticleInfo (object)
++ article_id (number) - 文章id
++ title (string) - 标题
++ type (string) - 类型
++ banner_url (string) - 头图url
++ author (string) - 编写文章管理员名字
++ summary (string) - 摘要
++ content (string) - 内容
++ updated_at (string) - 更新时间

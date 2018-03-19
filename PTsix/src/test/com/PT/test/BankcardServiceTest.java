@@ -32,7 +32,7 @@ public class BankcardServiceTest extends BaseTest {
      * 一人最多绑定4张卡已测试，点击4次送屠龙
      */
     @Test
-    public void addBankcard() {
+    public void addBankcard() throws Exception {
         int userId = 1;
         Bankcard bankcard = new Bankcard();
         bankcard.setBankName("中国银行");

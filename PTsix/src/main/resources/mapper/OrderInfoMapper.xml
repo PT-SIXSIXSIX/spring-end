@@ -41,7 +41,7 @@
         <if test="map.fromDate != null and map.toDate != null ">
             and order_ordered_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
         </if>
-        order by order_id
+        order by order_id desc
     </select>
     <select id="countOrderInfoByFactor" resultType="java.lang.Integer" parameterType="map">
         select
@@ -56,7 +56,7 @@
         <if test="map.fromDate != null and map.toDate != null ">
             and order_ordered_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
         </if>
-        order by order_id
+        order by order_id desc
     </select>
     <select id="getIdByProjectType" parameterType="java.lang.String" resultType="java.lang.Integer">
         select id

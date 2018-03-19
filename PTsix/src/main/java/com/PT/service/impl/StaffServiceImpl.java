@@ -83,7 +83,12 @@ public class StaffServiceImpl implements StaffService {
         record.setName(name);
         record.setPassword(password);
         record.setRole(1);//店员标志
-        staffMapper.insertStaffSelective(record); // 在ykat_user表中 插入数据。 返回主键
+        try {
+            staffMapper.insertStaffSelective(record); // 在ykat_user表中 插入数据。 返回主键
+        }catch (Exception e){
+            throw new Exception("重复的电话号码");
+        }
+
         int recordId;
         if( ( recordId = record.getId() )>0){
             Map map = new HashMap();
