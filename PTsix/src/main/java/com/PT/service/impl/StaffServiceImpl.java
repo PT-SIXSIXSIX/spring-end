@@ -86,7 +86,7 @@ public class StaffServiceImpl implements StaffService {
         try {
             staffMapper.insertStaffSelective(record); // 在ykat_user表中 插入数据。 返回主键
         }catch (Exception e){
-            throw new Exception("重复的电话号码");
+            throw new Exception("添加失败，请确定手机号码是否重复，输入是否合法");
         }
 
         int recordId;

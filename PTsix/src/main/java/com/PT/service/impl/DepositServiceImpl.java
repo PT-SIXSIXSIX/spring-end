@@ -118,8 +118,14 @@ public class DepositServiceImpl implements DepositService {
 
         Integer rechargeMoney = (Integer) parameterMap.get("money");
         String bankcardId = (String) parameterMap.get("cardId");
-        Integer bankcardPrimaryKey = ykatCommonUtilMapper.getBankcardPrimaryKeyByCardId(bankcardId);//获得主键
+        if ("".equals(bankcardId)){
+            throw new Exception("缺少银行卡号信息");
+        }
 
+        Integer bankcardPrimaryKey = ykatCommonUtilMapper.getBankcardPrimaryKeyByCardId(bankcardId);//获得主键
+        if(bankcardId!=null){
+            throw new Exception("不存在的银行卡");
+        }
         Integer currentMoney = ykatCommonUtilMapper.getCurrentDepositByUserId(userId);//当前商店的保证金
         Integer storeId = ykatCommonUtilMapper.getStoreIdByUserId(userId);//商店的id主键
         currentMoney += rechargeMoney;

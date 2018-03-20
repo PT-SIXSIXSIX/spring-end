@@ -16,7 +16,7 @@ public class ReceiveRecordController {
     private ReceiveRecordService receiveRecordService;
 
     @RequestMapping(value = "receive_money_records",method = RequestMethod.GET)
-    private Map listStaffs(@PathVariable("user_id") int userId,
+    private Map listReceiveMoneyRecords(@PathVariable("user_id") int userId,
                            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                            @RequestParam(value = "ipp",required = false, defaultValue = "5") int ipp,
                            @RequestParam(value = "q", required = false, defaultValue = "") String queryCondition,
