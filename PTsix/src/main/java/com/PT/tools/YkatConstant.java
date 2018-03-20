@@ -4,6 +4,7 @@ public class YkatConstant {
 
     public static final String telePhoneRegex = "^1[3|4|5|7|8][0-9]\\d{4,8}$";
     public static final String phoneRegex =  "^(\\d{3,4}-)?\\d{6,8}$";
+    public static final String illegalCharacterRegex = "[\\ud83c\\udc00-\\ud83c\\udfff]|[\\ud83d\\udc00-\\ud83d\\udfff]|[\\u2600-\\u27ff]";
     /**
      * 保证金大于这个的时候 表示充足
      *

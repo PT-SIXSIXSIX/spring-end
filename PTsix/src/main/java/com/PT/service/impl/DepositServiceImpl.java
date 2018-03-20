@@ -117,13 +117,18 @@ public class DepositServiceImpl implements DepositService {
         }
 
         Integer rechargeMoney = (Integer) parameterMap.get("money");
+
+        if(!(rechargeMoney> 0 && rechargeMoney <= 100000)){
+            throw new Exception("金额不能超过100000");
+        }
+
         String bankcardId = (String) parameterMap.get("cardId");
         if ("".equals(bankcardId)){
             throw new Exception("缺少银行卡号信息");
         }
 
         Integer bankcardPrimaryKey = ykatCommonUtilMapper.getBankcardPrimaryKeyByCardId(bankcardId);//获得主键
-        if(bankcardId!=null){
+        if(bankcardId == null){
             throw new Exception("不存在的银行卡");
         }
         Integer currentMoney = ykatCommonUtilMapper.getCurrentDepositByUserId(userId);//当前商店的保证金

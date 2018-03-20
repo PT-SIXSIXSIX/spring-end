@@ -175,13 +175,14 @@ public class OrderServiceImpl implements OrderService{
      */
     @Transactional
     @Override
-    public void updateOrderState(String orderId, int userId, int status) throws Exception {
+    public void updateOrderState(String orderId, int userId, Integer status) throws Exception {
+
 
 
         Integer orderStatus = orderInfoMapper.getStatusByOrderId(orderId);
         //判断订单状态，只有 status=0 待处理状态
-        if( !orderStatus.equals(YkatConstant.ORDER_STATE_IDLE) ){
-            throw new Exception("只能处理\"待处理\"状态下的订单");
+        if(!orderStateCheck(orderStatus,status)){
+            throw new  Exception("订单状态错误");
         }
 
         OrderExample example = new OrderExample();
@@ -217,7 +218,7 @@ public class OrderServiceImpl implements OrderService{
                     settleRecord.setOrderId(id);
                     settleRecord.setTradeMoney(price);
                 }else{
-                    throw new Exception("添加结算记录失败");
+                    throw new Exception("添加结算记录失败，缺少与订单关联信息");
                 }
 
                 settleAccRecordMapper.insertSelective(settleRecord);
@@ -257,6 +258,21 @@ public class OrderServiceImpl implements OrderService{
                 map.put("toDate", toDate);
         }catch (Exception e){
             throw new Exception("日期解析错误");
+        }
+    }
+
+    /**
+     * 订单状态可以转移，但是有限制
+     * @return
+     */
+    public boolean orderStateCheck(Integer fromState, Integer toState)
+    {
+        if (fromState == YkatConstant.ORDER_STATE_IDLE){
+            return  true;
+        }else if(fromState == toState){
+            return false;
+        }else{
+            return true;
         }
     }
 }
