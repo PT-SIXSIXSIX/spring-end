@@ -61,4 +61,12 @@ public class ToolTests extends BaseTest {
         Map map = QueryToMap.stringToMap(me);
         OutputMessage.outputMap(map);
     }
+    @Test
+    public void tryCatchTest() {
+        try {
+            throw new Exception("this is a test");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
