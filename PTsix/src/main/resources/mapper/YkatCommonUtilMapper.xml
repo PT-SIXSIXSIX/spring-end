@@ -22,4 +22,7 @@
     <select id="getBankcardPrimaryKeyByCardId" parameterType="java.lang.String" resultType="java.lang.Integer">
         select id from ykat_bankcards where card_id = #{cardId,jdbcType=VARCHAR}
     </select>
+    <select id="getUserIdByPhone" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT id from ykat_users where phone = #{phone,jdbcType=VARCHAR}
+    </select>
 </mapper>

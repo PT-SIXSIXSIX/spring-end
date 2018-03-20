@@ -18,7 +18,7 @@ public class StaffTest extends BaseTest {
 
     @Test
     public void insertTest(){
-        String name = "孙颖", password = "950911", phone = "15923176013";
+        String name = "孙颖", password = "950911", phone = "15923176017";
         if(RegexUtil.match(YkatConstant.telePhoneRegex,phone)){
             Map factors = new HashMap();
             factors.put("phone",phone);
@@ -27,7 +27,7 @@ public class StaffTest extends BaseTest {
             try {
                 staffService.addStaff(1,factors);
             }catch (Exception e){
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
 
         }else{

@@ -135,33 +135,23 @@ public class OrderController {
                             @RequestBody Map<String,Object > requestMap,
                             HttpServletResponse response ){
         ResponseData responseData = ResponseData.ok();
-        if(!requestMap.containsKey("state")){
-            response.setStatus(400);
-            responseData = ResponseData.badRequest();
-            responseData.putDataValue("statusCode",1);
-            responseData.putDataValue("errorDesc","缺少参数");
-        }
-        else if( !orderService.isOrderIdValid(orderId) )//没有找到对应订单
-        {
-            response.setStatus(400);
-            responseData = ResponseData.badRequest();
-            responseData.putDataValue("statusCode",1);
-            responseData.putDataValue("errorDesc","没有找到对应订单");
-        }else {
 
-            Integer state = (Integer) requestMap.get("state");
-            try {
-
-                orderService.updateOrderState(orderId, userId, state);
-            } catch (Exception e) {
-                response.setStatus(400);
-                responseData = ResponseData.badRequest();
-                responseData.putDataValue("statusCode", 1);
-                responseData.putDataValue("errorDesc", e.getMessage());
+        try{
+            String checkMessage = YkatCommonUtil.checkMapHasNull(requestMap);
+            if(!"success".equals(checkMessage)){
+                throw new Exception("缺少参数");
             }
+
+            Integer status = (int) requestMap.get("state");
+            orderService.updateOrderState(orderId,userId,status);
+
             response.setStatus(200);
-            responseData.putDataValue("success", true);
+        }catch(Exception e){
+            responseData = ResponseData.badRequest();
+            responseData.setError(1,e.getMessage());
+            response.setStatus(400);
         }
+
         return responseData.getBody();
     }
 
