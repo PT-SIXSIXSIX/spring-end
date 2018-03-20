@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/api/v1/users/{userId}")
-public class SetAccRecController {
+public class    SetAccRecController {
     @Autowired
     SetAccRecService setAccRecService;
     /**
