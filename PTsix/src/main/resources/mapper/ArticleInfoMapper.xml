@@ -28,8 +28,8 @@
         and article_type = #{map.articleType,jdbcType=VARCHAR}
         and article_status <![CDATA[!=]]> 2
         <if test="map.content != null and map.content != '' " >
-            and ( author like '${map.content}%' or title like '${map.content}%'
-            or summary like '${map.content}%' )
+            and ( author like '%${map.content}%' or title like '%${map.content}%'
+            or summary like '%${map.content}%' )
         </if>
         <if test="map.fromDate != null and map.toDate != null ">
             and updated_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
@@ -43,8 +43,8 @@
         and article_type = #{map.articleType,jdbcType=VARCHAR}
         and article_status <![CDATA[!=]]> 2
         <if test="map.content != null and map.content != '' " >
-            and ( author like '${map.content}%' or title like '${map.content}%'
-            or summary like '${map.content}%' )
+            and ( author like '%${map.content}%' or title like '%${map.content}%'
+            or summary like '%${map.content}%' )
         </if>
         <if test="map.fromDate != null and map.toDate != null ">
             and updated_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}

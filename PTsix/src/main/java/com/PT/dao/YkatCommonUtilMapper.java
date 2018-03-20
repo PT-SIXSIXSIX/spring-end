@@ -32,4 +32,10 @@ public interface YkatCommonUtilMapper {
      */
     Integer getBankcardPrimaryKeyByCardId(String cardId);
 
+    /**
+     * 根据手机号返回主键，
+     * @param phone
+     * @return
+     */
+    Integer getUserIdByPhone(String phone);
 }

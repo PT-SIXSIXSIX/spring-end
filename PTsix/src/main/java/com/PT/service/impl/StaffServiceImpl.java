@@ -9,6 +9,7 @@ import com.PT.service.LogService;
 import com.PT.service.StaffService;
 import com.PT.tools.PasswordUtil;
 import com.PT.tools.QueryToMap;
+import com.PT.tools.RegexUtil;
 import com.PT.tools.YkatConstant;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,14 @@ public class StaffServiceImpl implements StaffService {
             throw new Exception("参数缺失");
         }
 
+        if(ykatCommonUtilMapper.getUserIdByPhone(phone)!=null){
+            throw new Exception("手机号已被使用");
+        }
+
+        if(RegexUtil.find(YkatConstant.illegalCharacterRegex,name)){
+            throw new Exception("姓名包含非法字符");
+        }
+
         User record = new User();
         record.setPhone(phone);
         record.setName(name);
@@ -86,7 +95,7 @@ public class StaffServiceImpl implements StaffService {
         try {
             staffMapper.insertStaffSelective(record); // 在ykat_user表中 插入数据。 返回主键
         }catch (Exception e){
-            throw new Exception("添加失败，请确定手机号码是否重复，输入是否合法");
+            throw new Exception("添加失败");
         }
 
         int recordId;

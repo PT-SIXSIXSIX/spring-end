@@ -46,7 +46,7 @@ public interface OrderService {
      * @param state 更新订单后的 订单状态
      * @throws Exception
      */
-    void updateOrderState(String orderId,int userId,int state) throws Exception;
+    void updateOrderState(String orderId,int userId,Integer state) throws Exception;
 
     /**
      * 根据 存在 此订单号 的记录 返回true，没有返回false
