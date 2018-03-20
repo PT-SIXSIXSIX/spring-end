@@ -29,14 +29,14 @@ public class BankcardServiceTest extends BaseTest {
     }
 
     /**
-     * 一人最多绑定4张卡已测试，点击4次送屠龙
+     * 一人最多绑定3张卡已测试，点击4次送屠龙
      */
     @Test
     public void addBankcard() throws Exception {
-        int userId = 1;
+        int userId = 41;
         Bankcard bankcard = new Bankcard();
         bankcard.setBankName("中国银行");
-        bankcard.setCardId("312035429365234634623");
+        bankcard.setCardId("312035429365534634623");
         bankcard.setOwnerIdCard("45662367623473734");
         bankcard.setOwnerName("官老板");
         bankcard.setType("储蓄卡");
