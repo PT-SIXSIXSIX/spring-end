@@ -51,6 +51,11 @@ public class RegistryLogonController {
         ResponseData responseData = ResponseData.ok();
         User user = registryLogonService.login(phone, password);
         if(null != user) {
+            if(user.getRole() == 1) {
+                response.setStatus(400);
+                responseData.setError(1, "系统暂不支持店员登录！");
+                return responseData.getBody();
+            }
             String token = UUID.randomUUID().toString();
             TokenOptions.setKey(TokenOptions.TOKEN_PREFIX+user.getId(), token);
             responseData.putDataValue("userId", user.getId());

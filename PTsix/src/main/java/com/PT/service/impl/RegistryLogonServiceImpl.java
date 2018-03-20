@@ -58,12 +58,13 @@ public class RegistryLogonServiceImpl implements RegistryLogonService{
             try {
                 temp = (User) list.get(0);
                 store.setUserId(temp.getId());
+                store.setDeposit(0);
                 storeMapper.insert(store);
-            } catch (Exception e) {
+            } catch (RuntimeException e) {
                 e.printStackTrace();
             }
             return temp;
-        } catch (Exception e){
+        } catch (RuntimeException e){
             System.out.println(e.getMessage());
         }
 
