@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
  */
 public class RegexUtil {
 
+    private static final String telePhoneRegex = "^1[3|4|5|7|8][0-9]\\d{4,8}$";
+    private static final String phoneRegex =  "^(\\d{3,4}-)?\\d{6,8}$";
 
     /**
      *  正则匹配

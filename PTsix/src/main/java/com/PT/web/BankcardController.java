@@ -4,6 +4,7 @@ package com.PT.web;
 import com.PT.entity.Bankcard;
 import com.PT.service.BankcardService;
 import com.PT.tools.BeanToMapUtil;
+import com.PT.tools.InfoCheckUtil;
 import com.PT.tools.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -65,6 +66,11 @@ public class BankcardController {
             , @RequestBody Map map, HttpServletResponse response) throws InvocationTargetException, IntrospectionException, InstantiationException, IllegalAccessException {
         Bankcard bankcard = (Bankcard) BeanToMapUtil.convertMap(Bankcard.class, map);
         ResponseData responseData = ResponseData.ok();
+        if(!InfoCheckUtil.bankardCheck(bankcard.getCardId())) {
+            response.setStatus(400);
+            responseData.setError(1, "银行卡号校验失败");
+            return responseData.getBody();
+        }
         try {
             if(bankcardService.addBankcard(bankcard, userId) == true) {
                 response.setStatus(201);

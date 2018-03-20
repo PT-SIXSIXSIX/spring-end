@@ -33,7 +33,7 @@ public class BankcardServiceImpl implements BankcardService {
             example.createCriteria().andUserIdEqualTo(userId);
             list = bankcardMapper.selectByExample(example);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return list;
     }
@@ -45,20 +45,15 @@ public class BankcardServiceImpl implements BankcardService {
      * @return
      */
     @Override
-    public Boolean addBankcard(Bankcard bankcard, int userId) {
-        try {
-            bankcard.setUserId(userId);
-            BankcardExample example = new BankcardExample();
-            example.createCriteria().andUserIdEqualTo(userId);
-            if(bankcardMapper.countByExample(example) > 3) {
-                throw new Exception("银行卡数量超限，一人最多绑定三张");
-            }
-            bankcardMapper.insert(bankcard);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+    public Boolean addBankcard(Bankcard bankcard, int userId) throws Exception{
+        bankcard.setUserId(userId);
+        BankcardExample example = new BankcardExample();
+        example.createCriteria().andUserIdEqualTo(userId);
+        if(bankcardMapper.countByExample(example) > 3) {
+            throw new Exception("银行卡数量超限，一人最多绑定三张");
         }
+        bankcardMapper.insert(bankcard);
+        return true;
     }
 
     /**
