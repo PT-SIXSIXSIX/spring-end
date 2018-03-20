@@ -50,7 +50,7 @@ public class BankcardServiceImpl implements BankcardService {
         BankcardExample example = new BankcardExample();
         example.createCriteria().andUserIdEqualTo(userId);
         if(bankcardMapper.countByExample(example) > 3) {
-            throw new Exception("银行卡数量超限，一人最多绑定三张");
+            throw new Exception("银行卡数量超限，一人最多绑定四张");
         }
         bankcardMapper.insert(bankcard);
         return true;
