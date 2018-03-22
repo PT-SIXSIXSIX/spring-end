@@ -21,6 +21,7 @@
         <if test="map.tradedAt != null ">
             and DATE(setRecords.traded_at) = #{map.tradedAt,jdbcType=TIMESTAMP}
         </if>
+        order by setRecords.traded_at desc
     </select>
     <select id="countByFactors" resultType="java.lang.Integer" parameterType="map" >
         select count(*)
@@ -31,6 +32,5 @@
         <if test="map.tradedAt != null ">
             and DATE(setRecords.traded_at) = #{map.tradedAt,jdbcType=TIMESTAMP}
         </if>
-
     </select>
 </mapper>

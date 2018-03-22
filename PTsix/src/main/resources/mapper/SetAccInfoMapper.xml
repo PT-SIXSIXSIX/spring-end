@@ -26,7 +26,7 @@
             #{map.ed,jdbcType=TIMESTAMP})
             or ykat_settle_account_records.traded_at is null)
         </if>
-        order by ykat_settle_account_records.traded_at desc
+        order by ykat_settle_account_records.status ASC , ykat_settle_account_records.created_at desc
     </select>
     <select id="countByFactors" resultType="java.lang.Integer" parameterType="map" >
         select count(*)

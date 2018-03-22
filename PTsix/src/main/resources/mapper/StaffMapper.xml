@@ -20,7 +20,7 @@
         <if test="map.content != null and map.content != ''" >
             and ( userTable.phone like '%${map.content}%' or userTable.name like '%${map.content}%')
         </if>
-        order by userTable.id
+        order by userTable.id desc
     </select>
     <select id="countByManagerId" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
         select count(*)
@@ -36,7 +36,6 @@
         <if test="map.content != null and map.content != ''" >
             and ( userTable.phone like '%${map.content}%' or userTable.name like '%${map.content}%')
         </if>
-        order by userTable.id
     </select>
     <delete id="deleteRelationByUserId" parameterType="java.lang.Integer">
         delete from ykat_employee_relations

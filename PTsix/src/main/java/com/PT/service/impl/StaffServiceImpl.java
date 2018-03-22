@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,6 +93,7 @@ public class StaffServiceImpl implements StaffService {
         record.setName(name);
         record.setPassword(password);
         record.setRole(1);//店员标志
+        record.setCreatedAt(new Date());
         try {
             staffMapper.insertStaffSelective(record); // 在ykat_user表中 插入数据。 返回主键
         }catch (Exception e){
