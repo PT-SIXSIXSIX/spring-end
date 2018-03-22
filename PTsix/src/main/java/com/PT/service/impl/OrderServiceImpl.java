@@ -180,7 +180,6 @@ public class OrderServiceImpl implements OrderService{
 
 
         Integer orderStatus = orderInfoMapper.getStatusByOrderId(orderId);
-        //判断订单状态，只有 status=0 待处理状态
         if(!orderStateCheck(orderStatus,status)){
             throw new  Exception("订单状态错误");
         }
@@ -269,10 +268,9 @@ public class OrderServiceImpl implements OrderService{
     {
         if (fromState == YkatConstant.ORDER_STATE_IDLE){
             return  true;
-        }else if(fromState == toState){
-            return false;
-        }else{
+        }else if(fromState == YkatConstant.ORDER_STATE_REFUSE && toState == YkatConstant.ORDER_STATE_ACCEPT){
             return true;
         }
+        return false;
     }
 }
