@@ -5,10 +5,8 @@ import com.PT.bean.Storekeeper.StorekeeperInfoBean;
 import com.PT.entity.Store;
 import com.PT.entity.User;
 import com.PT.service.RegistryLogonService;
-import com.PT.tools.BeanToMapUtil;
-import com.PT.tools.InfoCheckUtil;
-import com.PT.tools.ResponseData;
-import com.PT.tools.TokenOptions;
+import com.PT.tools.*;
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -87,6 +85,11 @@ public class RegistryLogonController {
             /**
              * check info
              */
+            if(RegexUtil.find(YkatConstant.illegalCharacterRegex, user.getName())) {
+                response.setStatus(400);
+                responseData.setError(1, "姓名输入非法");
+                return responseData.getBody();
+            }
             if(!InfoCheckUtil.passwordCheck(user.getPassword())) {
                 response.setStatus(400);
                 responseData.setError(1, "密码验证失败，必须为数字或者字母，长度为6-20");
